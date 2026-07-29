@@ -124,7 +124,8 @@ body.light-mode .marquee-section {
     content: '';
     position: absolute;
     top: 0;
-    width: 4rem; /* w-16 */
+    width: 4rem;
+    /* w-16 */
     height: 100%;
     z-index: 10;
 }
@@ -147,4 +148,14 @@ body.light-mode .marquee-mask::before {
 
 body.light-mode .marquee-mask::after {
     background: linear-gradient(to left, #ffffff, transparent);
+}
+
+/* Correção do hover nos textos dos botões da nav no tema claro */
+body.light-mode .hover\:text-white:hover {
+    color: #111827 !important;
+}
+
+/* Correção do hover no background do ícone de trocar tema */
+body.light-mode .hover\:bg-white\/5:hover {
+    background-color: rgba(0, 0, 0, 0.08) !important;
 }
