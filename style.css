@@ -1,0 +1,150 @@
+body {
+    background-color: #050505;
+    color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Forçar sobreposição absoluta do Botpress */
+#bp-web-widget-container,
+#bp-web-widget {
+    z-index: 999999 !important;
+}
+
+/* Tema Claro Dinâmico */
+body.light-mode {
+    background-color: #f3f4f6 !important;
+    color: #111827 !important;
+}
+
+body.light-mode .bg-\[\#050505\]\/90 {
+    background-color: rgba(243, 244, 246, 0.9) !important;
+}
+
+body.light-mode .bg-bgCard {
+    background-color: #ffffff !important;
+}
+
+body.light-mode .text-white {
+    color: #111827 !important;
+}
+
+body.light-mode .text-gray-400 {
+    color: #4b5563 !important;
+}
+
+body.light-mode .text-gray-300 {
+    color: #374151 !important;
+}
+
+body.light-mode .text-gray-500 {
+    color: #6b7280 !important;
+}
+
+body.light-mode .border-white\/\[0\.02\],
+body.light-mode .border-white\/5,
+body.light-mode .border-white\/10 {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .bg-white\/5 {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+body.light-mode .card-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1) !important;
+}
+
+body.light-mode .bg-\[\#050505\] {
+    background-color: #f3f4f6 !important;
+}
+
+body.light-mode ::-webkit-scrollbar-track {
+    background: #f3f4f6 !important;
+}
+
+body.light-mode ::-webkit-scrollbar-thumb {
+    background: #cbd5e1 !important;
+    border-color: #f3f4f6 !important;
+}
+
+/* Deixa a borda do Marquee transparente na luz branca */
+body.light-mode .marquee-section {
+    border-color: transparent !important;
+}
+
+.card-shadow {
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+.interactive-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 107, 0, 0.3);
+    box-shadow: 0 20px 50px -15px rgba(255, 107, 0, 0.2);
+}
+
+.page-section {
+    display: none;
+    opacity: 0;
+}
+
+.page-section.active {
+    display: block;
+    opacity: 1;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #222;
+    border-radius: 4px;
+    border: 2px solid #050505;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff6b00;
+}
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
+
+/* FIX DA MÁSCARA NEGRA NO MARQUEE */
+.marquee-mask::before,
+.marquee-mask::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 4rem; /* w-16 */
+    height: 100%;
+    z-index: 10;
+}
+
+/* Tema Escuro (Padrão) */
+.marquee-mask::before {
+    left: 0;
+    background: linear-gradient(to right, #121214, transparent);
+}
+
+.marquee-mask::after {
+    right: 0;
+    background: linear-gradient(to left, #121214, transparent);
+}
+
+/* Tema Claro (Correção da mancha preta) */
+body.light-mode .marquee-mask::before {
+    background: linear-gradient(to right, #ffffff, transparent);
+}
+
+body.light-mode .marquee-mask::after {
+    background: linear-gradient(to left, #ffffff, transparent);
+}
