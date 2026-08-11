@@ -159,3 +159,20 @@ body.light-mode .hover\:text-white:hover {
 body.light-mode .hover\:bg-white\/5:hover {
     background-color: rgba(0, 0, 0, 0.08) !important;
 }
+
+/* =========================================
+   MÓDULO DE ANIMAÇÃO: CICLO NEURAL (RGB INFINITO)
+   ========================================= */
+@keyframes neural-cycle {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.animate-color-cycle {
+    animation: neural-cycle 3s linear infinite;
+}
