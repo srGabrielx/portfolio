@@ -580,37 +580,175 @@
             </div>
 
             <div class="flex justify-between items-end pt-4 px-2 mb-2">
-                <h2 class="text-sm font-mono text-[#ffaa00] tracking-widest uppercase">/Certificações</h2>
+                <h2 class="text-sm font-mono text-[#ffaa00] tracking-widest uppercase">Certificações</h2>
                 <span class="text-[10px] font-mono text-gray-600 tracking-widest uppercase">Formação Contínua</span>
             </div>
 
-            <section
-                class="bg-bgCard rounded-[2rem] p-4 md:p-6 card-shadow interactive-card border border-white/[0.02] flex flex-col gap-4">
-                <div
-                    class="p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#ffaa00]/30 transition-all cursor-default group">
-                    <h4 class="font-bold text-white mb-2 text-lg group-hover:text-[#ffaa00] transition-colors">
-                        Fundação
-                        Bradesco</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed font-mono text-xs">IA para PMEs | Banco de Dados
-                        |
-                        Power BI | Python | Java | Lógica | Design</p>
+            <!-- INÍCIO: MATRIZ DE TREINAMENTO NEURAL -->
+            
+                <div class="flex justify-between items-end mb-6">
+                    <h2 class="text-sm font-mono text-gray-400 tracking-widest uppercase">/Matriz de Treinamento</h2>
+                    <div class="flex items-center gap-2">
+                        <span class="relative flex h-2 w-2">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#00e5ff] opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#00e5ff]"></span>
+                        </span>
+                        <span class="text-[10px] font-mono text-[#00e5ff] tracking-widest uppercase">Sistema Operante</span>
+                    </div>
                 </div>
-                <div
-                    class="p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#00e5ff]/30 transition-all cursor-default group">
-                    <h4 class="font-bold text-white mb-2 text-lg group-hover:text-[#00e5ff] transition-colors">SENAI
-                    </h4>
-                    <p class="text-sm text-gray-400 leading-relaxed font-mono text-xs">Blockchain | 5G | Tecnologia
-                        da
-                        Informação - Finanças Pessoais</p>
+            
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+                    <!-- Bloco 1: Processamento Central (Faculdade) -->
+                    <div
+                        class="md:col-span-2 bg-bgCard border border-white/[0.02] rounded-[2rem] p-8 md:p-10 card-shadow interactive-card relative overflow-hidden group">
+                        <!-- Efeito de Fundo -->
+                        <div
+                            class="absolute -right-20 -top-20 w-48 h-48 bg-[#00e5ff] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none">
+                        </div>
+            
+                        <div class="flex items-center gap-4 mb-6 relative z-10">
+                            <div class="w-12 h-12 rounded-2xl bg-[#00e5ff]/10 flex items-center justify-center">
+                                <i data-lucide="cpu" class="w-6 h-6 text-[#00e5ff]"></i>
+                            </div>
+                            <div>
+                                <span class="text-xs font-mono text-gray-500 uppercase tracking-widest block mb-1">Core
+                                    Principal</span>
+                                <h3 class="text-xl font-black text-white uppercase tracking-tighter">Inteligência Artificial &
+                                    Machine Learning</h3>
+                            </div>
+                        </div>
+            
+                        <div class="relative z-10">
+                            <p class="text-sm text-gray-400 font-mono mb-4">Instituição: Uniasselvi</p>
+                            <!-- Barra de Progresso Estilizada -->
+                            <div class="w-full bg-[#050505] rounded-full h-2.5 mb-2 border border-white/5 overflow-hidden">
+                                <div class="bg-gradient-to-r from-[#00e5ff] to-[#ff6b00] h-2.5 rounded-full" style="width: 75%">
+                                </div>
+                            </div>
+                            <div class="flex justify-between text-[10px] font-mono text-gray-500 uppercase tracking-widest">
+                                <span>Treinamento de Épocas em andamento</span>
+                                <span class="text-[#00e5ff]">Conclusão: 2027</span>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Bloco 2: Capacidade de NLP (Idiomas) -->
+                    <div
+                        class="bg-bgCard border border-white/[0.02] rounded-[2rem] p-8 md:p-10 card-shadow interactive-card flex flex-col justify-between group">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-2xl bg-[#ffaa00]/10 flex items-center justify-center">
+                                <i data-lucide="languages" class="w-6 h-6 text-[#ffaa00]"></i>
+                            </div>
+                            <span class="text-xs font-mono text-gray-500 uppercase tracking-widest">IDIOMA</span>
+                        </div>
+            
+                    <div class="flex flex-wrap items-center gap-3 w-full">
+                        <!-- Módulo PT -->
+                        <div
+                            class="flex items-center gap-2 border border-white/5 bg-white/5 px-3 py-1.5 rounded-lg hover:border-[#ffaa00]/30 transition-colors">
+                            <span class="text-sm font-black text-[#ffffff] uppercase whitespace-nowrap">Português</span>
+                            <span class="text-xs font-mono text-[#ffaa00] bg-[#ffaa00]/10 px-2 py-0.5 rounded whitespace-nowrap">Nativo
+                                C2</span>
+                        </div>
+                    
+                        <!-- Módulo EN -->
+                        <div
+                            class="flex items-center gap-2 border border-white/5 bg-white/5 px-3 py-1.5 rounded-lg hover:border-white/20 transition-colors">
+                            <span class="text-sm font-black text-[#ffffff] uppercase whitespace-nowrap">Inglês</span>
+                            <span class="text-xs font-mono text-gray-400 bg-white/5 px-2 py-0.5 rounded whitespace-nowrap">A2</span>
+                        </div>
+                    
+                        <!-- Módulo ES -->
+                        <div
+                            class="flex items-center gap-2 border border-white/5 bg-white/5 px-3 py-1.5 rounded-lg hover:border-white/20 transition-colors">
+                            <span class="text-sm font-black text-[#ffffff] uppercase whitespace-nowrap">Espanhol</span>
+                            <span class="text-xs font-mono text-gray-400 bg-white/5 px-2 py-0.5 rounded whitespace-nowrap">A2</span>
+                        </div>
+                    </div>
+                  </div>
                 </div>
+            
+                <!-- Bloco 3: Protocolos de Especialização (Certificações) -->
                 <div
-                    class="p-6 rounded-2xl bg-white/5 hover:bg-white/10 border border-transparent hover:border-[#ff6b00]/30 transition-all cursor-default group">
-                    <h4 class="font-bold text-white mb-2 text-lg group-hover:text-[#ff6b00] transition-colors">
-                        AprendeAki</h4>
-                    <p class="text-sm text-gray-400 leading-relaxed font-mono text-xs">Oficial de Rede | NR10 | NR35
-                    </p>
+                    class="w-full bg-[#050505] border border-white/10 rounded-[2rem] p-8 md:p-10 card-shadow mt-6 relative overflow-hidden group">
+                    <div
+                        class="absolute -left-20 -bottom-20 w-48 h-48 bg-[#ff6b00] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none">
+                    </div>
+            
+                    <div class="flex items-center gap-4 mb-8 relative z-10">
+                        <div class="w-12 h-12 rounded-2xl bg-[#ff6b00]/10 flex items-center justify-center">
+                            <i data-lucide="blocks" class="w-6 h-6 text-[#ff6b00]"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-mono text-gray-500 uppercase tracking-widest block mb-1">EXTRAS</span>
+                            <h3 class="text-xl font-black text-white uppercase tracking-tighter">Certificações</h3>
+                        </div>
+                    </div>
+            
+                    <!-- Grid de Certificados Estilo "Tags de Sistema" -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+            
+                        <!-- Fundação Bradesco -->
+                        <div>
+                            <h4 class="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2"><i
+                                    data-lucide="database" class="w-4 h-4 text-[#ff6b00]"></i> Bradesco</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors">IA
+                                    para PMEs</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors">Banco
+                                    de Dados</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors">Power
+                                    BI</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors">Python
+                                    & Java</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors">Lógica
+                                    & Design</span>
+                            </div>
+                        </div>
+            
+                        <!-- SENAI -->
+                        <div>
+                            <h4 class="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2"><i
+                                    data-lucide="shield-check" class="w-4 h-4 text-[#00e5ff]"></i> SENAI</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors">Blockchain</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors">Tecnologia
+                                    5G</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors">TI
+                                    - Finanças</span>
+                            </div>
+                        </div>
+            
+                        <!-- AprendeAki -->
+                        <div>
+                            <h4 class="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2"><i data-lucide="zap"
+                                    class="w-4 h-4 text-[#ffaa00]"></i> AprendeAki</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors">Oficial
+                                    de Rede</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors">NR10</span>
+                                <span
+                                    class="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors">NR35</span>
+                            </div>
+                        </div>
+            
+                    </div>
                 </div>
-            </section>
+            
+            </div>
+            <!-- FIM: MATRIZ DE TREINAMENTO NEURAL -->
         </div>
     </main>
 
