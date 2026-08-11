@@ -516,6 +516,68 @@
                 </a>
 
             </div>
+            <div class="flex justify-between items-end mb-4">
+                <h2 class="text-sm font-mono text-gray-400 tracking-widest uppercase">/Acesso Root</h2>
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#22c55e] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#22c55e]"></span>
+                    </span>
+                    <span class="text-[10px] font-mono text-[#22c55e] tracking-widest uppercase">Terminal Online</span>
+                </div>
+            </div>
+            
+            <!-- Interface do Terminal -->
+            <div class="w-full bg-[#050505] border border-white/10 rounded-xl overflow-hidden card-shadow group">
+            
+                <!-- Header do Terminal (Estilo macOS/Linux) -->
+                <div class="bg-white/5 border-b border-white/5 px-4 py-3 flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <span class="ml-4 text-xs font-mono text-gray-500 tracking-widest">root@gabriel094x:~/matriz_neural</span>
+                </div>
+            
+                <!-- Corpo do Terminal (Logs Simulados) -->
+                <div class="p-6 md:p-10 font-mono text-sm md:text-base text-gray-300 space-y-3">
+            
+                    <p><span class="text-[#22c55e] font-bold">➜</span> <span class="text-[#00e5ff] font-bold">~</span>
+                        ./iniciar_protocolo.sh</p>
+            
+                    <div class="space-y-1 pl-4 border-l border-white/10 mt-2">
+                        <p class="text-gray-500">[INFO] Carregando pesos neurais e LLMs............ <span
+                                class="text-[#22c55e]">[100%]</span></p>
+                        <p class="text-gray-500">[INFO] Inicializando instâncias Python & FastAPI... <span
+                                class="text-[#22c55e]">[OK]</span></p>
+                        <p class="text-gray-500">[INFO] Sincronizando automações web n8n.io......... <span
+                                class="text-[#22c55e]">[OK]</span></p>
+                        <p class="text-gray-500">[INFO] Afinamento de áudio em background........... <span
+                                class="text-[#22c55e]">[OK]</span></p>
+                    </div>
+            
+                    <br>
+                    <p class="text-[#ffffff] font-black tracking-tighter">> SISTEMA OPERACIONAL PRONTO PARA ESCALONAMENTO.</p>
+                    <p class="text-[#ffaa00]">> AVISO: A injeção deste perfil em seu projeto resultará em automação estruturada e
+                        altíssima performance.</p>
+                    <br>
+            
+                    <!-- Linha de Comando de Ação -->
+                    <div class="flex flex-wrap items-center gap-3 mt-4">
+                        <span class="text-[#22c55e] font-bold">➜</span> <span class="text-[#00e5ff] font-bold">~</span>
+                        <span class="text-gray-400">sudo execute</span>
+            
+                        <a href="https://wa.me/5511964589578" target="_blank"
+                            class="inline-block bg-[#00e5ff]/10 text-[#00e5ff] px-4 py-1.5 border border-[#00e5ff]/30 hover:bg-[#00e5ff] hover:text-[#050505] transition-all font-black uppercase tracking-widest cursor-pointer">
+                            --protocolo-contratar
+                        </a>
+            
+                        <!-- Cursor Piscando -->
+                        <span class="w-3 h-5 bg-[#ffffff] animate-pulse inline-block align-middle ml-1"></span>
+                    </div>
+            
+                </div>
+            </div>
+            <!-- FIM: SESSÃO TERMINAL ROOT -->
         </div>
         <!-- FIM: SESSÃO SITES E APLICATIVOS -->
 
@@ -628,7 +690,7 @@
                                 </div>
                             </div>
                             <div class="flex justify-between text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-                                <span>Treinamento de Épocas em andamento</span>
+                                <span>Treinamento andamento</span>
                                 <span class="text-[#00e5ff]">Conclusão: 2027</span>
                             </div>
                         </div>
