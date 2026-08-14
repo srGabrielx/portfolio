@@ -29,6 +29,12 @@ body.light-mode .text-white {
     color: #111827 !important;
 }
 
+/* Os títulos sobre as imagens dos projetos precisam manter contraste em qualquer tema. */
+.project-photo-title,
+body.light-mode .project-photo-title {
+    color: #ffffff !important;
+}
+
 body.light-mode .text-gray-400 {
     color: #4b5563 !important;
 }
