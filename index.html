@@ -67,6 +67,9 @@
         <div id="inicio" class="page-section active animate-fade-in space-y-6">
             <section
                 class="bg-bgCard rounded-[2rem] p-6 md:p-10 card-shadow interactive-card border border-white/[0.02] relative overflow-hidden">
+                <div class="hero-grid" aria-hidden="true"></div>
+                <div class="hero-ambient hero-ambient-cyan" aria-hidden="true"></div>
+                <div class="hero-ambient hero-ambient-orange" aria-hidden="true"></div>
                 <div
                     class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#ff6b00]/10 to-transparent rounded-full blur-3xl -z-10 pointer-events-none">
                 </div>
@@ -79,14 +82,16 @@
                                 class="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest">DISPONÍVEL
                                 PARA PROJETOS</span>
                         </div>
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4">
+                        <h1 class="hero-title text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] mb-4">
                             GABRIEL <br>
                             <span
                                 class="bg-name-gradient text-transparent bg-clip-text">GONÇALVES</span>
                         </h1>
                     </div>
 
-                    <div class="relative group cursor-pointer shrink-0 mt-2 sm:mt-0 z-10 w-40 md:w-56">
+                    <div class="hero-photo relative group cursor-pointer shrink-0 mt-2 sm:mt-0 z-10 w-40 md:w-56">
+                        <span class="hero-orbit hero-orbit-one" aria-hidden="true"></span>
+                        <span class="hero-orbit hero-orbit-two" aria-hidden="true"></span>
                         <div
                             class="absolute -inset-1 bg-gradient-to-r from-[#ff6b00] to-[#00e5ff] rounded-2xl blur opacity-20 group-hover:opacity-70 transition duration-500">
                         </div>
@@ -128,6 +133,18 @@
                         </svg>
                         Entrar em Contato
                     </a>
+                </div>
+
+                <div class="hero-console relative z-10 mt-8 max-w-2xl" aria-label="Status de trabalho">
+                    <div class="hero-console-status">
+                        <span class="hero-console-pulse" aria-hidden="true"></span>
+                        <span>SISTEMA ONLINE</span>
+                    </div>
+                    <div class="hero-console-line">
+                        <span class="text-[#00e5ff]">&gt;_</span>
+                        <span>Construindo soluções com dados, IA e automação</span>
+                        <span class="hero-console-cursor" aria-hidden="true"></span>
+                    </div>
                 </div>
             </section>
 
@@ -239,7 +256,6 @@
                 </a>
             </div>
 
-        </div>
         </div>
 
         <div id="projetos" class="page-section animate-fade-in space-y-6">
