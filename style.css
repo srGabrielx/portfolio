@@ -130,40 +130,6 @@ body.light-mode .marquee-section {
     animation: hero-reveal 650ms ease-out both;
 }
 
-.hero-photo::after {
-    content: '';
-    position: absolute;
-    inset: -0.7rem;
-    z-index: -1;
-    border: 1px solid rgba(0, 229, 255, 0.25);
-    border-radius: 1.25rem;
-    animation: hero-pulse-ring 2.8s ease-out infinite;
-}
-
-.hero-orbit {
-    position: absolute;
-    z-index: 30;
-    width: 0.55rem;
-    height: 0.55rem;
-    border-radius: 9999px;
-    pointer-events: none;
-}
-
-.hero-orbit-one {
-    top: 50%;
-    left: 50%;
-    background: #00e5ff;
-    box-shadow: 0 0 14px #00e5ff;
-    animation: hero-orbit 6s linear infinite;
-}
-
-.hero-orbit-two {
-    top: 50%;
-    left: 50%;
-    background: #ff6b00;
-    box-shadow: 0 0 14px #ff6b00;
-    animation: hero-orbit-reverse 8s linear infinite;
-}
 
 .hero-console {
     overflow: hidden;
@@ -222,21 +188,6 @@ body.light-mode .marquee-section {
     to { transform: translate3d(18px, 14px, 0) scale(1.12); }
 }
 
-@keyframes hero-pulse-ring {
-    0% { opacity: 0.55; transform: scale(0.95); }
-    75%, 100% { opacity: 0; transform: scale(1.12); }
-}
-
-@keyframes hero-orbit {
-    from { transform: rotate(0deg) translateX(7.2rem) rotate(0deg); }
-    to { transform: rotate(360deg) translateX(7.2rem) rotate(-360deg); }
-}
-
-@keyframes hero-orbit-reverse {
-    from { transform: rotate(360deg) translateX(5.3rem) rotate(-360deg); }
-    to { transform: rotate(0deg) translateX(5.3rem) rotate(0deg); }
-}
-
 @keyframes hero-status-pulse {
     50% { opacity: 0.35; transform: scale(0.7); }
 }
@@ -248,8 +199,6 @@ body.light-mode .marquee-section {
 @media (prefers-reduced-motion: reduce) {
     .hero-ambient,
     .hero-title,
-    .hero-photo::after,
-    .hero-orbit,
     .hero-console-pulse,
     .hero-console-cursor {
         animation: none;
