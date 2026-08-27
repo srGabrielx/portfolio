@@ -107,7 +107,7 @@ export function Projetos() {
       {/* Walking Character Animated Bar */}
       <div className="w-full h-1.5 bg-white/5 rounded-full relative mt-4 mb-14 overflow-visible">
         <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#ff6b00] to-[#00e5ff] rounded-full animate-push-bar shadow-[0_0_15px_#00e5ff]">
-          <div className="absolute -right-[34px] top-1/2 flex items-center animate-walk-bounce text-[#00e5ff] bg-[#050505] pl-1 z-10">
+          <div className="absolute -right-[34px] top-1/2 flex items-center animate-walk-bounce text-[#00e5ff] bg-bgBase pl-1 z-10">
             <svg
               width="24"
               height="24"
@@ -185,7 +185,7 @@ export function Projetos() {
             href={app.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative block w-full bg-[#050505] rounded-[2rem] overflow-hidden card-shadow interactive-card border border-white/[0.02] group aspect-[4/3] md:aspect-video flex flex-col justify-end p-6 md:p-10"
+            className="relative block w-full bg-bgCard rounded-[2rem] overflow-hidden card-shadow interactive-card border border-white/[0.02] group aspect-[4/3] md:aspect-video flex flex-col justify-end p-6 md:p-10"
           >
             <img
               src={app.img}
@@ -218,7 +218,7 @@ export function Projetos() {
       </div>
 
       <SpotlightCard
-        className="w-full bg-[#050505] border border-white/10 rounded-xl card-shadow group p-0"
+        className="w-full bg-bgCard border border-white/5 rounded-xl card-shadow group p-0"
         spotlightColor="rgba(0, 229, 255, 0.2)"
       >
         <div className="bg-white/5 border-b border-white/5 px-4 py-3 flex items-center gap-2">
@@ -267,7 +267,7 @@ export function Projetos() {
               href="https://wa.me/5511964589578"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-[#00e5ff]/10 text-[#00e5ff] px-4 py-1.5 border border-[#00e5ff]/30 hover:bg-[#00e5ff] hover:text-[#050505] transition-all font-black uppercase tracking-widest cursor-pointer"
+              className="inline-block bg-neonCyan/10 text-neonCyan px-4 py-1.5 border border-neonCyan/30 hover:bg-neonCyan hover:text-bgBase transition-all font-black uppercase tracking-widest cursor-pointer"
             >
               --protocolo-contratar
             </a>

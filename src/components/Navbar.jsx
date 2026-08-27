@@ -3,7 +3,7 @@ import ThemeSelector from './ThemeSelector';
 
 export function Navbar({ currentPage, onNavigate, theme, onSelectTheme }) {
   return (
-    <nav className="fixed top-0 w-full bg-[#050505]/90 backdrop-blur-md border-b border-white/5 z-50 transition-all duration-300">
+    <nav className="fixed top-0 w-full bg-bgBase/90 backdrop-blur-md border-b border-white/5 z-50 transition-all duration-300">
       <div className="max-w-4xl mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center gap-4 text-xs md:text-sm font-mono tracking-wide">
         <div className="flex items-center gap-2 font-bold text-gray-300 group cursor-default">
           <span className="w-2 h-2 rounded-full bg-neonCyan animate-pulse group-hover:bg-neonOrange transition-colors"></span>

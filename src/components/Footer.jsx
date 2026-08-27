@@ -11,7 +11,7 @@ export function Footer() {
           href="https://github.com/srGabrielx"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-[#00e5ff] hover:scale-110 transition-all flex items-center gap-2"
+          className="hover:text-neonCyan hover:scale-110 transition-all flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +32,7 @@ export function Footer() {
           href="https://www.linkedin.com/in/gabriel-gon%C3%A7alves123"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-[#ff6b00] hover:scale-110 transition-all flex items-center gap-2"
+          className="hover:text-neonOrange hover:scale-110 transition-all flex items-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

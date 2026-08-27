@@ -58,7 +58,7 @@ export function Stack() {
         <div className="marquee-container marquee-mask w-full flex items-center">
           <div className="flex gap-12 items-center text-gray-400 font-mono text-sm md:text-base animate-marquee w-max">
             {marqueeItems.map((item, idx) => (
-              <span key={idx} className="flex items-center gap-2">
+              <span key={idx} className="flex items-center gap-2 whitespace-nowrap">
                 {item.icon} {item.text}
               </span>
             ))}
@@ -72,7 +72,7 @@ export function Stack() {
         spotlightColor="rgba(255, 170, 0, 0.25)"
       >
         <div className="flex items-center gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-[#ffaa00]/10 text-[#ffaa00] flex items-center justify-center shadow-[0_0_15px_rgba(255,170,0,0.15)] border border-[#ffaa00]/20">
+          <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#ffaa00]/10 text-[#ffaa00] flex items-center justify-center shadow-[0_0_15px_rgba(255,170,0,0.15)] border border-[#ffaa00]/20">
             <GraduationCap className="w-6 h-6" />
           </div>
           <span className="text-[#ff6b00] text-xs font-mono tracking-widest uppercase">
@@ -117,7 +117,7 @@ export function Stack() {
           <div className="absolute -right-20 -top-20 w-48 h-48 bg-[#00e5ff] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
           <div className="flex items-center gap-4 mb-6 relative z-10">
-            <div className="w-12 h-12 rounded-2xl bg-[#00e5ff]/10 flex items-center justify-center">
+            <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#00e5ff]/10 flex items-center justify-center shadow-[0_0_15px_rgba(0,229,255,0.15)] border border-[#00e5ff]/20">
               <Cpu className="w-6 h-6 text-[#00e5ff]" />
             </div>
             <div>
@@ -132,7 +132,7 @@ export function Stack() {
 
           <div className="relative z-10">
             <p className="text-sm text-gray-400 font-mono mb-4">Instituição: Uniasselvi</p>
-            <div className="w-full bg-[#050505] rounded-full h-2.5 mb-2 border border-white/5 overflow-hidden">
+            <div className="w-full bg-bgBase rounded-full h-2.5 mb-2 border border-white/5 overflow-hidden">
               <div
                 className="bg-gradient-to-r from-[#00e5ff] to-[#ff6b00] h-2.5 rounded-full"
                 style={{ width: '75%' }}
@@ -151,7 +151,7 @@ export function Stack() {
           spotlightColor="rgba(255, 170, 0, 0.25)"
         >
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 rounded-2xl bg-[#ffaa00]/10 flex items-center justify-center">
+            <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#ffaa00]/10 flex items-center justify-center shadow-[0_0_15px_rgba(255,170,0,0.15)] border border-[#ffaa00]/20">
               <Languages className="w-6 h-6 text-[#ffaa00]" />
             </div>
             <span className="text-xs font-mono text-gray-500 uppercase tracking-widest">IDIOMA</span>
@@ -190,13 +190,13 @@ export function Stack() {
 
       {/* Bloco 3: Certificações */}
       <SpotlightCard
-        className="w-full bg-[#050505] border border-white/10 rounded-[2rem] p-8 md:p-10 card-shadow mt-6 group"
-        spotlightColor="rgba(255, 107, 0, 0.2)"
+        className="w-full bg-bgCard border border-white/[0.02] rounded-[2rem] p-8 md:p-10 card-shadow mt-6 interactive-card group"
+        spotlightColor="rgba(255, 107, 0, 0.25)"
       >
         <div className="absolute -left-20 -bottom-20 w-48 h-48 bg-[#ff6b00] rounded-full blur-[100px] opacity-10 group-hover:opacity-20 transition-opacity duration-500 pointer-events-none"></div>
 
         <div className="flex items-center gap-4 mb-8 relative z-10">
-          <div className="w-12 h-12 rounded-2xl bg-[#ff6b00]/10 flex items-center justify-center">
+          <div className="w-12 h-12 shrink-0 rounded-2xl bg-[#ff6b00]/10 flex items-center justify-center shadow-[0_0_15px_rgba(255,107,0,0.15)] border border-[#ff6b00]/20">
             <Blocks className="w-6 h-6 text-[#ff6b00]" />
           </div>
           <div>
@@ -214,7 +214,7 @@ export function Stack() {
               {bradescoCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors"
+                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors whitespace-nowrap"
                 >
                   {cert}
                 </span>
@@ -230,7 +230,7 @@ export function Stack() {
               {senaiCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors"
+                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors whitespace-nowrap"
                 >
                   {cert}
                 </span>
@@ -246,7 +246,7 @@ export function Stack() {
               {aprendeAkiCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors"
+                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors whitespace-nowrap"
                 >
                   {cert}
                 </span>
@@ -269,7 +269,7 @@ export function Stack() {
         <div className="absolute inset-0 space-gradient-x opacity-90 z-0 pointer-events-none"></div>
 
         <div className="relative z-10 text-center px-6 flex flex-col items-center">
-          <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 animate-pulse-glow backdrop-blur-sm">
+          <div className="w-20 h-20 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 animate-pulse-glow backdrop-blur-sm">
             <Rocket className="w-10 h-10 text-[#00e5ff]" />
           </div>
 
@@ -293,7 +293,7 @@ export function Stack() {
             href="https://wa.me/5511964589578"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-[#00e5ff] text-[#050505] px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-[#ffaa00] transition-all duration-300 group shadow-lg cursor-pointer"
+            className="inline-flex items-center bg-neonCyan text-bgBase px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-neonOrange transition-all duration-300 group shadow-lg cursor-pointer"
           >
             Iniciar Órbita{' '}
             <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />

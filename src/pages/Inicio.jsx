@@ -229,11 +229,11 @@ export function Inicio() {
 
       {/* Banner de Fechamento (CTA Direto) com SpotlightCard */}
       <SpotlightCard
-        className="mt-8 w-full bg-[#050505] border-t-2 border-white/10 rounded-[2rem] p-8 md:p-12 card-shadow"
+        className="mt-8 w-full bg-bgCard border-t-2 border-white/5 rounded-[2rem] p-8 md:p-12 card-shadow transition-colors group"
         spotlightColor="rgba(0, 229, 255, 0.2)"
       >
-        <div className="absolute -right-20 -top-20 w-64 h-64 bg-[#00e5ff] rounded-full blur-[120px] opacity-20 pointer-events-none"></div>
-        <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-[#ff6b00] rounded-full blur-[120px] opacity-10 pointer-events-none"></div>
+        <div className="absolute -right-20 -top-20 w-64 h-64 bg-neonCyan rounded-full blur-[120px] opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none"></div>
+        <div className="absolute -left-20 -bottom-20 w-64 h-64 bg-neonOrange rounded-full blur-[120px] opacity-10 group-hover:opacity-20 transition-opacity pointer-events-none"></div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 w-full">
           <div className="relative z-10 text-center md:text-left">
@@ -247,7 +247,7 @@ export function Inicio() {
             href="https://wa.me/5511964589578"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative z-10 inline-flex items-center bg-[#ffffff] text-[#050505] px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-gray-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] cursor-pointer shrink-0"
+            className="relative z-10 inline-flex items-center bg-white text-black px-8 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-gray-200 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] cursor-pointer shrink-0"
           >
             Iniciar Projeto <Rocket className="w-5 h-5 ml-2" />
           </a>
