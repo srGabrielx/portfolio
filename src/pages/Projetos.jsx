@@ -56,6 +56,16 @@ export function Projetos() {
 
   const webApps = [
     {
+      title: 'Botão AI',
+      url: 'https://botao-ai.vercel.app',
+      img: '/images/projects/botão_Ai.png'
+    },
+    {
+      title: 'Criar Currículo',
+      url: 'https://criacurriculo-alpha.vercel.app/dashboard',
+      img: '/images/projects/Criar_Curriculo.png'
+    },
+    {
       title: 'Aura Analytics',
       url: 'https://aura-analytc.vercel.app/',
       img: '/images/projects/aura-analytics.png'
