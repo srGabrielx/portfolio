@@ -94,11 +94,6 @@ export function Projetos() {
       title: 'AutoTunel-Pro',
       url: 'https://auto-tunel-pro.vercel.app/',
       img: '/images/projects/auto-tunel-pro.png'
-    },
-    {
-      title: 'Conecta Fone',
-      url: 'https://conecta-fone.vercel.app',
-      img: '/images/projects/conecta-fone.png'
     }
   ];
 
@@ -106,8 +101,8 @@ export function Projetos() {
     <div id="projetos" className="page-section active animate-fade-in space-y-6">
       {/* Walking Character Animated Bar */}
       <div className="w-full h-1.5 bg-white/5 rounded-full relative mt-4 mb-14 overflow-visible">
-        <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#ff6b00] to-[#00e5ff] rounded-full animate-push-bar shadow-[0_0_15px_#00e5ff]">
-          <div className="absolute -right-[34px] top-1/2 flex items-center animate-walk-bounce text-[#00e5ff] bg-bgBase pl-1 z-10">
+        <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-neonCyan rounded-full animate-push-bar shadow-[0_0_15px_var(--accent-primary)]">
+          <div className="absolute -right-[34px] top-1/2 -translate-y-1/2 flex items-center text-neonCyan bg-bgBase pl-1 z-10">
             <svg
               width="24"
               height="24"
@@ -117,7 +112,7 @@ export function Projetos() {
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="drop-shadow-[0_0_5px_#00e5ff]"
+              className="drop-shadow-[0_0_5px_var(--accent-primary)]"
             >
               <circle cx="14" cy="7" r="3"></circle>
               <path d="M12 10 L8 16"></path>
@@ -125,7 +120,7 @@ export function Projetos() {
               <path d="M8 16 L4 21"></path>
               <path d="M8 16 L12 21"></path>
             </svg>
-            <div className="w-1.5 h-6 bg-[#00e5ff] rounded-sm ml-0.5 shadow-[0_0_10px_#00e5ff]"></div>
+            <div className="w-1.5 h-6 bg-neonCyan rounded-sm ml-0.5 shadow-[0_0_10px_var(--accent-primary)]"></div>
           </div>
         </div>
       </div>
