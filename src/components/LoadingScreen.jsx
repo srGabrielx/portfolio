@@ -53,7 +53,7 @@ export function LoadingScreen({ onLoadingComplete }) {
   return (
     <div
       onClick={handleSkip}
-      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center bg-bgBase transition-all duration-400 select-none cursor-pointer ${
+      className={`fixed inset-0 h-[100dvh] w-screen overflow-hidden z-[9999999] flex flex-col items-center justify-center bg-bgBase transition-all duration-400 select-none cursor-pointer ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -96,13 +96,13 @@ export function LoadingScreen({ onLoadingComplete }) {
             <span className="text-neonCyan font-bold font-mono">{progress}%</span>
           </div>
 
-          <div className="flex items-center gap-2 text-xs font-mono text-gray-300 min-h-[24px]">
+          <div className="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
             {progress === 100 ? (
               <CheckCircle2 className="w-3.5 h-3.5 text-green-500 shrink-0" />
             ) : (
               <span className="w-1.5 h-1.5 rounded-full bg-neonCyan animate-ping shrink-0"></span>
             )}
-            <span className="truncate">{statusMessages[statusIndex]}</span>
+            <span className="leading-tight">{statusMessages[statusIndex]}</span>
           </div>
         </div>
 
