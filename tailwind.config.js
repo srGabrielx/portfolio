@@ -26,7 +26,7 @@ export default {
       animation: {
         'fade-in': 'fadeIn 0.4s ease-out forwards',
         'marquee': 'marquee 30s linear infinite',
-        'push-bar': 'pushBar 6s ease-in-out infinite',
+        'push-bar': 'pushBar 2.5s cubic-bezier(0.8, 0, 0.2, 1) infinite',
         'walk-bounce': 'walkBounce 0.4s ease-in-out infinite',
         'float': 'float 4s ease-in-out infinite',
         'float-delayed': 'floatDelayed 5s ease-in-out infinite',
