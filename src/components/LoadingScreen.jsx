@@ -53,7 +53,7 @@ export function LoadingScreen({ onLoadingComplete }) {
   return (
     <div
       onClick={handleSkip}
-      className={`fixed inset-0 h-[100dvh] w-screen overflow-hidden z-[9999999] flex flex-col items-center justify-center bg-bgBase transition-all duration-400 select-none cursor-pointer ${
+      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center bg-bgBase transition-all duration-400 select-none cursor-pointer overflow-y-auto ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -64,7 +64,7 @@ export function LoadingScreen({ onLoadingComplete }) {
       <div className="hero-grid absolute inset-0 opacity-20 pointer-events-none"></div>
 
       {/* Central Cyber Container */}
-      <div className="relative z-10 flex flex-col items-center max-w-md w-full px-6 text-center">
+      <div className="relative z-10 flex flex-col items-center max-w-md w-full px-6 py-8 text-center my-auto">
         {/* Glowing Logo Badge */}
         <div className="relative mb-8 group">
           <div className="absolute -inset-2 bg-gradient-to-r from-neonCyan via-neonOrange to-accentTertiary rounded-2xl blur-lg opacity-60 animate-pulse-glow"></div>
