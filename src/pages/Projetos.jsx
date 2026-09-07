@@ -56,6 +56,11 @@ export function Projetos() {
 
   const webApps = [
     {
+      title: 'LimpaWinx',
+      url: 'https://github.com/srGabrielx/LimpaWinx',
+      img: '/images/projects/limpawinx.png'
+    },
+    {
       title: 'Botão AI',
       url: 'https://botao-ai.vercel.app',
       img: '/images/projects/botão_Ai.png'

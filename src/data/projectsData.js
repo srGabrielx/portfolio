@@ -526,5 +526,42 @@ export const featuredProjectsList = [
         'uvicorn main:app --reload'
       ]
     }
+  },
+  {
+    id: 'limpawinx',
+    num: 'Projeto 05',
+    title: 'LimpaWinx (Smart PC Cleaner)',
+    category: 'Automação & Diagnóstico de Sistema',
+    img: '/images/projects/limpawinx.png',
+    github: 'https://github.com/srGabrielx/LimpaWinx',
+    readmeUrl: 'https://github.com/srGabrielx/LimpaWinx#readme',
+    status: 'Open Source',
+    badgeColor: 'text-[#38bdf8] bg-[#38bdf8]/10 border-[#38bdf8]/30',
+    description:
+      'Um agente CLI inteligente desenvolvido em Python para executar rotinas de manutenção, diagnóstico e segurança no Windows diretamente pelo terminal, 100% offline.',
+    tags: ['Python', 'Automação', 'Windows', 'CLI', 'Otimização'],
+    highlights: [
+      'Monitoramento residente de Memória RAM, Rede e Espaço em Disco',
+      'Motor semântico com tolerância a erros (Fuzzy Matching) para comandos naturais',
+      'Otimizações profundas usando chamadas Win32 de baixo nível',
+      'Limpeza de componentes de sistema (WinSxS / DISM) e logs de eventos'
+    ],
+    readme: {
+      title: 'LimpaWinx - Smart PC Cleaner PRO',
+      overview:
+        'Ferramenta local desenvolvida para Windows que opera de forma totalmente offline. Utiliza um motor semântico inteligente para interpretar comandos em linguagem natural e oferece uma interface visual rica via terminal para diagnosticar e otimizar o sistema operacional.',
+      problemSolved:
+        'Automatiza tarefas rotineiras de manutenção, limpa caches profundos e libera memória e rede sem a necessidade de múltiplos programas de terceiros, priorizando a segurança e a eficiência do Windows.',
+      techStack: [
+        'Python com bibliotecas prompt_toolkit e rich para CLI interativa',
+        'APIs Win32 para monitoramento e liberação de memória',
+        'Motor semântico local sem dependência de APIs em nuvem'
+      ],
+      howToRun: [
+        'git clone https://github.com/srGabrielx/LimpaWinx.git',
+        'cd LimpaWinx',
+        'Executar instalar.bat ou python main.py'
+      ]
+    }
   }
 ];
