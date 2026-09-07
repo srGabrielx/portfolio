@@ -53,7 +53,7 @@ export function LoadingScreen({ onLoadingComplete }) {
   return (
     <div
       onClick={handleSkip}
-      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center bg-bgBase transition-all duration-400 select-none cursor-pointer overflow-y-auto ${
+      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none cursor-pointer overflow-y-auto overflow-x-hidden ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -63,61 +63,64 @@ export function LoadingScreen({ onLoadingComplete }) {
       <div className="absolute w-96 h-96 bg-neonOrange/15 rounded-full blur-[120px] pointer-events-none -bottom-20 -right-20"></div>
       <div className="hero-grid absolute inset-0 opacity-20 pointer-events-none"></div>
 
-      {/* Central Cyber Container */}
-      <div className="relative z-10 flex flex-col items-center max-w-md w-full px-6 py-8 text-center my-auto">
-        {/* Glowing Logo Badge */}
-        <div className="relative mb-8 group">
-          <div className="absolute -inset-2 bg-gradient-to-r from-neonCyan via-neonOrange to-accentTertiary rounded-2xl blur-lg opacity-60 animate-pulse-glow"></div>
-          <div className="relative w-20 h-20 rounded-2xl bg-bgCard border border-white/15 flex items-center justify-center shadow-2xl">
-            <div className="relative flex items-center justify-center">
-              <span className="font-mono font-black text-2xl tracking-tighter bg-name-gradient bg-clip-text text-transparent">
-                GG
-              </span>
-              <span className="absolute -bottom-2 -right-2 w-3 h-3 bg-green-500 rounded-full border-2 border-bgCard animate-pulse"></span>
+      {/* Safe Centering Wrapper */}
+      <div className="min-h-full w-full flex flex-col items-center justify-center p-4 sm:p-8">
+        {/* Central Cyber Container */}
+        <div className="relative z-10 flex flex-col items-center max-w-xs sm:max-w-md w-full text-center">
+          {/* Glowing Logo Badge */}
+          <div className="relative mb-6 sm:mb-8 group">
+            <div className="absolute -inset-2 bg-gradient-to-r from-neonCyan via-neonOrange to-accentTertiary rounded-2xl blur-lg opacity-60 animate-pulse-glow"></div>
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-bgCard border border-white/15 flex items-center justify-center shadow-2xl">
+              <div className="relative flex items-center justify-center">
+                <span className="font-mono font-black text-xl sm:text-2xl tracking-tighter bg-name-gradient bg-clip-text text-transparent">
+                  GG
+                </span>
+                <span className="absolute -bottom-1.5 -right-1.5 sm:-bottom-2 sm:-right-2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full border-2 border-bgCard animate-pulse"></span>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Title */}
-        <h2 className="text-xl md:text-2xl font-black uppercase tracking-tight text-white mb-1">
-          Gabriel Gonçalves
-        </h2>
-        <div className="flex items-center gap-2 text-xs font-mono text-gray-400 mb-8">
-          <Cpu className="w-3.5 h-3.5 text-neonCyan animate-spin" style={{ animationDuration: '3s' }} />
-          <span>PORTFÓLIO IA & PYTHON</span>
-        </div>
-
-        {/* Terminal Status Box */}
-        <div className="w-full bg-bgCard/90 border border-white/10 rounded-xl p-4 mb-4 backdrop-blur-md text-left shadow-lg">
-          <div className="flex items-center justify-between text-[11px] font-mono text-gray-500 mb-2 border-b border-white/5 pb-1.5">
-            <span className="flex items-center gap-1.5 text-gray-400">
-              <Terminal className="w-3 h-3 text-neonCyan" /> boot_sequence.sh
-            </span>
-            <span className="text-neonCyan font-bold font-mono">{progress}%</span>
+          {/* Title */}
+          <h2 className="text-lg sm:text-2xl font-black uppercase tracking-tight text-white mb-1">
+            Gabriel Gonçalves
+          </h2>
+          <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-400 mb-6 sm:mb-8">
+            <Cpu className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-neonCyan animate-spin" style={{ animationDuration: '3s' }} />
+            <span>PORTFÓLIO IA & PYTHON</span>
           </div>
 
-          <div className="flex items-center gap-2 text-[10.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
-            {progress === 100 ? (
-              <CheckCircle2 className="w-3.5 h-3.5 text-green-500 shrink-0" />
-            ) : (
-              <span className="w-1.5 h-1.5 rounded-full bg-neonCyan animate-ping shrink-0"></span>
-            )}
-            <span className="leading-tight">{statusMessages[statusIndex]}</span>
+          {/* Terminal Status Box */}
+          <div className="w-full bg-bgCard/90 border border-white/10 rounded-xl p-3 sm:p-4 mb-4 backdrop-blur-md text-left shadow-lg">
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-gray-500 mb-2 border-b border-white/5 pb-1.5">
+              <span className="flex items-center gap-1.5 text-gray-400">
+                <Terminal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> boot_sequence.sh
+              </span>
+              <span className="text-neonCyan font-bold font-mono">{progress}%</span>
+            </div>
+
+            <div className="flex items-center gap-2 text-[9.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
+              {progress === 100 ? (
+                <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-green-500 shrink-0" />
+              ) : (
+                <span className="w-1.5 h-1.5 rounded-full bg-neonCyan animate-ping shrink-0"></span>
+              )}
+              <span className="leading-tight">{statusMessages[statusIndex]}</span>
+            </div>
           </div>
-        </div>
 
-        {/* Progress Bar with Glow */}
-        <div className="w-full bg-white/5 rounded-full h-2 mb-4 overflow-hidden border border-white/10 relative">
-          <div
-            className="h-full bg-gradient-to-r from-neonCyan via-accentTertiary to-neonOrange transition-all duration-75 rounded-full shadow-[0_0_15px_rgba(var(--accent-glow),0.9)]"
-            style={{ width: `${progress}%` }}
-          ></div>
-        </div>
+          {/* Progress Bar with Glow */}
+          <div className="w-full bg-white/5 rounded-full h-1.5 sm:h-2 mb-3 sm:mb-4 overflow-hidden border border-white/10 relative">
+            <div
+              className="h-full bg-gradient-to-r from-neonCyan via-accentTertiary to-neonOrange transition-all duration-75 rounded-full shadow-[0_0_15px_rgba(var(--accent-glow),0.9)]"
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
 
-        {/* Skip hint */}
-        <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest hover:text-gray-300 transition-colors">
-          Toque para pular &gt;
-        </span>
+          {/* Skip hint */}
+          <span className="text-[9px] sm:text-[10px] font-mono text-gray-500 uppercase tracking-widest hover:text-gray-300 transition-colors">
+            Toque para pular &gt;
+          </span>
+        </div>
       </div>
     </div>
   );
