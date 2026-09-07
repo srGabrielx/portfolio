@@ -134,9 +134,11 @@ export function Stack() {
             <p className="text-sm text-gray-400 font-mono mb-4">Instituição: Uniasselvi</p>
             <div className="w-full bg-bgBase rounded-full h-2.5 mb-2 border border-white/5 overflow-hidden">
               <div
-                className="bg-gradient-to-r from-[#00e5ff] to-[#ff6b00] h-2.5 rounded-full"
+                className="bg-gradient-to-r from-[#00e5ff] to-[#ff6b00] h-2.5 rounded-full relative overflow-hidden"
                 style={{ width: '75%' }}
-              ></div>
+              >
+                <div className="absolute inset-0 w-full h-full animate-stripes"></div>
+              </div>
             </div>
             <div className="flex justify-between text-[10px] font-mono text-gray-500 uppercase tracking-widest">
               <span>Treinamento andamento</span>
@@ -256,47 +258,43 @@ export function Stack() {
         </div>
       </SpotlightCard>
 
-      {/* Banner Parallax / Órbita */}
+      {/* Banner Escalando Soluções */}
       <SpotlightCard
-        className="w-full mt-24 mb-24 relative rounded-[2rem] overflow-hidden space-banner-container min-h-[450px] flex items-center justify-center card-shadow border border-white/[0.02]"
-        spotlightColor="rgba(0, 229, 255, 0.25)"
+        className="w-full mt-24 mb-12 relative rounded-[2rem] overflow-hidden p-8 py-16 md:py-24 flex items-center justify-center card-shadow border border-[#00e5ff]/30 bg-bgCard/60 backdrop-blur-md group hover:border-[#00e5ff]/60 transition-colors duration-500"
+        spotlightColor="rgba(0, 229, 255, 0.15)"
       >
-        <div className="space-layer stars-1"></div>
-        <div className="space-layer stars-2"></div>
-        <div className="space-layer stars-3"></div>
+        <div className="absolute inset-0 hero-grid opacity-30 z-0 pointer-events-none"></div>
+        <div className="absolute -inset-20 bg-neonCyan/5 blur-[100px] z-0 pointer-events-none rounded-full"></div>
 
-        <div className="absolute inset-0 space-gradient-y opacity-90 z-0 pointer-events-none"></div>
-        <div className="absolute inset-0 space-gradient-x opacity-90 z-0 pointer-events-none"></div>
-
-        <div className="relative z-10 text-center px-6 flex flex-col items-center">
-          <div className="w-20 h-20 shrink-0 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mb-6 animate-pulse-glow backdrop-blur-sm">
-            <Rocket className="w-10 h-10 text-[#00e5ff]" />
+        <div className="relative z-10 text-center flex flex-col items-center w-full max-w-3xl mx-auto">
+          <div className="w-20 h-20 shrink-0 rounded-full bg-white/5 border border-[#00e5ff]/40 flex items-center justify-center mb-6 animate-pulse-glow backdrop-blur-md shadow-[0_0_30px_rgba(0,229,255,0.2)]">
+            <Cpu className="w-10 h-10 text-neonCyan" />
           </div>
 
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase mb-4 drop-shadow-xl">
-            Expandindo{' '}
+          <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase mb-6 drop-shadow-xl">
+            Pronto para o{' '}
             <GradientText
               colors={['#00e5ff', '#ffaa00', '#ff6b00', '#00e5ff']}
               animationSpeed={3.5}
-              className="text-4xl md:text-6xl font-black tracking-tighter uppercase"
+              className="text-4xl md:text-5xl font-black tracking-tighter uppercase"
             >
-              Fronteiras
+              Próximo Nível?
             </GradientText>
           </h2>
 
-          <p className="text-gray-400 font-mono text-sm md:text-base max-w-2xl mb-10 leading-relaxed">
-            A tecnologia não obedece limites físicos. Orquestração de inteligência artificial, processamento de
-            dados em hiperescala e arquiteturas escaláveis.
+          <p className="text-gray-400 font-mono text-sm md:text-base mb-10 leading-relaxed">
+            Transformando processos complexos em arquiteturas escaláveis.
+            Desenvolvimento de sistemas robustos, automação inteligente e integração avançada com IA.
           </p>
 
           <a
             href="https://wa.me/5511964589578"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center bg-neonCyan text-bgBase px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-neonOrange transition-all duration-300 group shadow-lg cursor-pointer"
+            className="inline-flex items-center bg-white text-black px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:scale-105 hover:bg-neonCyan hover:text-bgBase transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] cursor-pointer"
           >
-            Iniciar Órbita{' '}
-            <ArrowRight className="w-5 h-5 ml-3 group-hover:translate-x-1 transition-transform" />
+            Iniciar Projeto{' '}
+            <ArrowRight className="w-5 h-5 ml-3" />
           </a>
         </div>
       </SpotlightCard>
