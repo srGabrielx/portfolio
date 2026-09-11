@@ -18,11 +18,11 @@ export function Projetos() {
     },
     {
       num: 'Projeto 02',
-      title: 'AutoTunel',
+      title: 'AutoTunel Edit',
       description:
         'Gerador de padrões melódicos dinâmico desenvolvido em Python. Utiliza randomização estruturada em escalas musicais para criar sequências de áudio exportáveis.',
       tags: ['Python', 'Lógica Algorítmica'],
-      link: 'https://github.com/srGabrielx/AutoTunel',
+      link: 'https://auto-tunel-edit.vercel.app',
       icon: <Music className="w-5 h-5 text-[#ffaa00]" />,
       bgIcon: 'bg-[#ffaa00]/10',
       colorText: 'text-[#ffaa00]',
@@ -104,6 +104,11 @@ export function Projetos() {
       title: 'Adega Express',
       url: 'https://adega-express-ivory.vercel.app/',
       img: '/images/projects/adega-express.png'
+    },
+    {
+      title: 'AutoTunel Edit',
+      url: 'https://auto-tunel-edit.vercel.app',
+      img: '/images/projects/AutoTunelEdit.png'
     },
     {
       title: 'AutoTunel-Pro',

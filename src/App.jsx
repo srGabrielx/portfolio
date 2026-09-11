@@ -26,6 +26,17 @@ export function App() {
   });
 
   useEffect(() => {
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLoading]);
+
+  useEffect(() => {
     document.body.setAttribute('data-theme', theme);
     document.body.classList.remove('light-mode');
     localStorage.setItem('portfolio-theme', theme);

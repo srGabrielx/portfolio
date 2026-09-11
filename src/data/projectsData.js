@@ -334,6 +334,44 @@ export const webAppsList = [
     }
   },
   {
+    id: 'auto-tunel',
+    num: 'Projeto 02',
+    title: 'AutoTunel Edit',
+    url: 'https://auto-tunel-edit.vercel.app',
+    category: 'Lógica Algorítmica & Python Áudio',
+    img: '/images/projects/AutoTunelEdit.png',
+    github: 'https://github.com/srGabrielx/AutoTunel',
+    readmeUrl: 'https://github.com/srGabrielx/AutoTunel#readme',
+    status: 'Open Source',
+    badgeColor: 'text-[#ffaa00] bg-[#ffaa00]/10 border-[#ffaa00]/30',
+    description:
+      'Gerador de padrões melódicos dinâmico desenvolvido em Python. Utiliza randomização estruturada em escalas harmônicas para criar sequências de áudio exportáveis.',
+    tags: ['Python', 'Lógica Algorítmica', 'Teoria Musical', 'Manipulação de Áudio', 'Automação Sonora'],
+    highlights: [
+      'Geração algorítmica de sequências musicais estruturadas',
+      'Suporte a escalas maiores, menores, pentatônicas e modos harmônicos',
+      'Configuração de andamento (BPM), intervalos e quantização',
+      'Geração de arquivos prontos para integração em softwares musicais'
+    ],
+    readme: {
+      title: 'AutoTunel - Gerador Algorítmico de Padrões Melódicos',
+      overview:
+        'Projeto de pesquisa em criatividade computacional musical. Através de scripts Python e regras de lógica musical (intervalos de escala, BPM), o código compõe arranjos inéditos automaticamente.',
+      problemSolved:
+        'Reduz o tempo de composição em produção de trilhas sonoras. Fornece samples gerados por código perfeitos, 100% livres de royalties e com tonalidades consistentes.',
+      techStack: [
+        'Python Nativo para lógica procedural',
+        'Math e Random libraries para controle caótico estruturado',
+        'Bibliotecas de Áudio para exportação .wav/.midi'
+      ],
+      howToRun: [
+        'git clone https://github.com/srGabrielx/AutoTunel.git',
+        'cd AutoTunel',
+        'python main.py'
+      ]
+    }
+  },
+  {
     id: 'auto-tunel-pro',
     title: 'AutoTunel-Pro',
     category: 'Music Tech & Síntese Sonora',
@@ -413,42 +451,6 @@ export const featuredProjectsList = [
         'venv\\Scripts\\activate  # No Linux: source venv/bin/activate',
         'pip install -r requirements.txt',
         'python -m spacy download pt_core_news_lg',
-        'python main.py'
-      ]
-    }
-  },
-  {
-    id: 'auto-tunel',
-    num: 'Projeto 02',
-    title: 'AutoTunel',
-    category: 'Lógica Algorítmica & Python Áudio',
-    img: '/images/projects/auto-tunel-pro.png',
-    github: 'https://github.com/srGabrielx/AutoTunel',
-    readmeUrl: 'https://github.com/srGabrielx/AutoTunel#readme',
-    status: 'Open Source',
-    badgeColor: 'text-[#ffaa00] bg-[#ffaa00]/10 border-[#ffaa00]/30',
-    description:
-      'Gerador de padrões melódicos dinâmico desenvolvido em Python. Utiliza randomização estruturada em escalas harmônicas para criar sequências de áudio exportáveis.',
-    tags: ['Python', 'Lógica Algorítmica', 'Teoria Musical', 'Manipulação de Áudio', 'Automação Sonora'],
-    highlights: [
-      'Geração algorítmica de sequências musicais estruturadas',
-      'Suporte a escalas maiores, menores, pentatônicas e modos harmônicos',
-      'Configuração de andamento (BPM), intervalos e quantização',
-      'Geração de arquivos prontos para integração em softwares musicais'
-    ],
-    readme: {
-      title: 'AutoTunel - Gerador Algorítmico de Padrões Melódicos',
-      overview:
-        'Script e ferramenta em Python concebida para estudar a aplicação de regras matemáticas e estocásticas na criação de melodias musicais. O software calcula intervalos harmônicos dentro de escalas selecionadas e gera frases musicais coerentes.',
-      problemSolved:
-        'Auxilia compositores e programadores a explorar geração procedural de áudio sem necessidade de gravação manual nota por nota.',
-      techStack: [
-        'Python com manipulação de arrays e estruturas de matrizes harmônicas',
-        'Módulos de áudio e lógica determinística'
-      ],
-      howToRun: [
-        'git clone https://github.com/srGabrielx/AutoTunel.git',
-        'cd AutoTunel',
         'python main.py'
       ]
     }
