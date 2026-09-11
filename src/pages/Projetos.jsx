@@ -58,17 +58,17 @@ export function Projetos() {
     {
       title: 'LimpaWinx',
       url: 'https://github.com/srGabrielx/LimpaWinx',
-      img: '/images/projects/limpawinx.png'
+      img: '/images/projects/LinpaWin.png'
     },
     {
       title: 'Botão AI',
       url: 'https://botao-ai.vercel.app',
-      img: '/images/projects/botão_Ai.png'
+      img: '/images/projects/botao.png'
     },
     {
       title: 'Criar Currículo',
       url: 'https://criacurriculo-alpha.vercel.app/dashboard',
-      img: '/images/projects/Criar_Curriculo.png'
+      img: '/images/projects/CriaCurriculo.png'
     },
     {
       title: 'Aura Analytics',

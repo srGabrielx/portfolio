@@ -6,7 +6,7 @@ export const webAppsList = [
     url: 'https://botao-ai.vercel.app',
     github: 'https://github.com/srGabrielx/Bot-o-ai',
     readmeUrl: 'https://github.com/srGabrielx/Bot-o-ai#readme',
-    img: '/images/projects/botão_Ai.png',
+    img: '/images/projects/botao.png',
     status: 'Em Produção',
     badgeColor: 'text-[#c084fc] bg-[#c084fc]/10 border-[#c084fc]/30',
     description:
@@ -45,7 +45,7 @@ export const webAppsList = [
     url: 'https://criacurriculo-alpha.vercel.app/dashboard',
     github: 'https://github.com/srGabrielx/Criacurriculo',
     readmeUrl: 'https://github.com/srGabrielx/Criacurriculo#readme',
-    img: '/images/projects/Criar_Curriculo.png',
+    img: '/images/projects/CriaCurriculo.png',
     status: 'Em Produção',
     badgeColor: 'text-[#38bdf8] bg-[#38bdf8]/10 border-[#38bdf8]/30',
     description:
@@ -534,7 +534,7 @@ export const featuredProjectsList = [
     num: 'Projeto 05',
     title: 'LimpaWinx (Smart PC Cleaner)',
     category: 'Automação & Diagnóstico de Sistema',
-    img: '/images/projects/limpawinx.png',
+    img: '/images/projects/LinpaWin.png',
     github: 'https://github.com/srGabrielx/LimpaWinx',
     readmeUrl: 'https://github.com/srGabrielx/LimpaWinx#readme',
     status: 'Open Source',
