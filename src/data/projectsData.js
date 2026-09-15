@@ -224,42 +224,6 @@ export const webAppsList = [
     }
   },
   {
-    id: 'tia-patroa-saas',
-    title: 'Tia Patroa SaaS',
-    category: 'SaaS & Gestão Operacional',
-    url: 'https://tia-patroa-saas.vercel.app',
-    github: 'https://github.com/srGabrielx',
-    readmeUrl: 'https://github.com/srGabrielx#readme',
-    img: '/images/projects/tia-patroa-saas.png',
-    status: 'Em Produção',
-    badgeColor: 'text-[#ec4899] bg-[#ec4899]/10 border-[#ec4899]/30',
-    description:
-      'Sistema SaaS voltado para gestão de diaristas, profissionais de limpeza e prestadores de serviços, com controle de clientes, agenda inteligente e fluxo de pagamentos.',
-    tags: ['React', 'SaaS', 'Gestão Financeira', 'Agenda Digital', 'Painel Administrativo'],
-    highlights: [
-      'Controle de clientes e histórico de atendimentos prestados',
-      'Agendamento automático com lembretes para evitar faltas',
-      'Fluxo de caixa simplificado com entradas, saídas e previsões de receita',
-      'Interface adaptada para fácil utilização pelo celular em rotinas corridas'
-    ],
-    readme: {
-      title: 'Tia Patroa SaaS - Gestão Inteligente para Profissionais Autônomos',
-      overview:
-        'Solução de software como serviço concebida para profissionalizar autônomos e pequenos negócios de serviços domésticos e limpezas comerciais, centralizando a gestão que antes era feita em cadernos ou mensagens soltas.',
-      problemSolved:
-        'Elimina a perda de horários e a desorganização financeira, trazendo previsibilidade de caixa e facilidade de agendamento.',
-      techStack: [
-        'React com estado reativo e navegação ágil',
-        'Design com foco em usabilidade e contraste alto para uso móvel',
-        'Camadas de serviço preparadas para sincronização em nuvem'
-      ],
-      howToRun: [
-        'npm install',
-        'npm run dev'
-      ]
-    }
-  },
-  {
     id: 'seyller-tabacaria',
     title: 'Seyller Tabacaria',
     category: 'E-commerce & Catálogo Digital',

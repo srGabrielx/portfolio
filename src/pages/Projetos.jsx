@@ -91,11 +91,6 @@ export function Projetos() {
       img: '/images/projects/lumina-vidros.jpg'
     },
     {
-      title: 'Tia Patroa SaaS',
-      url: 'https://tia-patroa-saas.vercel.app',
-      img: '/images/projects/tia-patroa-saas.png'
-    },
-    {
       title: 'Seyller Tabacaria',
       url: 'https://seyller-tabacaria-app.vercel.app',
       img: '/images/projects/seyller-tabacaria.png'
