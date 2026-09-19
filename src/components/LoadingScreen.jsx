@@ -1,13 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, CheckCircle2, Volume2 } from 'lucide-react';
-import { playSubtleBellChime, initAudioUnlock } from '../lib/sound';
+import { Terminal, Cpu, CheckCircle2, Volume2, ArrowRight } from 'lucide-react';
+import { playSubtleBellChime, initAudioUnlock, unlockAudio, isAudioUnlocked } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [audioReady, setAudioReady] = useState(false);
+  const [needUserGesture, setNeedUserGesture] = useState(false);
 
   const completedRef = useRef(false);
+  const fallbackTimerRef = useRef(null);
   const onCompleteRef = useRef(onLoadingComplete);
   onCompleteRef.current = onLoadingComplete;
 
@@ -19,13 +22,16 @@ export function LoadingScreen({ onLoadingComplete }) {
   ];
 
   useEffect(() => {
-    // Pré-ativa o contexto de áudio
-    initAudioUnlock();
+    // Monitora e pré-ativa o contexto de áudio
+    initAudioUnlock(() => setAudioReady(true));
+    if (isAudioUnlocked()) {
+      setAudioReady(true);
+    }
 
     const startTime = Date.now();
-    const duration = 2600; // 2.6 segundos: rápido, dinâmico e sem cansar o usuário
+    const duration = 2400; // 2.4 segundos de carregamento fluido
 
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       const elapsed = Date.now() - startTime;
       const rawProgress = Math.min(Math.round((elapsed / duration) * 100), 100);
 
@@ -39,38 +45,90 @@ export function LoadingScreen({ onLoadingComplete }) {
 
       if (rawProgress >= 100) {
         clearInterval(interval);
+        setProgress(100);
+        setStatusIndex(statusMessages.length - 1);
+
         if (!completedRef.current) {
-          completedRef.current = true;
-          // Toca o som cristalino suave quando o carregamento atinge 100% normalmente
-          playSubtleBellChime();
-          setTimeout(() => {
-            setIsFadingOut(true);
+          // Tenta reproduzir o som de conclusão
+          const played = await playSubtleBellChime();
+
+          if (played) {
+            // Se o navegador permitiu autoplay (ou se o usuário já tocou na tela), conclui automaticamente
+            completedRef.current = true;
             setTimeout(() => {
-              if (onCompleteRef.current) onCompleteRef.current();
-            }, 380);
-          }, 320);
+              setIsFadingOut(true);
+              setTimeout(() => {
+                if (onCompleteRef.current) onCompleteRef.current();
+              }, 380);
+            }, 350);
+          } else {
+            // No Chrome em produção sem interação prévia, o áudio é suspenso.
+            // Apresentamos o botão interativo para o usuário clicar e ouvir o som cristalino.
+            setNeedUserGesture(true);
+
+            // Timeout de segurança: se o usuário não clicar em 4.5s, entra automaticamente
+            fallbackTimerRef.current = setTimeout(() => {
+              if (!completedRef.current) {
+                completedRef.current = true;
+                setIsFadingOut(true);
+                setTimeout(() => {
+                  if (onCompleteRef.current) onCompleteRef.current();
+                }, 380);
+              }
+            }, 4500);
+          }
         }
       }
     }, 20);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+      if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
+    };
   }, []);
 
-  const handleSkip = (e) => {
+  const handleEnterWithSound = async (e) => {
     if (e && e.stopPropagation) e.stopPropagation();
+    if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
     if (completedRef.current) return;
     completedRef.current = true;
-    playSubtleBellChime();
+
+    // Gesto de usuário direto: o Chrome libera o áudio instantaneamente
+    await playSubtleBellChime();
     setIsFadingOut(true);
     setTimeout(() => {
       if (onCompleteRef.current) onCompleteRef.current();
-    }, 180);
+    }, 350);
+  };
+
+  const handleSkip = async (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (fallbackTimerRef.current) clearTimeout(fallbackTimerRef.current);
+    if (completedRef.current) return;
+    completedRef.current = true;
+
+    await playSubtleBellChime();
+    setIsFadingOut(true);
+    setTimeout(() => {
+      if (onCompleteRef.current) onCompleteRef.current();
+    }, 200);
+  };
+
+  const handleBackgroundClick = () => {
+    if (needUserGesture) {
+      handleEnterWithSound();
+      return;
+    }
+    // Se o usuário clicar em qualquer lugar durante o carregamento, ativa o áudio sem pular
+    unlockAudio().then((ready) => {
+      if (ready) setAudioReady(true);
+    });
   };
 
   return (
     <div
-      onClick={handleSkip}
-      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none cursor-pointer overflow-y-auto overflow-x-hidden ${
+      onClick={handleBackgroundClick}
+      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none overflow-y-auto overflow-x-hidden ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -113,9 +171,22 @@ export function LoadingScreen({ onLoadingComplete }) {
                 <Terminal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> boot_sequence.sh
               </span>
               <div className="flex items-center gap-2">
-                <span className="flex items-center gap-1 text-[9px] sm:text-[10px] text-neonCyan/70">
-                  <Volume2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> som ativo
-                </span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    unlockAudio().then((ready) => { if (ready) setAudioReady(true); });
+                  }}
+                  className={`flex items-center gap-1 text-[9px] sm:text-[10px] px-2 py-0.5 rounded transition-all cursor-pointer ${
+                    audioReady
+                      ? 'text-neonCyan bg-neonCyan/10 border border-neonCyan/30'
+                      : 'text-gray-400 hover:text-neonCyan bg-white/5 hover:bg-white/10 border border-white/10'
+                  }`}
+                  title={audioReady ? 'Áudio ativado' : 'Clique para ativar o áudio do navegador'}
+                >
+                  <Volume2 className={`w-2.5 h-2.5 sm:w-3 sm:h-3 ${audioReady ? 'text-neonCyan animate-pulse' : 'text-gray-400'}`} />
+                  <span>{audioReady ? 'áudio pronto' : 'ativar áudio'}</span>
+                </button>
                 <span className="text-neonCyan font-bold font-mono">{progress}%</span>
               </div>
             </div>
@@ -126,28 +197,50 @@ export function LoadingScreen({ onLoadingComplete }) {
               ) : (
                 <span className="w-1.5 h-1.5 rounded-full bg-neonCyan animate-ping shrink-0"></span>
               )}
-              <span className="leading-tight">{statusMessages[statusIndex]}</span>
+              <span className="leading-tight">
+                {needUserGesture ? 'Sistema pronto. Clique abaixo para entrar com som.' : statusMessages[statusIndex]}
+              </span>
             </div>
           </div>
 
           {/* Progress Bar with Glow */}
-          <div className="w-full bg-white/5 rounded-full h-1.5 sm:h-2 mb-3 sm:mb-4 overflow-hidden border border-white/10 relative">
+          <div className="w-full bg-white/5 rounded-full h-1.5 sm:h-2 mb-4 overflow-hidden border border-white/10 relative">
             <div
               className="h-full bg-gradient-to-r from-neonCyan via-accentTertiary to-neonOrange transition-all duration-75 rounded-full shadow-[0_0_15px_rgba(var(--accent-glow),0.9)]"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
 
-          {/* Skip hint */}
-          <button
-            id="btn-skip-loading"
-            type="button"
-            onClick={handleSkip}
-            className="text-[9px] sm:text-[10px] font-mono text-gray-400 hover:text-neonCyan uppercase tracking-widest transition-colors py-1.5 px-3 rounded-full hover:bg-white/5 cursor-pointer flex items-center gap-1"
-          >
-            <span>Toque para pular</span>
-            <span className="text-neonCyan">&gt;</span>
-          </button>
+          {/* Action Area: Enter Button or Skip Hint */}
+          <div className="min-h-[48px] flex flex-col items-center justify-center">
+            {needUserGesture ? (
+              <div className="flex flex-col items-center gap-2 animate-fade-in">
+                <button
+                  id="btn-enter-portfolio"
+                  type="button"
+                  onClick={handleEnterWithSound}
+                  className="group px-6 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-neonCyan/20 via-accentTertiary/20 to-neonOrange/20 border border-neonCyan/60 text-white font-mono text-xs sm:text-sm font-bold tracking-wider uppercase shadow-[0_0_25px_rgba(0,242,254,0.4)] hover:shadow-[0_0_35px_rgba(0,242,254,0.7)] hover:border-neonCyan hover:scale-[1.03] active:scale-[0.98] transition-all flex items-center gap-2.5 cursor-pointer"
+                >
+                  <Volume2 className="w-4 h-4 text-neonCyan animate-pulse" />
+                  <span>Acessar Portfólio</span>
+                  <ArrowRight className="w-4 h-4 text-neonCyan group-hover:translate-x-1 transition-transform" />
+                </button>
+                <span className="text-[9px] font-mono text-gray-500 tracking-wide">
+                  Toque em qualquer lugar para inicializar com áudio
+                </span>
+              </div>
+            ) : (
+              <button
+                id="btn-skip-loading"
+                type="button"
+                onClick={handleSkip}
+                className="text-[9px] sm:text-[10px] font-mono text-gray-400 hover:text-neonCyan uppercase tracking-widest transition-colors py-1.5 px-3 rounded-full hover:bg-white/5 cursor-pointer flex items-center gap-1"
+              >
+                <span>Toque para pular</span>
+                <span className="text-neonCyan">&gt;</span>
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

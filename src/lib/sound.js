@@ -1,10 +1,11 @@
 /**
  * Efeito sonoro sintetizado em Web Audio API.
- * Gera um sino cristalino suave ("plen") com suporte a políticas de autoplay de navegadores.
+ * Gera um sino cristalino suave ("plen") com suporte total a políticas de autoplay de navegadores.
  */
 
 let audioCtx = null;
 let lastPlayTime = 0;
+const unlockListeners = new Set();
 
 export function getAudioContext() {
   if (typeof window === 'undefined') return null;
@@ -16,18 +17,55 @@ export function getAudioContext() {
   return audioCtx;
 }
 
+export function isAudioUnlocked() {
+  if (typeof window === 'undefined') return false;
+  const ctx = getAudioContext();
+  return Boolean(ctx && ctx.state === 'running');
+}
+
+export async function unlockAudio() {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return false;
+    if (ctx.state === 'suspended') {
+      await ctx.resume();
+    }
+    const isRunning = ctx.state === 'running';
+    if (isRunning) {
+      unlockListeners.forEach((fn) => {
+        try { fn(); } catch (_) {}
+      });
+    }
+    return isRunning;
+  } catch (_) {
+    return false;
+  }
+}
+
 /**
- * Desbloqueia proativamente o AudioContext em qualquer primeiro gesto do usuário
+ * Registra ouvintes para desbloquear proativamente o AudioContext em qualquer primeiro gesto do usuário
  * (clique, toque na tela, tecla ou ponteiro).
  */
-export function initAudioUnlock() {
+export function initAudioUnlock(onUnlocked) {
   if (typeof window === 'undefined') return;
+
+  if (onUnlocked) {
+    unlockListeners.add(onUnlocked);
+    if (isAudioUnlocked()) {
+      try { onUnlocked(); } catch (_) {}
+    }
+  }
 
   const unlock = async () => {
     try {
       const ctx = getAudioContext();
       if (ctx && ctx.state === 'suspended') {
         await ctx.resume();
+      }
+      if (ctx && ctx.state === 'running') {
+        unlockListeners.forEach((fn) => {
+          try { fn(); } catch (_) {}
+        });
       }
     } catch (_) {}
   };
@@ -37,11 +75,17 @@ export function initAudioUnlock() {
     window.addEventListener(evt, unlock, { capture: true, once: false, passive: true });
   });
 
-  // Tenta também desbloquear imediatamente caso o ambiente já permita autoplay (ex: iframe com permissions)
+  // Tenta também desbloquear imediatamente caso o ambiente já permita autoplay (ex: usuário já interagiu ou MEI favorável)
   try {
     const ctx = getAudioContext();
     if (ctx && ctx.state === 'suspended') {
-      ctx.resume().catch(() => {});
+      ctx.resume().then(() => {
+        if (ctx.state === 'running') {
+          unlockListeners.forEach((fn) => {
+            try { fn(); } catch (_) {}
+          });
+        }
+      }).catch(() => {});
     }
   } catch (_) {}
 }
@@ -56,7 +100,7 @@ function synthesizeChime(ctx) {
 
   // Master volume sutil e balanceado
   const masterGain = ctx.createGain();
-  masterGain.gain.setValueAtTime(0.2, now);
+  masterGain.gain.setValueAtTime(0.22, now);
   masterGain.connect(ctx.destination);
 
   // Harmônicos do sino metálico/cristalino ("plen")
@@ -87,15 +131,19 @@ function synthesizeChime(ctx) {
   });
 }
 
+/**
+ * Toca o sino sutil. Retorna Promise<boolean> informando se o áudio foi de fato reproduzido
+ * ou se foi suspenso pela política de autoplay do navegador.
+ */
 export async function playSubtleBellChime() {
   const nowMs = Date.now();
   // Evita sobreposição acidental em caso de múltiplos disparos simultâneos
-  if (nowMs - lastPlayTime < 400) return;
+  if (nowMs - lastPlayTime < 350) return false;
   lastPlayTime = nowMs;
 
   try {
     const ctx = getAudioContext();
-    if (!ctx) return;
+    if (!ctx) return false;
 
     if (ctx.state === 'suspended') {
       try {
@@ -105,30 +153,33 @@ export async function playSubtleBellChime() {
       }
     }
 
-    // Se o navegador ainda mantiver o contexto suspenso devido à política de autoplay,
-    // registra um gatilho único para tocar no primeiríssimo clique ou toque
-    if (ctx.state === 'suspended') {
-      const unlockAndPlay = async () => {
-        ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
-          window.removeEventListener(evt, unlockAndPlay, { capture: true });
-        });
-        try {
-          await ctx.resume();
-          if (ctx.state === 'running') {
-            synthesizeChime(ctx);
-          }
-        } catch (_) {}
-      };
-
-      ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
-        window.addEventListener(evt, unlockAndPlay, { capture: true, once: true, passive: true });
-      });
-      return;
+    if (ctx.state === 'running') {
+      synthesizeChime(ctx);
+      return true;
     }
 
-    synthesizeChime(ctx);
+    // Se o contexto continuar suspenso pelo navegador, registra para tocar no primeiro gesto
+    const unlockAndPlay = async () => {
+      ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
+        window.removeEventListener(evt, unlockAndPlay, { capture: true });
+      });
+      try {
+        await ctx.resume();
+        if (ctx.state === 'running') {
+          synthesizeChime(ctx);
+        }
+      } catch (_) {}
+    };
+
+    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach((evt) => {
+      window.addEventListener(evt, unlockAndPlay, { capture: true, once: true, passive: true });
+    });
+
+    return false;
   } catch (e) {
     console.debug('Audio initialization skipped:', e);
+    return false;
   }
 }
+
 
