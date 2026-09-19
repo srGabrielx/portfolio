@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, Cpu, CheckCircle2 } from 'lucide-react';
+import { playSubtleBellChime } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
@@ -31,6 +32,8 @@ export function LoadingScreen({ onLoadingComplete }) {
 
       if (rawProgress >= 100) {
         clearInterval(interval);
+        // Disparo síncrono no exato momento em que o carregamento atinge 100%
+        playSubtleBellChime();
         setTimeout(() => {
           setIsFadingOut(true);
           setTimeout(() => {
@@ -44,6 +47,7 @@ export function LoadingScreen({ onLoadingComplete }) {
   }, [onLoadingComplete]);
 
   const handleSkip = () => {
+    playSubtleBellChime();
     setIsFadingOut(true);
     setTimeout(() => {
       if (onLoadingComplete) onLoadingComplete();
