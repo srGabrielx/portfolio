@@ -18,11 +18,11 @@ export function Projetos() {
     },
     {
       num: 'Projeto 02',
-      title: 'AutoTunel Edit',
+      title: 'AutoTunel',
       description:
         'Gerador de padrões melódicos dinâmico desenvolvido em Python. Utiliza randomização estruturada em escalas musicais para criar sequências de áudio exportáveis.',
       tags: ['Python', 'Lógica Algorítmica'],
-      link: 'https://auto-tunel-edit.vercel.app',
+      link: 'https://github.com/srGabrielx/AutoTunel',
       icon: <Music className="w-5 h-5 text-[#ffaa00]" />,
       bgIcon: 'bg-[#ffaa00]/10',
       colorText: 'text-[#ffaa00]',
