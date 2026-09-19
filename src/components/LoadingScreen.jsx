@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Terminal, Cpu, CheckCircle2 } from 'lucide-react';
-import { playSubtleBellChime } from '../lib/sound';
+import React, { useState, useEffect, useRef } from 'react';
+import { Terminal, Cpu, CheckCircle2, Volume2 } from 'lucide-react';
+import { playSubtleBellChime, initAudioUnlock } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
+
+  const completedRef = useRef(false);
+  const onCompleteRef = useRef(onLoadingComplete);
+  onCompleteRef.current = onLoadingComplete;
 
   const statusMessages = [
     'Carregando kernel Python & IA...',
@@ -15,6 +19,9 @@ export function LoadingScreen({ onLoadingComplete }) {
   ];
 
   useEffect(() => {
+    // Pré-ativa o contexto de áudio
+    initAudioUnlock();
+
     const startTime = Date.now();
     const duration = 2600; // 2.6 segundos: rápido, dinâmico e sem cansar o usuário
 
@@ -32,26 +39,32 @@ export function LoadingScreen({ onLoadingComplete }) {
 
       if (rawProgress >= 100) {
         clearInterval(interval);
-        // Disparo síncrono no exato momento em que o carregamento atinge 100%
-        playSubtleBellChime();
-        setTimeout(() => {
-          setIsFadingOut(true);
+        if (!completedRef.current) {
+          completedRef.current = true;
+          // Toca o som cristalino suave quando o carregamento atinge 100% normalmente
+          playSubtleBellChime();
           setTimeout(() => {
-            if (onLoadingComplete) onLoadingComplete();
-          }, 350);
-        }, 150);
+            setIsFadingOut(true);
+            setTimeout(() => {
+              if (onCompleteRef.current) onCompleteRef.current();
+            }, 380);
+          }, 320);
+        }
       }
     }, 20);
 
     return () => clearInterval(interval);
-  }, [onLoadingComplete]);
+  }, []);
 
-  const handleSkip = () => {
+  const handleSkip = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    if (completedRef.current) return;
+    completedRef.current = true;
     playSubtleBellChime();
     setIsFadingOut(true);
     setTimeout(() => {
-      if (onLoadingComplete) onLoadingComplete();
-    }, 150);
+      if (onCompleteRef.current) onCompleteRef.current();
+    }, 180);
   };
 
   return (
@@ -99,7 +112,12 @@ export function LoadingScreen({ onLoadingComplete }) {
               <span className="flex items-center gap-1.5 text-gray-400">
                 <Terminal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> boot_sequence.sh
               </span>
-              <span className="text-neonCyan font-bold font-mono">{progress}%</span>
+              <div className="flex items-center gap-2">
+                <span className="flex items-center gap-1 text-[9px] sm:text-[10px] text-neonCyan/70">
+                  <Volume2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> som ativo
+                </span>
+                <span className="text-neonCyan font-bold font-mono">{progress}%</span>
+              </div>
             </div>
 
             <div className="flex items-center gap-2 text-[9.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
@@ -121,9 +139,15 @@ export function LoadingScreen({ onLoadingComplete }) {
           </div>
 
           {/* Skip hint */}
-          <span className="text-[9px] sm:text-[10px] font-mono text-gray-500 uppercase tracking-widest hover:text-gray-300 transition-colors">
-            Toque para pular &gt;
-          </span>
+          <button
+            id="btn-skip-loading"
+            type="button"
+            onClick={handleSkip}
+            className="text-[9px] sm:text-[10px] font-mono text-gray-400 hover:text-neonCyan uppercase tracking-widest transition-colors py-1.5 px-3 rounded-full hover:bg-white/5 cursor-pointer flex items-center gap-1"
+          >
+            <span>Toque para pular</span>
+            <span className="text-neonCyan">&gt;</span>
+          </button>
         </div>
       </div>
     </div>
