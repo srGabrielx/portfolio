@@ -1,12 +1,15 @@
 /**
  * Efeito sonoro sintetizado em Web Audio API e fallback HTML5 Audio.
  * Gera um sino cristalino suave ("plen") de alta fidelidade com suporte total
- * a qualquer navegador (Chrome, Safari, Firefox, Edge, Mobile).
+ * a qualquer navegador (Chrome, Safari, Firefox, Edge, Mobile), tanto ao pular
+ * quanto ao completar a animação normalmente.
  */
 
 let audioCtx = null;
 let lastPlayTime = 0;
 let chimeAudioUrl = null;
+let preloadedAudio = null;
+let isChimeArmed = false;
 const unlockListeners = new Set();
 
 export function getAudioContext() {
@@ -23,25 +26,6 @@ export function isAudioUnlocked() {
   if (typeof window === 'undefined') return false;
   const ctx = getAudioContext();
   return Boolean(ctx && ctx.state === 'running');
-}
-
-export async function unlockAudio() {
-  try {
-    const ctx = getAudioContext();
-    if (!ctx) return false;
-    if (ctx.state === 'suspended') {
-      await ctx.resume();
-    }
-    const isRunning = ctx.state === 'running';
-    if (isRunning) {
-      unlockListeners.forEach((fn) => {
-        try { fn(); } catch (_) {}
-      });
-    }
-    return isRunning;
-  } catch (_) {
-    return false;
-  }
 }
 
 /**
@@ -100,30 +84,33 @@ function getChimeAudioUrl() {
 }
 
 /**
- * Toca o sino via elemento nativo HTML5 Audio
+ * Obtém elemento de áudio nativo pré-carregado
  */
-function playHtmlAudioChime() {
-  if (typeof window === 'undefined') return;
-  try {
+function getPreloadedAudio() {
+  if (typeof window === 'undefined') return null;
+  if (!preloadedAudio) {
     const url = getChimeAudioUrl();
-    if (!url) return;
-    const audio = new Audio(url);
-    audio.volume = 0.25;
-    const promise = audio.play();
-    if (promise !== undefined) {
-      promise.catch(() => {});
+    if (url) {
+      try {
+        preloadedAudio = new Audio(url);
+        preloadedAudio.volume = 0.28;
+        preloadedAudio.preload = 'auto';
+        preloadedAudio.load();
+      } catch (_) {}
     }
-  } catch (_) {}
+  }
+  return preloadedAudio;
 }
 
 /**
- * Síntese em Web Audio API com envelope exponencial
+ * Síntese em Web Audio API com envelope harmônico e timing preciso
  */
 function synthesizeChime(ctx) {
   try {
-    const now = ctx.currentTime;
+    if (!ctx) return;
+    const startTime = ctx.currentTime + 0.015;
     const masterGain = ctx.createGain();
-    masterGain.gain.setValueAtTime(0.22, now);
+    masterGain.gain.setValueAtTime(0.24, startTime);
     masterGain.connect(ctx.destination);
 
     const harmonics = [
@@ -138,19 +125,76 @@ function synthesizeChime(ctx) {
       const toneGain = ctx.createGain();
 
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, now);
+      osc.frequency.setValueAtTime(freq, startTime);
 
-      toneGain.gain.setValueAtTime(0.0001, now);
-      toneGain.gain.linearRampToValueAtTime(gain, now + 0.004);
-      toneGain.gain.exponentialRampToValueAtTime(0.0001, now + decay);
+      toneGain.gain.setValueAtTime(0.0001, startTime);
+      toneGain.gain.linearRampToValueAtTime(gain, startTime + 0.004);
+      toneGain.gain.exponentialRampToValueAtTime(0.0001, startTime + decay);
 
       osc.connect(toneGain);
       toneGain.connect(masterGain);
 
-      osc.start(now);
-      osc.stop(now + decay + 0.05);
+      osc.start(startTime);
+      osc.stop(startTime + decay + 0.05);
     });
   } catch (_) {}
+}
+
+/**
+ * Tenta tocar via HTML5 Audio
+ */
+function playHtmlAudio() {
+  const audio = getPreloadedAudio();
+  if (!audio) return false;
+  try {
+    audio.currentTime = 0;
+    const p = audio.play();
+    if (p !== undefined) {
+      p.catch(() => {});
+    }
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
+/**
+ * Se o Chrome ou navegador bloqueou o áudio na conclusão automática (100%)
+ * por ausência de gesto prévio do usuário, arma o disparo para o primeiro toque/clique.
+ */
+export function armPendingChime() {
+  if (isChimeArmed || typeof window === 'undefined') return;
+  isChimeArmed = true;
+
+  const gestureEvents = ['pointerdown', 'touchstart', 'touchend', 'mousedown', 'keydown', 'click'];
+
+  const triggerChime = async () => {
+    if (!isChimeArmed) return;
+    isChimeArmed = false;
+
+    gestureEvents.forEach((evt) => {
+      window.removeEventListener(evt, triggerChime, { capture: true });
+    });
+
+    try {
+      const ctx = getAudioContext();
+      if (ctx) {
+        if (ctx.state === 'suspended') {
+          await ctx.resume();
+        }
+        if (ctx.state === 'running') {
+          synthesizeChime(ctx);
+          return;
+        }
+      }
+    } catch (_) {}
+
+    playHtmlAudio();
+  };
+
+  gestureEvents.forEach((evt) => {
+    window.addEventListener(evt, triggerChime, { capture: true, once: true, passive: true });
+  });
 }
 
 /**
@@ -185,6 +229,7 @@ export function initAudioUnlock(onUnlocked) {
     window.addEventListener(evt, unlock, { capture: true, once: false, passive: true });
   });
 
+  // Tenta também desbloquear proativamente caso o contexto já tenha permissão
   try {
     const ctx = getAudioContext();
     if (ctx && ctx.state === 'suspended') {
@@ -197,6 +242,9 @@ export function initAudioUnlock(onUnlocked) {
       }).catch(() => {});
     }
   } catch (_) {}
+
+  // Pré-inicializa o áudio HTML5
+  getPreloadedAudio();
 }
 
 if (typeof window !== 'undefined') {
@@ -204,35 +252,45 @@ if (typeof window !== 'undefined') {
 }
 
 /**
- * Reproduz o sino cristalino. Funciona tanto ao pular quanto ao completar a animação.
+ * Reproduz o sino cristalino.
+ * Funciona tanto ao pular quanto ao completar a animação.
  */
 export async function playSubtleBellChime() {
   const nowMs = Date.now();
-  if (nowMs - lastPlayTime < 280) return false;
+  if (nowMs - lastPlayTime < 250) return true;
   lastPlayTime = nowMs;
 
   let played = false;
 
-  // 1. Tenta via Web Audio API
+  // 1. Tenta Web Audio API garantindo resume prévio
   try {
     const ctx = getAudioContext();
     if (ctx) {
       if (ctx.state === 'suspended') {
-        ctx.resume().catch(() => {});
+        try {
+          await ctx.resume();
+        } catch (_) {}
       }
-      synthesizeChime(ctx);
+
+      if (ctx.state === 'running') {
+        synthesizeChime(ctx);
+        played = true;
+      }
+    }
+  } catch (_) {}
+
+  // 2. Tenta HTML5 Audio nativo como reforço
+  try {
+    if (playHtmlAudio()) {
       played = true;
     }
   } catch (_) {}
 
-  // 2. Tenta também via HTML5 Audio nativo para garantia máxima
-  try {
-    playHtmlAudioChime();
-    played = true;
-  } catch (_) {}
+  // 3. Se o navegador (ex: Chrome em visita inicial estrita sem toque) impediu o som imediato:
+  // Fica armado para tocar instantaneamente no primeiro toque/clique que o usuário der na tela
+  if (!played) {
+    armPendingChime();
+  }
 
   return played;
 }
-
-
-
