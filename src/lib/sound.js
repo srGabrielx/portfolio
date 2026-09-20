@@ -22,9 +22,10 @@ export function unlockChime() {
         chime.currentTime = 0;
         chime.volume = 0.35;
       })
-      .catch(() => {
+      .catch((error) => {
         unlocked = false;
         chime.volume = 0.35;
+        console.log("CHIME UNLOCK:", error.name, error.message);
       });
   }
 }
@@ -38,6 +39,7 @@ export async function playChime() {
     await chime.play();
     return true;
   } catch (error) {
+    console.log("CHIME:", error.name, error.message);
     return false;
   }
 }
