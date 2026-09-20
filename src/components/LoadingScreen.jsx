@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Terminal, Cpu, CheckCircle2 } from 'lucide-react';
-import { playChime } from '../lib/sound';
+import { playChime, unlockChime } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
@@ -8,7 +8,6 @@ export function LoadingScreen({ onLoadingComplete }) {
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   const completedRef = useRef(false);
-  const interactedRef = useRef(false);
   const onCompleteRef = useRef(onLoadingComplete);
   onCompleteRef.current = onLoadingComplete;
 
@@ -19,12 +18,10 @@ export function LoadingScreen({ onLoadingComplete }) {
     'Sistema operacional pronto.'
   ];
 
-  // Conclui o loading e faz a transição
   const finalizarLoading = (immediate = false) => {
     if (completedRef.current) return;
     completedRef.current = true;
 
-    // Dispara o sino (se o Chrome permitir ou se tiver havido clique, toca; se bloqueado, apenas ignora)
     playChime();
 
     if (immediate) {
@@ -62,14 +59,12 @@ export function LoadingScreen({ onLoadingComplete }) {
         clearInterval(interval);
         setProgress(100);
         setStatusIndex(statusMessages.length - 1);
-
-        // Ao atingir 100% naturalmente
         finalizarLoading(false);
       }
     }, 20);
 
     const handleKeyDown = (e) => {
-      interactedRef.current = true;
+      unlockChime();
       if (e.key === 'Escape') {
         finalizarLoading(true);
       }
@@ -85,7 +80,7 @@ export function LoadingScreen({ onLoadingComplete }) {
   return (
     <div
       onPointerDown={() => {
-        interactedRef.current = true;
+        unlockChime();
       }}
       className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none overflow-y-auto overflow-x-hidden ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
