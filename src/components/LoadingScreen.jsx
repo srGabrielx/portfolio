@@ -46,18 +46,20 @@ export function LoadingScreen({ onLoadingComplete }) {
         setProgress(100);
         setStatusIndex(statusMessages.length - 1);
 
+        // 1. SE A ANIMAÇÃO CHEGA NO FINAL -> ATIVA O SOM
         if (!completedRef.current) {
           completedRef.current = true;
-          // Toca o sino cristalino
+
+          // Dispara o som na finalização da animação
           playSubtleBellChime();
 
-          // Libera e transita a tela automaticamente sem travar no Chrome ou qualquer navegador
+          // Libera e transita a tela automaticamente
           setTimeout(() => {
             setIsFadingOut(true);
             setTimeout(() => {
               if (onCompleteRef.current) onCompleteRef.current();
             }, 380);
-          }, 320);
+          }, 360);
         }
       }
     }, 20);
@@ -65,12 +67,15 @@ export function LoadingScreen({ onLoadingComplete }) {
     return () => clearInterval(interval);
   }, []);
 
+  // 2. SE A TELA PULA -> ATIVA O SOM
   const handleSkip = (e) => {
     if (e && e.stopPropagation) e.stopPropagation();
     if (completedRef.current) return;
     completedRef.current = true;
 
+    // Dispara o som ao pular a animação
     playSubtleBellChime();
+
     setIsFadingOut(true);
     setTimeout(() => {
       if (onCompleteRef.current) onCompleteRef.current();
