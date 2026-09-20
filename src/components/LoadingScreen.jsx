@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, CheckCircle2, Volume2 } from 'lucide-react';
-import { playSubtleBellChime, initAudioUnlock, isAudioUnlocked } from '../lib/sound';
+import { Terminal, Cpu, CheckCircle2 } from 'lucide-react';
+import { playChime } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
   const [statusIndex, setStatusIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
-  const [audioReady, setAudioReady] = useState(false);
 
   const completedRef = useRef(false);
+  const interactedRef = useRef(false);
   const onCompleteRef = useRef(onLoadingComplete);
   onCompleteRef.current = onLoadingComplete;
 
@@ -19,15 +19,32 @@ export function LoadingScreen({ onLoadingComplete }) {
     'Sistema operacional pronto.'
   ];
 
-  useEffect(() => {
-    // Pré-ativa o contexto de áudio em qualquer interação
-    initAudioUnlock(() => setAudioReady(true));
-    if (isAudioUnlocked()) {
-      setAudioReady(true);
-    }
+  // Conclui o loading e faz a transição
+  const finalizarLoading = (immediate = false) => {
+    if (completedRef.current) return;
+    completedRef.current = true;
 
+    // Dispara o sino (se o Chrome permitir ou se tiver havido clique, toca; se bloqueado, apenas ignora)
+    playChime();
+
+    if (immediate) {
+      setIsFadingOut(true);
+      setTimeout(() => {
+        if (onCompleteRef.current) onCompleteRef.current();
+      }, 150);
+    } else {
+      setTimeout(() => {
+        setIsFadingOut(true);
+        setTimeout(() => {
+          if (onCompleteRef.current) onCompleteRef.current();
+        }, 300);
+      }, 350);
+    }
+  };
+
+  useEffect(() => {
     const startTime = Date.now();
-    const duration = 2200; // Carregamento rápido, ágil e sem cansar o usuário
+    const duration = 2200;
 
     const interval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -46,46 +63,31 @@ export function LoadingScreen({ onLoadingComplete }) {
         setProgress(100);
         setStatusIndex(statusMessages.length - 1);
 
-        // 1. SE A ANIMAÇÃO CHEGA NO FINAL -> ATIVA O SOM
-        if (!completedRef.current) {
-          completedRef.current = true;
-
-          // Dispara o som na finalização da animação
-          playSubtleBellChime();
-
-          // Libera e transita a tela automaticamente
-          setTimeout(() => {
-            setIsFadingOut(true);
-            setTimeout(() => {
-              if (onCompleteRef.current) onCompleteRef.current();
-            }, 380);
-          }, 360);
-        }
+        // Ao atingir 100% naturalmente
+        finalizarLoading(false);
       }
     }, 20);
 
-    return () => clearInterval(interval);
+    const handleKeyDown = (e) => {
+      interactedRef.current = true;
+      if (e.key === 'Escape') {
+        finalizarLoading(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, []);
-
-  // 2. SE A TELA PULA -> ATIVA O SOM
-  const handleSkip = (e) => {
-    if (e && e.stopPropagation) e.stopPropagation();
-    if (completedRef.current) return;
-    completedRef.current = true;
-
-    // Dispara o som ao pular a animação
-    playSubtleBellChime();
-
-    setIsFadingOut(true);
-    setTimeout(() => {
-      if (onCompleteRef.current) onCompleteRef.current();
-    }, 180);
-  };
 
   return (
     <div
-      onClick={handleSkip}
-      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none cursor-pointer overflow-y-auto overflow-x-hidden ${
+      onPointerDown={() => {
+        interactedRef.current = true;
+      }}
+      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none overflow-y-auto overflow-x-hidden ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -127,12 +129,7 @@ export function LoadingScreen({ onLoadingComplete }) {
               <span className="flex items-center gap-1.5 text-gray-400">
                 <Terminal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> boot_sequence.sh
               </span>
-              <div className="flex items-center gap-2">
-                <span className="flex items-center gap-1 text-[9px] sm:text-[10px] text-neonCyan/80 font-mono">
-                  <Volume2 className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> som ativo
-                </span>
-                <span className="text-neonCyan font-bold font-mono">{progress}%</span>
-              </div>
+              <span className="text-neonCyan font-bold font-mono">{progress}%</span>
             </div>
 
             <div className="flex items-center gap-2 text-[9.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
@@ -153,16 +150,22 @@ export function LoadingScreen({ onLoadingComplete }) {
             ></div>
           </div>
 
-          {/* Skip Button */}
-          <button
-            id="btn-skip-loading"
-            type="button"
-            onClick={handleSkip}
-            className="text-[9px] sm:text-[10px] font-mono text-gray-400 hover:text-neonCyan uppercase tracking-widest transition-colors py-1.5 px-3 rounded-full hover:bg-white/5 cursor-pointer flex items-center gap-1"
-          >
-            <span>Toque para pular</span>
-            <span className="text-neonCyan">&gt;</span>
-          </button>
+          {/* Action Row */}
+          <div className="flex items-center justify-center gap-3">
+            <button
+              id="btn-skip-loading"
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                finalizarLoading(true);
+              }}
+              className="text-[10px] sm:text-[11px] font-mono text-gray-300 hover:text-white uppercase tracking-wider transition-all py-1.5 px-4 rounded-full bg-white/5 hover:bg-white/10 cursor-pointer flex items-center gap-1.5 border border-white/10 hover:border-neonCyan/40"
+            >
+              <span>Pular carregamento</span>
+              <span className="text-neonCyan">&gt;</span>
+              <span className="text-[9px] text-gray-500 ml-1 font-mono">[ESC]</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
