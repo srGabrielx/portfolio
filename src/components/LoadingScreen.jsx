@@ -1,22 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, CheckCircle2 } from 'lucide-react';
 import { playChime, unlockChime } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
   const [progress, setProgress] = useState(0);
-  const [statusIndex, setStatusIndex] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   const completedRef = useRef(false);
   const onCompleteRef = useRef(onLoadingComplete);
   onCompleteRef.current = onLoadingComplete;
-
-  const statusMessages = [
-    'Carregando kernel Python & IA...',
-    'Inicializando modelos LLM & RAG...',
-    'Montando interface gráfica interativa...',
-    'Sistema operacional pronto.'
-  ];
 
   const finalizarLoading = (immediate = false) => {
     if (completedRef.current) return;
@@ -49,16 +40,9 @@ export function LoadingScreen({ onLoadingComplete }) {
 
       setProgress(rawProgress);
 
-      const step = Math.min(
-        Math.floor((rawProgress / 100) * statusMessages.length),
-        statusMessages.length - 1
-      );
-      setStatusIndex(step);
-
       if (rawProgress >= 100) {
         clearInterval(interval);
         setProgress(100);
-        setStatusIndex(statusMessages.length - 1);
         finalizarLoading(false);
       }
     }, 20);
@@ -82,86 +66,116 @@ export function LoadingScreen({ onLoadingComplete }) {
       onPointerDown={() => {
         unlockChime();
       }}
-      className={`fixed inset-0 z-[9999999] bg-bgBase transition-all duration-400 select-none overflow-y-auto overflow-x-hidden ${
+      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center overflow-hidden bg-black text-green-500 font-sans select-none transition-all duration-400 ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
     >
-      {/* Background Ambient Glow */}
-      <div className="absolute w-96 h-96 bg-neonCyan/15 rounded-full blur-[120px] pointer-events-none -top-20 -left-20"></div>
-      <div className="absolute w-96 h-96 bg-neonOrange/15 rounded-full blur-[120px] pointer-events-none -bottom-20 -right-20"></div>
-      <div className="hero-grid absolute inset-0 opacity-20 pointer-events-none"></div>
+      <style>{`
+        .hud-spin { animation: spin 4s linear infinite; }
+        .hud-spin-reverse { animation: spin 3s linear infinite reverse; }
+        .neon-glow { filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.8)); }
+        .scanline {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to bottom, transparent 50%, rgba(34, 197, 94, 0.03) 51%);
+          background-size: 100% 4px;
+          pointer-events: none;
+          z-index: 10;
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+        @keyframes slide {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(250%); }
+        }
+        .animate-slide { animation: slide 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+        @keyframes pulse-fast {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.7; }
+        }
+        .animate-pulse-fast { animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+      `}</style>
 
-      {/* Safe Centering Wrapper */}
-      <div className="min-h-full w-full flex flex-col items-center justify-center p-4 sm:p-8">
-        {/* Central Cyber Container */}
-        <div className="relative z-10 flex flex-col items-center max-w-xs sm:max-w-md w-full text-center">
-          {/* Glowing Logo Badge */}
-          <div className="relative mb-6 sm:mb-8 group">
-            <div className="absolute -inset-2 bg-gradient-to-r from-neonCyan via-neonOrange to-accentTertiary rounded-2xl blur-lg opacity-60 animate-pulse-glow"></div>
-            <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-bgCard border border-white/15 flex items-center justify-center shadow-2xl">
-              <div className="relative flex items-center justify-center">
-                <span className="font-mono font-black text-xl sm:text-2xl tracking-tighter bg-name-gradient bg-clip-text text-transparent">
-                  GG
-                </span>
-                <span className="absolute -bottom-1.5 -right-1.5 sm:-bottom-2 sm:-right-2 w-2.5 h-2.5 sm:w-3 sm:h-3 bg-green-500 rounded-full border-2 border-bgCard animate-pulse"></span>
-              </div>
-            </div>
-          </div>
+      {/* Fundo com degradê radial sutil */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#064e3b20_0%,_#000000_100%)] pointer-events-none"></div>
 
-          {/* Title */}
-          <h2 className="text-lg sm:text-2xl font-black uppercase tracking-tight text-white mb-1">
-            Gabriel Gonçalves
-          </h2>
-          <div className="flex items-center gap-2 text-[10px] sm:text-xs font-mono text-gray-400 mb-6 sm:mb-8">
-            <Cpu className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-neonCyan animate-spin" style={{ animationDuration: '3s' }} />
-            <span>PORTFÓLIO IA & PYTHON</span>
-          </div>
+      {/* Grid de interface (Radar/HUD) */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#22c55e0a_1px,transparent_1px),linear-gradient(to_bottom,#22c55e0a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-          {/* Terminal Status Box */}
-          <div className="w-full bg-bgCard/90 border border-white/10 rounded-xl p-3 sm:p-4 mb-4 backdrop-blur-md text-left shadow-lg">
-            <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-mono text-gray-500 mb-2 border-b border-white/5 pb-1.5">
-              <span className="flex items-center gap-1.5 text-gray-400">
-                <Terminal className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-neonCyan" /> boot_sequence.sh
-              </span>
-              <span className="text-neonCyan font-bold font-mono">{progress}%</span>
-            </div>
+      {/* Efeito de tela CRT/Scanline */}
+      <div className="scanline"></div>
 
-            <div className="flex items-center gap-2 text-[9.5px] sm:text-xs font-mono text-gray-300 min-h-[24px]">
-              {progress === 100 ? (
-                <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-green-500 shrink-0" />
-              ) : (
-                <span className="w-1.5 h-1.5 rounded-full bg-neonCyan animate-ping shrink-0"></span>
-              )}
-              <span className="leading-tight">{statusMessages[statusIndex]}</span>
-            </div>
-          </div>
+      {/* Container Principal do Shuriken */}
+      <div className="relative z-20 flex flex-col items-center">
+        {/* Anéis de HUD externos */}
+        <div className="absolute inset-0 -m-8 rounded-full border border-green-500/10 border-t-green-500/60 border-b-green-500/60 hud-spin pointer-events-none"></div>
+        <div className="absolute inset-0 -m-4 rounded-full border border-green-500/20 border-l-green-500/80 hud-spin-reverse opacity-70 pointer-events-none"></div>
 
-          {/* Progress Bar with Glow */}
-          <div className="w-full bg-white/5 rounded-full h-1.5 sm:h-2 mb-4 overflow-hidden border border-white/10 relative">
-            <div
-              className="h-full bg-gradient-to-r from-neonCyan via-accentTertiary to-neonOrange transition-all duration-75 rounded-full shadow-[0_0_15px_rgba(var(--accent-glow),0.9)]"
-              style={{ width: `${progress}%` }}
-            ></div>
-          </div>
+        {/* Brilho de fundo (Core) */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-green-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
-          {/* Action Row */}
-          <div className="flex items-center justify-center gap-3">
-            <button
-              id="btn-skip-loading"
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                finalizarLoading(true);
-              }}
-              className="text-[10px] sm:text-[11px] font-mono text-gray-300 hover:text-white uppercase tracking-wider transition-all py-1.5 px-4 rounded-full bg-white/5 hover:bg-white/10 cursor-pointer flex items-center gap-1.5 border border-white/10 hover:border-neonCyan/40"
-            >
-              <span>Pular carregamento</span>
-              <span className="text-neonCyan">&gt;</span>
-              <span className="text-[9px] text-gray-500 ml-1 font-mono">[ESC]</span>
-            </button>
-          </div>
+        {/* Shuriken Aggressive (Linhas retas e cortantes) */}
+        <div className="animate-[spin_1.5s_linear_infinite] neon-glow relative">
+          <svg
+            width="100"
+            height="100"
+            viewBox="0 0 200 200"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g transform="translate(100 100)">
+              {/* Lâminas mais angulares e agressivas */}
+              <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="#22c55e" />
+              <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="#22c55e" />
+              <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="#22c55e" />
+              <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="#22c55e" />
+
+              {/* Núcleo mecânico */}
+              <circle cx="0" cy="0" r="18" fill="#000" stroke="#22c55e" strokeWidth="4" />
+              <circle cx="0" cy="0" r="6" fill="#22c55e" />
+              <path d="M -12 -12 L 12 12 M -12 12 L 12 -12" stroke="#000" strokeWidth="3" />
+            </g>
+          </svg>
         </div>
+      </div>
+
+      {/* Textos e Barra de Progresso Estilo HUD */}
+      <div className="relative z-20 mt-16 flex flex-col items-center gap-3">
+        <p className="text-xs font-mono tracking-[0.4em] text-green-400 animate-pulse-fast drop-shadow-[0_0_5px_rgba(34,197,94,0.8)]">
+          INICIALIZANDO SISTEMA_
+        </p>
+
+        {/* Barra de carregamento com progresso real integrado ao estilo HUD */}
+        <div className="w-56 h-[2px] bg-green-950/80 rounded-full overflow-hidden relative">
+          <div
+            className="absolute top-0 left-0 h-full bg-green-400 transition-all duration-75 shadow-[0_0_8px_#22c55e]"
+            style={{ width: `${progress}%` }}
+          ></div>
+        </div>
+
+        {/* Detalhes de numeração e status */}
+        <div className="flex w-56 justify-between text-[10px] font-mono text-green-600/60 mt-1">
+          <span>SYS.BOOT [{progress}%]</span>
+          <span>v2.0.4</span>
+        </div>
+
+        {/* Botão Pular Carregamento integrado ao estilo cibernético */}
+        <button
+          id="btn-skip-loading"
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            finalizarLoading(true);
+          }}
+          className="mt-4 text-[10px] font-mono text-green-500/70 hover:text-green-300 uppercase tracking-widest py-1.5 px-4 rounded border border-green-500/20 hover:border-green-500/50 bg-green-950/20 hover:bg-green-900/30 transition-all cursor-pointer flex items-center gap-1.5"
+        >
+          <span>Pular</span>
+          <span className="text-green-400">&gt;</span>
+          <span className="text-[9px] text-green-700 ml-1 font-mono">[ESC]</span>
+        </button>
       </div>
     </div>
   );
