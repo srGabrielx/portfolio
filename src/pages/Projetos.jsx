@@ -1,5 +1,23 @@
 import React from 'react';
-import { FileText, Music, Bot, Server, ArrowRight, ArrowUpRight } from 'lucide-react';
+import {
+  FileText,
+  Music,
+  Bot,
+  Server,
+  ArrowRight,
+  ArrowUpRight,
+  Terminal,
+  Sparkles,
+  Layers,
+  BarChart3,
+  Headphones,
+  Car,
+  Maximize2,
+  Cigarette,
+  Wine,
+  Sliders,
+  AudioWaveform
+} from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
 
 export function Projetos() {
@@ -56,64 +74,136 @@ export function Projetos() {
 
   const webApps = [
     {
-      title: 'LimpaWinx',
+      id: 'limpawinx',
+      title: 'LIMPAWINX',
+      description: 'Otimização profunda de sistema, limpeza de cache e remoção de arquivos temporários com interface intuitiva.',
+      category: 'Utilitário Desktop',
       url: 'https://github.com/srGabrielx/LimpaWinx',
-      img: '/images/projects/LinpaWin.png'
+      img: '/images/projects/LinpaWin.png',
+      icon: <Terminal size={14} className="text-blue-400" />,
+      color: 'from-blue-500/20 to-blue-900/5',
+      accent: 'group-hover:border-blue-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]'
     },
     {
-      title: 'Botão AI',
+      id: 'botao-ai',
+      title: 'BOTÃO AI',
+      description: 'Transforme suas ideias em botões incríveis. Crie, personalize e compartilhe componentes com Inteligência Artificial.',
+      category: 'Plataforma SaaS',
       url: 'https://botao-ai.vercel.app',
-      img: '/images/projects/botao.png'
+      img: '/images/projects/botao.png',
+      icon: <Sparkles size={14} className="text-purple-400" />,
+      color: 'from-purple-500/20 to-fuchsia-900/5',
+      accent: 'group-hover:border-purple-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]'
     },
     {
-      title: 'Criar Currículo',
+      id: 'criar-curriculo',
+      title: 'CRIAR CURRÍCULO',
+      description: 'Gerador inteligente de currículos profissionais de alta conversão com layouts dinâmicos e exportação rápida.',
+      category: 'Ferramenta Web / SaaS',
       url: 'https://criacurriculo-alpha.vercel.app/dashboard',
-      img: '/images/projects/CriaCurriculo.png'
+      img: '/images/projects/CriaCurriculo.png',
+      icon: <Layers size={14} className="text-emerald-400" />,
+      color: 'from-emerald-500/20 to-teal-900/5',
+      accent: 'group-hover:border-emerald-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(16,185,129,0.3)]'
     },
     {
-      title: 'Aura Analytics',
+      id: 'aura-analytics',
+      title: 'AURA ANALYTICS',
+      description: 'Painel moderno de análise de dados e métricas em tempo real com gráficos avançados e alta performance.',
+      category: 'Dashboard & Analytics',
       url: 'https://aura-analytc.vercel.app/',
-      img: '/images/projects/aura-analytics.png'
+      img: '/images/projects/aura-analytics.png',
+      icon: <BarChart3 size={14} className="text-cyan-400" />,
+      color: 'from-cyan-500/20 to-blue-900/5',
+      accent: 'group-hover:border-cyan-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(6,182,212,0.3)]'
     },
     {
-      title: 'é O Witcher No Beat',
+      id: 'witcher-beats',
+      title: 'É O WITCHER NO BEAT',
+      description: 'Portfólio musical e plataforma para distribuição e audição de produções fonográficas e instrumentais.',
+      category: 'Música & Áudio',
       url: 'https://witcher-beats-site.vercel.app',
-      img: '/images/projects/witcher-beats.jpg'
+      img: '/images/projects/witcher-beats.jpg',
+      icon: <Headphones size={14} className="text-amber-400" />,
+      color: 'from-amber-500/20 to-orange-900/5',
+      accent: 'group-hover:border-amber-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(245,158,11,0.3)]'
     },
     {
-      title: 'Auto Escola One',
+      id: 'auto-escola-one',
+      title: 'AUTO ESCOLA ONE',
+      description: 'Website moderno e institucional com agendamento online e informações completas para formação de condutores.',
+      category: 'Web Institucional',
       url: 'https://auto-escola-one.vercel.app',
-      img: '/images/projects/auto-escola-one.jpg'
+      img: '/images/projects/auto-escola-one.jpg',
+      icon: <Car size={14} className="text-sky-400" />,
+      color: 'from-sky-500/20 to-blue-900/5',
+      accent: 'group-hover:border-sky-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(56,189,248,0.3)]'
     },
     {
-      title: 'Lumina Vidros',
+      id: 'lumina-vidros',
+      title: 'LUMINA VIDROS',
+      description: 'Catálogo digital e landing page de alta conversão para vidraçaria e soluções arquitetônicas elegantes.',
+      category: 'Comércio & Serviços',
       url: 'https://lumina-vidros.vercel.app',
-      img: '/images/projects/lumina-vidros.jpg'
+      img: '/images/projects/lumina-vidros.jpg',
+      icon: <Maximize2 size={14} className="text-indigo-400" />,
+      color: 'from-indigo-500/20 to-violet-900/5',
+      accent: 'group-hover:border-indigo-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)]'
     },
     {
-      title: 'Seyller Tabacaria',
+      id: 'seyller-tabacaria',
+      title: 'SEYLLER TABACARIA',
+      description: 'E-commerce e vitrine virtual para produtos de conveniência com design refinado e responsivo.',
+      category: 'E-Commerce / Vitrine',
       url: 'https://seyller-tabacaria-app.vercel.app',
-      img: '/images/projects/seyller-tabacaria.png'
+      img: '/images/projects/seyller-tabacaria.png',
+      icon: <Cigarette size={14} className="text-rose-400" />,
+      color: 'from-rose-500/20 to-red-900/5',
+      accent: 'group-hover:border-rose-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]'
     },
     {
-      title: 'Adega Express',
+      id: 'adega-express',
+      title: 'ADEGA EXPRESS',
+      description: 'Sistema de catálogo ágil para adega com visual noturno, produtos selecionados e canal de pedidos veloz.',
+      category: 'Delivery / Catálogo',
       url: 'https://adega-express-ivory.vercel.app/',
-      img: '/images/projects/adega-express.png'
+      img: '/images/projects/adega-express.png',
+      icon: <Wine size={14} className="text-purple-400" />,
+      color: 'from-purple-500/20 to-pink-900/5',
+      accent: 'group-hover:border-purple-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)]'
     },
     {
-      title: 'AutoTunel Edit',
+      id: 'auto-tunel-edit',
+      title: 'AUTOTUNEL EDIT',
+      description: 'Editor dinâmico de escalas e padrões musicais para manipulação rápida de matrizes sonoras.',
+      category: 'Estúdio / Áudio',
       url: 'https://auto-tunel-edit.vercel.app',
-      img: '/images/projects/AutoTunelEdit.png'
+      img: '/images/projects/AutoTunelEdit.png',
+      icon: <Sliders size={14} className="text-orange-400" />,
+      color: 'from-orange-500/20 to-amber-900/5',
+      accent: 'group-hover:border-orange-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(249,115,22,0.3)]'
     },
     {
-      title: 'AutoTunel-Pro',
+      id: 'auto-tunel-pro',
+      title: 'AUTOTUNEL-PRO',
+      description: 'Versão avançada para produção com controle algorítmico aprofundado e geração de melodias em tempo real.',
+      category: 'Software Web / Pro Audio',
       url: 'https://auto-tunel-pro.vercel.app/',
-      img: '/images/projects/auto-tunel-pro.png'
+      img: '/images/projects/auto-tunel-pro.png',
+      icon: <AudioWaveform size={14} className="text-teal-400" />,
+      color: 'from-teal-500/20 to-emerald-900/5',
+      accent: 'group-hover:border-teal-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(20,184,166,0.3)]'
     }
   ];
 
   return (
     <div id="projetos" className="page-section active animate-fade-in space-y-6">
+      <style>{`
+        .image-zoom-transition {
+          transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+      `}</style>
+
       {/* Walking Character Animated Bar */}
       <div className="w-full h-1.5 bg-white/5 rounded-full relative mt-4 mb-14 overflow-visible">
         <div className="absolute top-0 left-0 h-full bg-gradient-to-r from-neonOrange to-neonCyan rounded-full animate-push-bar shadow-[0_0_15px_var(--accent-primary)]">
@@ -140,12 +230,12 @@ export function Projetos() {
         </div>
       </div>
 
+      {/* Projetos em Destaque (Mantidos 100% intactos com SpotlightCard) */}
       <div className="flex justify-between items-end px-2 mb-2">
         <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase">/Projetos em Destaque</h2>
         <span className="text-[10px] font-mono text-gray-600 tracking-widest uppercase">Selecionados</span>
       </div>
 
-      {/* Projetos em Destaque com SpotlightCard */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((proj, idx) => (
           <SpotlightCard
@@ -183,39 +273,97 @@ export function Projetos() {
         ))}
       </div>
 
-      {/* Sites e Aplicativos */}
-      <div className="flex justify-between items-end px-2 mb-4 pt-4">
-        <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase">/Sites e Aplicativos</h2>
+      {/* Sites e Aplicativos (Agora com o novo design moderno de showcase com imagem) */}
+      <div className="mb-6 mt-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <p className="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase">
+              GG / Portfólio
+            </p>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-light tracking-tight text-white flex items-center gap-3">
+            <span className="text-gray-600 font-extralight">/</span>
+            SITES E APLICATIVOS
+          </h2>
+        </div>
+        <p className="text-xs sm:text-sm text-gray-400 max-w-xs md:text-right font-light">
+          Soluções digitais desenvolvidas com foco em performance e design de alto padrão.
+        </p>
       </div>
 
-      <div className="flex flex-col gap-8">
-        {webApps.map((app, idx) => (
-          <a
-            key={idx}
-            href={app.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative block w-full bg-bgCard rounded-[2rem] overflow-hidden card-shadow interactive-card border border-white/[0.02] group aspect-[4/3] md:aspect-video flex flex-col justify-end p-6 md:p-10"
+      {/* Grid de Cards com Imagem no estilo solicitado */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+        {webApps.map((project) => (
+          <div
+            key={project.id}
+            className={`group relative h-[450px] sm:h-[490px] w-full rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 transition-all duration-700 ease-out hover:-translate-y-1 ${project.accent}`}
           >
-            <img
-              src={app.img}
-              alt={app.title}
-              className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-1000 group-hover:scale-105 z-0 pointer-events-none"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent z-0 pointer-events-none"></div>
-            <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 w-full mt-auto">
-              <h3 className="project-photo-title text-3xl md:text-4xl text-white tracking-tighter uppercase">
-                {app.title}
-              </h3>
-              <div className="inline-flex items-center bg-white/10 text-[#ffffff] px-6 py-3 rounded-full font-bold uppercase text-xs tracking-widest border border-white/20 group-hover:bg-white group-hover:text-[#050505] transition-all backdrop-blur-md">
-                Acessar <ArrowUpRight className="w-4 h-4 ml-2" />
+            {/* Imagem de Fundo com Alta Nitidez e Zoom Suave */}
+            <div className="absolute inset-0 w-full h-full bg-zinc-950">
+              <img
+                src={project.img}
+                alt={project.title}
+                className="w-full h-full object-cover opacity-100 image-zoom-transition group-hover:scale-105"
+              />
+            </div>
+
+            {/* Gradiente sutil apenas na base para garantir leitura perfeita sem ofuscar a imagem */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+
+            {/* Gradiente de Cor Dinâmico baseado no projeto (Brilho suave na base) */}
+            <div
+              className={`absolute -bottom-24 -inset-x-24 h-64 bg-gradient-to-t ${project.color} blur-3xl opacity-0 group-hover:opacity-75 transition-opacity duration-700 pointer-events-none`}
+            ></div>
+
+            {/* Conteúdo Principal do Card */}
+            <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
+              {/* Header do Card (Categoria / Pill) */}
+              <div className="flex justify-start">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-medium tracking-wide text-zinc-200">
+                  {project.icon}
+                  {project.category}
+                </div>
+              </div>
+
+              {/* Bottom Content do Card */}
+              <div className="flex flex-col gap-4 transform translate-y-0 transition-transform duration-500">
+                <div>
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tighter text-white mb-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-sm line-clamp-3 group-hover:text-zinc-200 transition-colors duration-300">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Botão de Ação "Chic" e Minimalista */}
+                <div className="pt-2">
+                  <a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 ease-in-out group/btn"
+                  >
+                    <span>Acessar Projeto</span>
+                    <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover/btn:bg-black/10 transition-colors">
+                      <ArrowUpRight
+                        size={14}
+                        className="transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform"
+                      />
+                    </div>
+                  </a>
+                </div>
               </div>
             </div>
-          </a>
+
+            {/* Brilho do cursor sutil no hover do card */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.06)_0%,transparent_50%)]"></div>
+          </div>
         ))}
       </div>
 
-      {/* Terminal Root com SpotlightCard */}
+      {/* Terminal Root com SpotlightCard (Mantido 100% intacto) */}
       <div className="flex justify-between items-end mb-4 pt-4">
         <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase">/Acesso Root</h2>
         <div className="flex items-center gap-2">
