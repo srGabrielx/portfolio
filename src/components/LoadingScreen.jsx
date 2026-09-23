@@ -30,6 +30,15 @@ export function LoadingScreen({ onLoadingComplete }) {
   };
 
   useEffect(() => {
+    // Registra desbloqueio em qualquer primeiro gesto do usuário
+    const handleUserGesture = () => {
+      unlockChime();
+    };
+
+    window.addEventListener('pointerdown', handleUserGesture, { passive: true });
+    window.addEventListener('touchstart', handleUserGesture, { passive: true });
+    window.addEventListener('click', handleUserGesture, { passive: true });
+
     const timer = setTimeout(() => {
       finalizarLoading(false);
     }, 2200);
@@ -44,6 +53,9 @@ export function LoadingScreen({ onLoadingComplete }) {
 
     return () => {
       clearTimeout(timer);
+      window.removeEventListener('pointerdown', handleUserGesture);
+      window.removeEventListener('touchstart', handleUserGesture);
+      window.removeEventListener('click', handleUserGesture);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
