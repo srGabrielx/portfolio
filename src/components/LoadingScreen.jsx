@@ -65,12 +65,23 @@ export function LoadingScreen({ onLoadingComplete }) {
       onPointerDown={() => {
         unlockChime();
       }}
-      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center overflow-hidden bg-bgBase text-neonCyan font-sans select-none transition-all duration-400 ${
+      className={`fixed inset-0 z-[9999999] w-full min-h-screen flex flex-col items-center justify-center overflow-y-auto scrollbar-none bg-bgBase text-neonCyan font-sans select-none transition-all duration-400 ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
+      style={{
+        scrollbarWidth: 'none', /* Firefox */
+        msOverflowStyle: 'none' /* IE and Edge */
+      }}
       aria-label="Carregando Portfólio"
     >
       <style>{`
+        /* Scrollbar invisível */
+        .scrollbar-none::-webkit-scrollbar {
+          display: none;
+          width: 0px;
+          height: 0px;
+          background: transparent;
+        }
         .hud-spin { animation: spin 4s linear infinite; }
         .hud-spin-reverse { animation: spin 3s linear infinite reverse; }
         .neon-glow { filter: drop-shadow(0 0 10px rgba(var(--accent-glow), 0.85)); }

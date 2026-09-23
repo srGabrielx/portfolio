@@ -27,12 +27,12 @@ export function App() {
 
   useEffect(() => {
     if (isLoading) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('loading-active');
     } else {
-      document.body.style.overflow = '';
+      document.body.classList.remove('loading-active');
     }
     return () => {
-      document.body.style.overflow = '';
+      document.body.classList.remove('loading-active');
     };
   }, [isLoading]);
 

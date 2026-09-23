@@ -157,6 +157,22 @@ body {
     transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Estado de tela de carregamento: background base contínuo e barra de rolagem invisível */
+body.loading-active,
+html:has(body.loading-active) {
+    overflow-y: scroll !important;
+    scrollbar-width: none !important; /* Firefox */
+    -ms-overflow-style: none !important; /* IE e Edge */
+}
+
+body.loading-active::-webkit-scrollbar,
+html:has(body.loading-active)::-webkit-scrollbar {
+    display: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+}
+
 /* Forçar sobreposição do Botpress */
 #bp-web-widget-container,
 #bp-web-widget {
