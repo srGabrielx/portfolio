@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { playChime, unlockChime } from '../lib/sound';
 
 export function LoadingScreen({ onLoadingComplete }) {
-  const [progress, setProgress] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
 
   const completedRef = useRef(false);
@@ -31,21 +30,9 @@ export function LoadingScreen({ onLoadingComplete }) {
   };
 
   useEffect(() => {
-    const startTime = Date.now();
-    const duration = 2200;
-
-    const interval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const rawProgress = Math.min(Math.round((elapsed / duration) * 100), 100);
-
-      setProgress(rawProgress);
-
-      if (rawProgress >= 100) {
-        clearInterval(interval);
-        setProgress(100);
-        finalizarLoading(false);
-      }
-    }, 20);
+    const timer = setTimeout(() => {
+      finalizarLoading(false);
+    }, 2200);
 
     const handleKeyDown = (e) => {
       unlockChime();
@@ -56,7 +43,7 @@ export function LoadingScreen({ onLoadingComplete }) {
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      clearInterval(interval);
+      clearTimeout(timer);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -66,7 +53,7 @@ export function LoadingScreen({ onLoadingComplete }) {
       onPointerDown={() => {
         unlockChime();
       }}
-      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center overflow-hidden bg-black text-green-500 font-sans select-none transition-all duration-400 ${
+      className={`fixed inset-0 z-[9999999] flex flex-col items-center justify-center overflow-hidden bg-bgBase text-neonCyan font-sans select-none transition-all duration-400 ${
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       aria-label="Carregando Portfólio"
@@ -74,11 +61,11 @@ export function LoadingScreen({ onLoadingComplete }) {
       <style>{`
         .hud-spin { animation: spin 4s linear infinite; }
         .hud-spin-reverse { animation: spin 3s linear infinite reverse; }
-        .neon-glow { filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.8)); }
+        .neon-glow { filter: drop-shadow(0 0 10px rgba(var(--accent-glow), 0.85)); }
         .scanline {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to bottom, transparent 50%, rgba(34, 197, 94, 0.03) 51%);
+          background: linear-gradient(to bottom, transparent 50%, rgba(var(--accent-glow), 0.03) 51%);
           background-size: 100% 4px;
           pointer-events: none;
           z-index: 10;
@@ -99,25 +86,52 @@ export function LoadingScreen({ onLoadingComplete }) {
         .animate-pulse-fast { animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
       `}</style>
 
-      {/* Fundo com degradê radial sutil */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#064e3b20_0%,_#000000_100%)] pointer-events-none"></div>
+      {/* Fundo com degradê radial sutil correspondente à predefinição da página */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: 'radial-gradient(circle at center, rgba(var(--accent-glow), 0.12) 0%, var(--bg-base) 100%)'
+        }}
+      ></div>
 
-      {/* Grid de interface (Radar/HUD) */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#22c55e0a_1px,transparent_1px),linear-gradient(to_bottom,#22c55e0a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
+      {/* Grid de interface (Radar/HUD) com a cor da página */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(to right, rgba(var(--accent-glow), 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(var(--accent-glow), 0.05) 1px, transparent 1px)',
+          backgroundSize: '32px 32px'
+        }}
+      ></div>
 
       {/* Efeito de tela CRT/Scanline */}
       <div className="scanline"></div>
 
       {/* Container Principal do Shuriken */}
       <div className="relative z-20 flex flex-col items-center">
-        {/* Anéis de HUD externos */}
-        <div className="absolute inset-0 -m-8 rounded-full border border-green-500/10 border-t-green-500/60 border-b-green-500/60 hud-spin pointer-events-none"></div>
-        <div className="absolute inset-0 -m-4 rounded-full border border-green-500/20 border-l-green-500/80 hud-spin-reverse opacity-70 pointer-events-none"></div>
+        {/* Anéis de HUD externos com a cor pré-definida da página */}
+        <div
+          className="absolute inset-0 -m-8 rounded-full border hud-spin pointer-events-none"
+          style={{
+            borderColor: 'rgba(var(--accent-glow), 0.12)',
+            borderTopColor: 'rgba(var(--accent-glow), 0.65)',
+            borderBottomColor: 'rgba(var(--accent-glow), 0.65)'
+          }}
+        ></div>
+        <div
+          className="absolute inset-0 -m-4 rounded-full border hud-spin-reverse opacity-70 pointer-events-none"
+          style={{
+            borderColor: 'rgba(var(--accent-glow), 0.2)',
+            borderLeftColor: 'var(--accent-primary)'
+          }}
+        ></div>
 
         {/* Brilho de fundo (Core) */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-green-500/20 rounded-full blur-2xl pointer-events-none"></div>
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full blur-2xl pointer-events-none"
+          style={{ backgroundColor: 'rgba(var(--accent-glow), 0.22)' }}
+        ></div>
 
-        {/* Shuriken Aggressive (Linhas retas e cortantes) */}
+        {/* Shuriken Aggressive (Lâminas e linhas com a cor pré-definida da página) */}
         <div className="animate-[spin_1.5s_linear_infinite] neon-glow relative">
           <svg
             width="100"
@@ -127,16 +141,16 @@ export function LoadingScreen({ onLoadingComplete }) {
             xmlns="http://www.w3.org/2000/svg"
           >
             <g transform="translate(100 100)">
-              {/* Lâminas mais angulares e agressivas */}
-              <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="#22c55e" />
-              <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="#22c55e" />
-              <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="#22c55e" />
-              <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="#22c55e" />
+              {/* Lâminas mais angulares com a cor primária da página */}
+              <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="var(--accent-primary)" />
+              <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="var(--accent-primary)" />
+              <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="var(--accent-primary)" />
+              <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="var(--accent-primary)" />
 
               {/* Núcleo mecânico */}
-              <circle cx="0" cy="0" r="18" fill="#000" stroke="#22c55e" strokeWidth="4" />
-              <circle cx="0" cy="0" r="6" fill="#22c55e" />
-              <path d="M -12 -12 L 12 12 M -12 12 L 12 -12" stroke="#000" strokeWidth="3" />
+              <circle cx="0" cy="0" r="18" fill="var(--bg-base)" stroke="var(--accent-primary)" strokeWidth="4" />
+              <circle cx="0" cy="0" r="6" fill="var(--accent-primary)" />
+              <path d="M -12 -12 L 12 12 M -12 12 L 12 -12" stroke="var(--bg-base)" strokeWidth="3" />
             </g>
           </svg>
         </div>
@@ -144,25 +158,40 @@ export function LoadingScreen({ onLoadingComplete }) {
 
       {/* Textos e Barra de Progresso Estilo HUD */}
       <div className="relative z-20 mt-16 flex flex-col items-center gap-3">
-        <p className="text-xs font-mono tracking-[0.4em] text-green-400 animate-pulse-fast drop-shadow-[0_0_5px_rgba(34,197,94,0.8)]">
+        <p
+          className="text-xs font-mono tracking-[0.4em] animate-pulse-fast"
+          style={{
+            color: 'var(--accent-primary)',
+            filter: 'drop-shadow(0 0 5px rgba(var(--accent-glow), 0.8))'
+          }}
+        >
           INICIALIZANDO SISTEMA_
         </p>
 
-        {/* Barra de carregamento com progresso real integrado ao estilo HUD */}
-        <div className="w-56 h-[2px] bg-green-950/80 rounded-full overflow-hidden relative">
+        {/* Barra de carregamento com a cor da página */}
+        <div
+          className="w-56 h-[2px] rounded-full overflow-hidden relative"
+          style={{ backgroundColor: 'rgba(var(--accent-glow), 0.15)' }}
+        >
           <div
-            className="absolute top-0 left-0 h-full bg-green-400 transition-all duration-75 shadow-[0_0_8px_#22c55e]"
-            style={{ width: `${progress}%` }}
+            className="absolute top-0 left-0 h-full w-1/3 animate-slide"
+            style={{
+              backgroundColor: 'var(--accent-primary)',
+              boxShadow: '0 0 8px var(--accent-primary)'
+            }}
           ></div>
         </div>
 
-        {/* Detalhes de numeração e status */}
-        <div className="flex w-56 justify-between text-[10px] font-mono text-green-600/60 mt-1">
-          <span>SYS.BOOT [{progress}%]</span>
+        {/* Detalhes de numeração estilo caça */}
+        <div
+          className="flex w-56 justify-between text-[10px] font-mono mt-1"
+          style={{ color: 'rgba(var(--accent-glow), 0.6)' }}
+        >
+          <span>SYS.BOOT</span>
           <span>v2.0.4</span>
         </div>
 
-        {/* Botão Pular Carregamento integrado ao estilo cibernético */}
+        {/* Botão Pular Carregamento */}
         <button
           id="btn-skip-loading"
           type="button"
@@ -170,11 +199,24 @@ export function LoadingScreen({ onLoadingComplete }) {
             e.stopPropagation();
             finalizarLoading(true);
           }}
-          className="mt-4 text-[10px] font-mono text-green-500/70 hover:text-green-300 uppercase tracking-widest py-1.5 px-4 rounded border border-green-500/20 hover:border-green-500/50 bg-green-950/20 hover:bg-green-900/30 transition-all cursor-pointer flex items-center gap-1.5"
+          className="mt-4 text-[10px] font-mono uppercase tracking-widest py-1.5 px-4 rounded border transition-all cursor-pointer flex items-center gap-1.5"
+          style={{
+            color: 'var(--accent-primary)',
+            borderColor: 'rgba(var(--accent-glow), 0.25)',
+            backgroundColor: 'rgba(var(--accent-glow), 0.06)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(var(--accent-glow), 0.6)';
+            e.currentTarget.style.backgroundColor = 'rgba(var(--accent-glow), 0.12)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.borderColor = 'rgba(var(--accent-glow), 0.25)';
+            e.currentTarget.style.backgroundColor = 'rgba(var(--accent-glow), 0.06)';
+          }}
         >
           <span>Pular</span>
-          <span className="text-green-400">&gt;</span>
-          <span className="text-[9px] text-green-700 ml-1 font-mono">[ESC]</span>
+          <span style={{ color: 'var(--accent-secondary)' }}>&gt;</span>
+          <span className="text-[9px] opacity-60 ml-1 font-mono">[ESC]</span>
         </button>
       </div>
     </div>
