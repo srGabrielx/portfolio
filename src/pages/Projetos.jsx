@@ -13,7 +13,6 @@ import {
   Headphones,
   Car,
   Maximize2,
-  Cigarette,
   Wine,
   Sliders,
   AudioWaveform
@@ -149,17 +148,6 @@ export function Projetos() {
       icon: <Maximize2 size={14} className="text-indigo-400" />,
       color: 'from-indigo-500/20 to-violet-900/5',
       accent: 'group-hover:border-indigo-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(99,102,241,0.3)]'
-    },
-    {
-      id: 'seyller-tabacaria',
-      title: 'SEYLLER TABACARIA',
-      description: 'E-commerce e vitrine virtual para produtos de conveniência com design refinado e responsivo.',
-      category: 'E-Commerce / Vitrine',
-      url: 'https://seyller-tabacaria-app.vercel.app',
-      img: '/images/projects/seyller-tabacaria.png',
-      icon: <Cigarette size={14} className="text-rose-400" />,
-      color: 'from-rose-500/20 to-red-900/5',
-      accent: 'group-hover:border-rose-500/30 group-hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)]'
     },
     {
       id: 'adega-express',
