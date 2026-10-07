@@ -36,9 +36,18 @@
     <meta name="twitter:image" content="/images/og-preview.png">
     <meta name="twitter:image:alt" content="Gabriel Gonçalves - IA & Python Developer">
 
-    <!-- Tema do Navegador -->
+    <!-- Tema do Navegador e Inicialização Imediata Sem FOUC -->
     <meta name="theme-color" content="#050505">
     <meta name="color-scheme" content="dark light">
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var theme = (saved && saved !== 'light' && saved !== 'dark') ? saved : 'cyber';
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch(e) {}
+      })();
+    </script>
 
     <!-- Google Fonts Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

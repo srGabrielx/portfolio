@@ -7,6 +7,7 @@
    ========================================================================== */
 
 :root,
+[data-theme="cyber"],
 body[data-theme="cyber"] {
     --bg-base: #050505;
     --bg-base-translucent: rgba(5, 5, 5, 0.9);
@@ -30,6 +31,7 @@ body[data-theme="cyber"] {
     --space-banner-bg: radial-gradient(circle at 50% 50%, #0d1117 0%, #050505 100%);
 }
 
+[data-theme="violet"],
 body[data-theme="violet"] {
     --bg-base: #090514;
     --bg-base-translucent: rgba(9, 5, 20, 0.9);
@@ -53,6 +55,7 @@ body[data-theme="violet"] {
     --space-banner-bg: radial-gradient(circle at 50% 50%, #1e113a 0%, #090514 100%);
 }
 
+[data-theme="emerald"],
 body[data-theme="emerald"] {
     --bg-base: #030d07;
     --bg-base-translucent: rgba(3, 13, 7, 0.9);
@@ -76,6 +79,7 @@ body[data-theme="emerald"] {
     --space-banner-bg: radial-gradient(circle at 50% 50%, #0b2e1d 0%, #030d07 100%);
 }
 
+[data-theme="ocean"],
 body[data-theme="ocean"] {
     --bg-base: #030914;
     --bg-base-translucent: rgba(3, 9, 20, 0.9);
@@ -99,6 +103,7 @@ body[data-theme="ocean"] {
     --space-banner-bg: radial-gradient(circle at 50% 50%, #0a244d 0%, #030914 100%);
 }
 
+[data-theme="amber"],
 body[data-theme="amber"] {
     --bg-base: #0d0803;
     --bg-base-translucent: rgba(13, 8, 3, 0.9);
@@ -122,6 +127,7 @@ body[data-theme="amber"] {
     --space-banner-bg: radial-gradient(circle at 50% 50%, #2e1a0a 0%, #0d0803 100%);
 }
 
+[data-theme="slate"],
 body[data-theme="slate"] {
     --bg-base: #13161f;
     --bg-base-translucent: rgba(19, 22, 31, 0.92);
@@ -238,9 +244,9 @@ html:has(body.loading-active)::-webkit-scrollbar {
 
 .hero-console {
     overflow: hidden;
-    border: 1px solid rgba(var(--accent-glow), 0.2);
+    border: 1px solid rgba(var(--accent-glow, 0, 229, 255), 0.2);
     border-radius: 0.9rem;
-    background: rgba(var(--bg-base), 0.5);
+    background: var(--bg-card);
     backdrop-filter: blur(8px);
     font-family: 'Fira Code', monospace;
     font-size: 0.7rem;

@@ -113,7 +113,7 @@ export function LoadingScreen({ onLoadingComplete }) {
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: 'radial-gradient(circle at center, rgba(var(--accent-glow), 0.12) 0%, var(--bg-base) 100%)'
+          background: 'radial-gradient(circle at center, rgba(var(--accent-glow, 0, 229, 255), 0.12) 0%, var(--bg-base) 75%)'
         }}
       ></div>
 
@@ -121,7 +121,7 @@ export function LoadingScreen({ onLoadingComplete }) {
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
-          backgroundImage: 'linear-gradient(to right, rgba(var(--accent-glow), 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(var(--accent-glow), 0.05) 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(to right, rgba(var(--accent-glow, 0, 229, 255), 0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(var(--accent-glow, 0, 229, 255), 0.04) 1px, transparent 1px)',
           backgroundSize: '32px 32px'
         }}
       ></div>
@@ -133,89 +133,95 @@ export function LoadingScreen({ onLoadingComplete }) {
       <div className="relative z-20 w-full min-h-[100dvh] flex flex-col items-center justify-center py-6 px-4 my-auto">
         {/* Container Principal do Shuriken */}
         <div className="relative flex flex-col items-center shrink-0">
-          {/* Anéis de HUD externos com a cor pré-definida da página */}
+          {/* Anéis de HUD externos com rotação harmoniosa e cores balanceadas */}
           <div
-            className="absolute inset-0 -m-6 sm:-m-8 rounded-full border hud-spin pointer-events-none"
+            className="absolute inset-0 -m-6 sm:-m-8 rounded-full border border-dashed hud-spin pointer-events-none"
             style={{
-              borderColor: 'rgba(var(--accent-glow), 0.12)',
-              borderTopColor: 'rgba(var(--accent-glow), 0.65)',
-              borderBottomColor: 'rgba(var(--accent-glow), 0.65)'
+              borderColor: 'rgba(var(--accent-glow, 0, 229, 255), 0.2)',
+              borderTopColor: 'var(--accent-primary)',
+              borderBottomColor: 'var(--accent-secondary)'
             }}
           ></div>
           <div
-            className="absolute inset-0 -m-3 sm:-m-4 rounded-full border hud-spin-reverse opacity-70 pointer-events-none"
+            className="absolute inset-0 -m-3 sm:-m-4 rounded-full border hud-spin-reverse opacity-80 pointer-events-none"
             style={{
-              borderColor: 'rgba(var(--accent-glow), 0.2)',
-              borderLeftColor: 'var(--accent-primary)'
+              borderColor: 'rgba(var(--accent-glow, 0, 229, 255), 0.15)',
+              borderLeftColor: 'var(--accent-primary)',
+              borderRightColor: 'var(--accent-secondary)'
             }}
           ></div>
 
           {/* Brilho de fundo (Core) */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 sm:w-20 h-16 sm:h-20 rounded-full blur-2xl pointer-events-none"
-            style={{ backgroundColor: 'rgba(var(--accent-glow), 0.22)' }}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 sm:w-24 h-20 sm:h-24 rounded-full blur-2xl pointer-events-none"
+            style={{ background: 'radial-gradient(circle, rgba(var(--accent-glow, 0, 229, 255), 0.22) 0%, transparent 70%)' }}
           ></div>
 
-          {/* Shuriken Aggressive (Proporcional para 16:9 mobile e telas compactas) */}
-          <div className="animate-[spin_1.5s_linear_infinite] neon-glow relative">
+          {/* Shuriken Cyber Dual-Tone com Gradiente Perfeito */}
+          <div className="animate-[spin_1.5s_linear_infinite] relative">
             <svg
-              className="w-16 h-16 sm:w-24 sm:h-24 max-h-[18vh]"
+              className="w-16 h-16 sm:w-24 sm:h-24 max-h-[18vh] drop-shadow-[0_0_12px_rgba(var(--accent-glow,0,229,255),0.6)]"
               viewBox="0 0 200 200"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
+              <defs>
+                <linearGradient id="shurikenGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="var(--accent-primary)" />
+                  <stop offset="100%" stopColor="var(--accent-secondary)" />
+                </linearGradient>
+                <linearGradient id="shurikenGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stopColor="var(--accent-secondary)" />
+                  <stop offset="100%" stopColor="var(--accent-primary)" />
+                </linearGradient>
+              </defs>
               <g transform="translate(100 100)">
-                {/* Lâminas mais angulares com a cor primária da página */}
-                <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="var(--accent-primary)" />
-                <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="var(--accent-primary)" />
-                <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="var(--accent-primary)" />
-                <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="var(--accent-primary)" />
+                {/* Lâminas com degradê e harmonia dual-tone */}
+                <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="url(#shurikenGrad1)" />
+                <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="url(#shurikenGrad2)" />
+                <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="url(#shurikenGrad1)" />
+                <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="url(#shurikenGrad2)" />
 
-                {/* Núcleo mecânico */}
-                <circle cx="0" cy="0" r="18" fill="var(--bg-base)" stroke="var(--accent-primary)" strokeWidth="4" />
+                {/* Núcleo mecânico de precisão */}
+                <circle cx="0" cy="0" r="18" fill="var(--bg-card)" stroke="url(#shurikenGrad1)" strokeWidth="3.5" />
                 <circle cx="0" cy="0" r="6" fill="var(--accent-primary)" />
-                <path d="M -12 -12 L 12 12 M -12 12 L 12 -12" stroke="var(--bg-base)" strokeWidth="3" />
+                <path d="M -10 -10 L 10 10 M -10 10 L 10 -10" stroke="var(--accent-secondary)" strokeWidth="2" />
               </g>
             </svg>
           </div>
         </div>
 
-        {/* Textos e Barra de Progresso Estilo HUD (Espaçamento responsivo dinâmico) */}
-        <div className="relative mt-8 sm:mt-14 flex flex-col items-center gap-2 sm:gap-3 shrink-0">
-          <p
-            className="text-[11px] sm:text-xs font-mono tracking-[0.3em] sm:tracking-[0.4em] animate-pulse-fast text-center"
-            style={{
-              color: 'var(--accent-primary)',
-              filter: 'drop-shadow(0 0 5px rgba(var(--accent-glow), 0.8))'
-            }}
-          >
-            INICIALIZANDO SISTEMA_
+        {/* Textos e Barra de Progresso Estilo HUD */}
+        <div className="relative mt-8 sm:mt-12 flex flex-col items-center gap-2 sm:gap-2.5 shrink-0">
+          <p className="text-[11px] sm:text-xs font-mono tracking-[0.35em] sm:tracking-[0.45em] animate-pulse-fast text-center font-bold">
+            <span style={{ color: 'var(--accent-primary)' }}>INICIALIZANDO</span>{' '}
+            <span style={{ color: 'var(--accent-secondary)' }}>SISTEMA_</span>
           </p>
 
-          {/* Barra de carregamento com a cor da página */}
+          {/* Barra de carregamento com degradê dual-accent */}
           <div
-            className="w-48 sm:w-56 h-[2px] rounded-full overflow-hidden relative"
-            style={{ backgroundColor: 'rgba(var(--accent-glow), 0.15)' }}
+            className="w-48 sm:w-56 h-[3px] rounded-full overflow-hidden relative border border-white/5"
+            style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
           >
             <div
-              className="absolute top-0 left-0 h-full w-1/3 animate-slide"
+              className="absolute top-0 left-0 h-full w-2/5 animate-slide rounded-full"
               style={{
-                backgroundColor: 'var(--accent-primary)',
-                boxShadow: '0 0 8px var(--accent-primary)'
+                background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))',
+                boxShadow: '0 0 10px rgba(var(--accent-glow, 0, 229, 255), 0.7)'
               }}
             ></div>
           </div>
 
-          {/* Detalhes de numeração estilo HUD militar */}
-          <div
-            className="flex w-48 sm:w-56 justify-between text-[9px] sm:text-[10px] font-mono mt-0.5"
-            style={{ color: 'rgba(var(--accent-glow), 0.6)' }}
-          >
-            <span>SYS.BOOT</span>
-            <span>v2.0.4</span>
+          {/* Detalhes de numeração estilo HUD */}
+          <div className="flex w-48 sm:w-56 justify-between text-[9px] sm:text-[10px] font-mono mt-0.5 text-gray-400">
+            <span className="flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#10b981] animate-pulse"></span>
+              SYS.BOOT
+            </span>
+            <span className="font-semibold" style={{ color: 'var(--accent-primary)' }}>v2.0.4</span>
           </div>
 
-          {/* Botão Pular Carregamento */}
+          {/* Botão Pular Carregamento Estilo Cyberpunk */}
           <button
             id="btn-skip-loading"
             type="button"
@@ -223,24 +229,11 @@ export function LoadingScreen({ onLoadingComplete }) {
               e.stopPropagation();
               finalizarLoading(true);
             }}
-            className="mt-2 sm:mt-4 text-[9px] sm:text-[10px] font-mono uppercase tracking-widest py-1 sm:py-1.5 px-3 sm:px-4 rounded border transition-all cursor-pointer flex items-center gap-1.5"
-            style={{
-              color: 'var(--accent-primary)',
-              borderColor: 'rgba(var(--accent-glow), 0.25)',
-              backgroundColor: 'rgba(var(--accent-glow), 0.06)'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(var(--accent-glow), 0.6)';
-              e.currentTarget.style.backgroundColor = 'rgba(var(--accent-glow), 0.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = 'rgba(var(--accent-glow), 0.25)';
-              e.currentTarget.style.backgroundColor = 'rgba(var(--accent-glow), 0.06)';
-            }}
+            className="mt-3 sm:mt-4 text-[9px] sm:text-[10px] font-mono uppercase tracking-widest py-1.5 px-4 rounded-full border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white transition-all cursor-pointer flex items-center gap-2 group backdrop-blur-sm"
           >
             <span>Pular</span>
-            <span style={{ color: 'var(--accent-secondary)' }}>&gt;</span>
-            <span className="text-[8px] sm:text-[9px] opacity-60 ml-0.5 font-mono">[ESC]</span>
+            <span className="transition-transform group-hover:translate-x-0.5 font-bold" style={{ color: 'var(--accent-primary)' }}>&gt;</span>
+            <span className="text-[8px] sm:text-[9px] text-gray-500 font-mono">[ESC]</span>
           </button>
         </div>
       </div>

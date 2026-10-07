@@ -17,7 +17,13 @@ export function Inicio() {
     }
   };
 
-  const nameGradientColors = ['#ff4500', '#ffaa00', '#00e5ff', '#ffaa00', '#ff4500'];
+  const nameGradientColors = [
+    'var(--accent-secondary)',
+    'var(--accent-tertiary)',
+    'var(--accent-primary)',
+    'var(--accent-tertiary)',
+    'var(--accent-secondary)'
+  ];
 
   const areasDeAtuacaoCards = [
     {
@@ -45,12 +51,12 @@ export function Inicio() {
       {/* Hero Section com SpotlightCard */}
       <SpotlightCard
         className="bg-bgCard rounded-[2rem] p-6 md:p-10 card-shadow interactive-card border border-white/[0.02]"
-        spotlightColor="rgba(0, 229, 255, 0.18)"
+        spotlightColor="rgba(var(--accent-glow, 0, 229, 255), 0.2)"
       >
         <div className="hero-grid" aria-hidden="true"></div>
         <div className="hero-ambient hero-ambient-cyan" aria-hidden="true"></div>
         <div className="hero-ambient hero-ambient-orange" aria-hidden="true"></div>
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-[#ff6b00]/10 to-transparent rounded-full blur-3xl -z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-neonOrange/15 to-transparent rounded-full blur-3xl -z-10 pointer-events-none"></div>
 
         <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-8 relative z-10">
           <div className="z-10">
@@ -73,21 +79,21 @@ export function Inicio() {
           </div>
 
           <div className="hero-photo relative group cursor-pointer shrink-0 mt-2 sm:mt-0 z-10 w-40 md:w-56">
-            <div className="absolute -inset-1 bg-gradient-to-r from-[#ff6b00] to-[#00e5ff] rounded-2xl blur opacity-20 group-hover:opacity-70 transition duration-500"></div>
+            <div className="absolute -inset-1 bg-gradient-to-r from-neonOrange to-neonCyan rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
             <img
               src="/images/profile.png"
               alt="Gabriel Gonçalves"
               className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl border-2 border-[#121214] ring-2 ring-white/10 shadow-lg group-hover:scale-[1.03] transition-transform duration-500 bg-[#121214]"
             />
 
-            <div className="absolute -top-4 -left-4 w-10 h-10 animate-float z-20 bg-[#121214] rounded-full p-2 border border-white/10 shadow-[0_0_15px_rgba(0,229,255,0.4)]">
+            <div className="absolute -top-4 -left-4 w-10 h-10 animate-float z-20 bg-[#121214] rounded-full p-2 border border-white/10 shadow-[0_0_15px_rgba(var(--accent-glow,0,229,255),0.4)]">
               <img
                 src="/images/python.svg"
                 alt="Python"
                 className="w-full h-full object-contain"
               />
             </div>
-            <div className="absolute -bottom-3 -right-3 w-8 h-8 animate-float-delayed z-20 bg-[#121214] rounded-full p-1.5 border border-white/10 shadow-[0_0_15px_rgba(255,107,0,0.4)]">
+            <div className="absolute -bottom-3 -right-3 w-8 h-8 animate-float-delayed z-20 bg-[#121214] rounded-full p-1.5 border border-white/10 shadow-[0_0_15px_rgba(255,107,0,0.35)]">
               <img
                 src="/images/python.svg"
                 alt="Python"
@@ -99,8 +105,8 @@ export function Inicio() {
 
         <p className="text-base md:text-xl text-gray-400 max-w-2xl leading-relaxed mb-8 z-10 relative">
           Desenvolvedor <span className="text-white font-semibold">Python</span>, focado em{' '}
-          <span className="text-[#ff6b00] font-semibold">Machine Learning</span> e{' '}
-          <span className="text-[#00e5ff] font-semibold">Inteligência Artificial</span>. Construo soluções em análise
+          <span className="text-neonOrange font-semibold">Machine Learning</span> e{' '}
+          <span className="text-neonCyan font-semibold">Inteligência Artificial</span>. Construo soluções em análise
           de dados, LLMs e automação para transformar dados em decisões. ⭐
         </p>
 
@@ -142,7 +148,7 @@ export function Inicio() {
             <span>SISTEMA ONLINE</span>
           </div>
           <div className="hero-console-line">
-            <span className="text-[#00e5ff]">&gt;_</span>
+            <span className="text-neonCyan">&gt;_</span>
             <span>Construindo soluções com dados, IA e automação</span>
             <span className="hero-console-cursor" aria-hidden="true"></span>
           </div>
@@ -152,32 +158,32 @@ export function Inicio() {
       {/* Stats Grid com SpotlightCard */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-[#ff6b00]/30 transition-colors"
-          spotlightColor="rgba(255, 107, 0, 0.25)"
+          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonOrange/30 transition-colors"
+          spotlightColor="rgba(255, 107, 0, 0.2)"
         >
           <h4 className="text-3xl font-black text-white mb-1">2+</h4>
           <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Anos c/ Python</span>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-[#00e5ff]/30 transition-colors"
-          spotlightColor="rgba(0, 229, 255, 0.25)"
+          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonCyan/30 transition-colors"
+          spotlightColor="rgba(var(--accent-glow, 0, 229, 255), 0.2)"
         >
           <h4 className="text-3xl font-black text-white mb-1">10+</h4>
           <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Projetos IA</span>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-[#ffaa00]/30 transition-colors"
-          spotlightColor="rgba(255, 170, 0, 0.25)"
+          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-accentTertiary/30 transition-colors"
+          spotlightColor="rgba(255, 170, 0, 0.2)"
         >
           <h4 className="text-3xl font-black text-white mb-1">SQL</h4>
           <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Modelagem Dados</span>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-[#00e5ff]/30 transition-colors"
-          spotlightColor="rgba(0, 229, 255, 0.25)"
+          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonCyan/30 transition-colors"
+          spotlightColor="rgba(var(--accent-glow, 0, 229, 255), 0.2)"
         >
           <h4 className="text-3xl font-black text-white mb-1">Pandas</h4>
           <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
@@ -195,13 +201,13 @@ export function Inicio() {
         <div className="absolute bottom-6 left-8 opacity-5 select-none pointer-events-none group-hover:opacity-10 transition-opacity">
           <span className="text-7xl md:text-9xl font-black font-mono">01</span>
         </div>
-        <div className="text-[#ff6b00] text-xs font-mono mb-6 tracking-widest uppercase flex items-center gap-2 animate-pulse-glow w-max">
+        <div className="text-neonOrange text-xs font-mono mb-6 tracking-widest uppercase flex items-center gap-2 animate-pulse-glow w-max">
           <Eye className="w-4 h-4" /> _A Visão
         </div>
         <h2 className="text-3xl md:text-4xl font-bold mb-6 max-w-2xl leading-tight">
           Simplificar o complexo com{' '}
           <GradientText
-            colors={['#ffaa00', '#ff6b00', '#00e5ff', '#ffaa00']}
+            colors={['var(--accent-tertiary)', 'var(--accent-secondary)', 'var(--accent-primary)', 'var(--accent-tertiary)']}
             animationSpeed={5}
             className="inline-flex font-bold"
           >
@@ -220,7 +226,7 @@ export function Inicio() {
       {/* Áreas de Atuação com Magic Bento */}
       <div className="flex justify-between items-end px-2 pt-4">
         <h2 className="text-sm font-mono text-gray-400 tracking-widest uppercase">/ Áreas de Atuação</h2>
-        <span className="text-[10px] font-mono text-[#00e5ff] tracking-widest uppercase animate-pulse">
+        <span className="text-[10px] font-mono text-neonCyan tracking-widest uppercase animate-pulse">
           Magic Bento Active
         </span>
       </div>
