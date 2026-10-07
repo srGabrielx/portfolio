@@ -297,7 +297,7 @@ export function Projetos() {
             </div>
 
             {/* Gradiente sutil apenas na base para garantir leitura perfeita sem ofuscar a imagem */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/10 pointer-events-none"></div>
 
             {/* Gradiente de Cor Dinâmico baseado no projeto (Brilho suave na base) */}
             <div
@@ -305,33 +305,38 @@ export function Projetos() {
             ></div>
 
             {/* Conteúdo Principal do Card */}
-            <div className="absolute inset-0 p-6 sm:p-8 flex flex-col justify-between">
-              {/* Header do Card (Categoria / Pill) */}
+            <div className="absolute inset-0 p-5 sm:p-7 flex flex-col justify-between">
+              {/* Header do Card (Categoria / Pill com fundo escuro e blur para contraste perfeito) */}
               <div className="flex justify-start">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-medium tracking-wide text-zinc-200">
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-xs font-medium tracking-wide text-zinc-100 shadow-md">
                   {project.icon}
                   {project.category}
                 </div>
               </div>
 
-              {/* Bottom Content do Card */}
-              <div className="flex flex-col gap-4 transform translate-y-0 transition-transform duration-500">
-                <div>
-                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tighter text-white mb-2">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-zinc-400 font-light leading-relaxed max-w-sm line-clamp-3 group-hover:text-zinc-200 transition-colors duration-300">
+              {/* Bottom Content do Card com Fundo Protetor Glassmorphism para Legibilidade Total */}
+              <div className="flex flex-col gap-3.5 transform translate-y-0 transition-transform duration-500">
+                {/* Painel escurecido com vidro para isolar os textos do fundo da imagem */}
+                <div className="p-4 sm:p-5 rounded-2xl bg-black/85 backdrop-blur-md border border-white/15 shadow-[0_12px_36px_rgba(0,0,0,0.85)]">
+                  {/* Badge de fundo específico para o nome do projeto */}
+                  <div className="inline-flex items-center mb-2.5">
+                    <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-zinc-950/90 border border-white/20 text-lg sm:text-xl font-bold tracking-tight text-white shadow-inner">
+                      <span className="w-1.5 h-1.5 rounded-full bg-neonCyan shadow-[0_0_8px_var(--accent-primary)] animate-pulse"></span>
+                      {project.title}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-zinc-300 font-normal leading-relaxed line-clamp-3 group-hover:text-zinc-100 transition-colors duration-300">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Botão de Ação "Chic" e Minimalista */}
-                <div className="pt-2">
+                <div className="pt-0">
                   <a
                     href={project.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 ease-in-out group/btn"
+                    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-black/80 backdrop-blur-md border border-white/20 text-sm font-medium text-white hover:bg-white hover:text-black hover:border-transparent transition-all duration-300 ease-in-out group/btn shadow-lg"
                   >
                     <span>Acessar Projeto</span>
                     <div className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center group-hover/btn:bg-black/10 transition-colors">
