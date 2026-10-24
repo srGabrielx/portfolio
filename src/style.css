@@ -249,15 +249,15 @@ html:has(body.loading-active)::-webkit-scrollbar {
     background: var(--bg-card);
     backdrop-filter: blur(8px);
     font-family: 'Fira Code', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.04em;
+    font-size: 0.72rem;
+    letter-spacing: 0.03em;
 }
 
 .hero-console-status {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.55rem 0.85rem;
+    padding: 0.5rem 0.85rem;
     color: var(--text-muted);
     border-bottom: 1px solid var(--border-color);
     font-size: 0.62rem;
@@ -272,19 +272,31 @@ html:has(body.loading-active)::-webkit-scrollbar {
     background: #22c55e;
     box-shadow: 0 0 10px #22c55e;
     animation: hero-status-pulse 1.6s ease-in-out infinite;
+    flex-shrink: 0;
 }
 
 .hero-console-line {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.55rem;
-    padding: 0.8rem 0.85rem;
+    padding: 0.75rem 0.85rem;
     color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.hero-console-text {
+    display: inline;
+    word-break: normal;
+    overflow-wrap: break-word;
+    flex: 1;
 }
 
 .hero-console-cursor {
+    display: inline-block;
     width: 0.45rem;
-    height: 1em;
+    height: 0.95em;
+    vertical-align: -0.12em;
+    margin-left: 0.25rem;
     background: var(--accent-primary);
     animation: hero-cursor 850ms step-end infinite;
 }

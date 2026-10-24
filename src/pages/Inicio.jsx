@@ -142,15 +142,19 @@ export function Inicio() {
           </a>
         </div>
 
-        <div className="hero-console relative z-10 mt-8 max-w-2xl" aria-label="Status de trabalho">
+        <div className="hero-console relative z-10 mt-8 max-w-2xl w-full" aria-label="Status de trabalho">
           <div className="hero-console-status">
-            <span className="hero-console-pulse" aria-hidden="true"></span>
+            <span className="hero-console-pulse shrink-0" aria-hidden="true"></span>
             <span>SISTEMA ONLINE</span>
           </div>
           <div className="hero-console-line">
-            <span className="text-neonCyan">&gt;_</span>
-            <span>Construindo soluções com dados, IA e automação</span>
-            <span className="hero-console-cursor" aria-hidden="true"></span>
+            <span className="text-neonCyan font-bold shrink-0 select-none">&gt;_</span>
+            <span className="hero-console-text">
+              Construindo soluções com dados, IA e{' '}
+              <span className="whitespace-nowrap">
+                automação<span className="hero-console-cursor" aria-hidden="true"></span>
+              </span>
+            </span>
           </div>
         </div>
       </SpotlightCard>
