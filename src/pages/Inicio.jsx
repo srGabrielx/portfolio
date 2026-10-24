@@ -155,40 +155,66 @@ export function Inicio() {
         </div>
       </SpotlightCard>
 
-      {/* Stats Grid com SpotlightCard */}
+      {/* Stats Grid com as 4 paletas dos projetos sem foto */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonOrange/30 transition-colors"
-          spotlightColor="rgba(255, 107, 0, 0.2)"
+          className="group bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.03] text-center hover:border-[#00e5ff]/40 hover:shadow-[0_0_25px_rgba(0,229,255,0.15)] transition-all duration-300 relative overflow-hidden"
+          spotlightColor="rgba(0, 229, 255, 0.25)"
         >
-          <h4 className="text-3xl font-black text-white mb-1">2+</h4>
-          <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Anos c/ Python</span>
+          <div className="flex flex-col items-center justify-center relative z-10">
+            <span className="w-8 h-1 rounded-full bg-[#00e5ff]/20 border border-[#00e5ff]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <h4 className="text-3xl md:text-4xl font-black text-[#00e5ff] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(0,229,255,0.25)]">
+              2+
+            </h4>
+            <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
+              Anos c/ Python
+            </span>
+          </div>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonCyan/30 transition-colors"
-          spotlightColor="rgba(var(--accent-glow, 0, 229, 255), 0.2)"
+          className="group bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.03] text-center hover:border-[#ffaa00]/40 hover:shadow-[0_0_25px_rgba(255,170,0,0.15)] transition-all duration-300 relative overflow-hidden"
+          spotlightColor="rgba(255, 170, 0, 0.25)"
         >
-          <h4 className="text-3xl font-black text-white mb-1">10+</h4>
-          <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Projetos IA</span>
+          <div className="flex flex-col items-center justify-center relative z-10">
+            <span className="w-8 h-1 rounded-full bg-[#ffaa00]/20 border border-[#ffaa00]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <h4 className="text-3xl md:text-4xl font-black text-[#ffaa00] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(255,170,0,0.25)]">
+              10+
+            </h4>
+            <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
+              Projetos IA
+            </span>
+          </div>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-accentTertiary/30 transition-colors"
-          spotlightColor="rgba(255, 170, 0, 0.2)"
+          className="group bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.03] text-center hover:border-[#ff6b00]/40 hover:shadow-[0_0_25px_rgba(255,107,0,0.15)] transition-all duration-300 relative overflow-hidden"
+          spotlightColor="rgba(255, 107, 0, 0.25)"
         >
-          <h4 className="text-3xl font-black text-white mb-1">SQL</h4>
-          <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">Modelagem Dados</span>
+          <div className="flex flex-col items-center justify-center relative z-10">
+            <span className="w-8 h-1 rounded-full bg-[#ff6b00]/20 border border-[#ff6b00]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <h4 className="text-3xl md:text-4xl font-black text-[#ff6b00] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(255,107,0,0.25)]">
+              SQL
+            </h4>
+            <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
+              Modelagem Dados
+            </span>
+          </div>
         </SpotlightCard>
 
         <SpotlightCard
-          className="bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.02] text-center hover:border-neonCyan/30 transition-colors"
-          spotlightColor="rgba(var(--accent-glow, 0, 229, 255), 0.2)"
+          className="group bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.03] text-center hover:border-[#22c55e]/40 hover:shadow-[0_0_25px_rgba(34,197,94,0.15)] transition-all duration-300 relative overflow-hidden"
+          spotlightColor="rgba(34, 197, 94, 0.25)"
         >
-          <h4 className="text-3xl font-black text-white mb-1">Pandas</h4>
-          <span className="text-[10px] font-mono text-gray-500 uppercase tracking-widest">
-            Manipulação de Dados
-          </span>
+          <div className="flex flex-col items-center justify-center relative z-10">
+            <span className="w-8 h-1 rounded-full bg-[#22c55e]/20 border border-[#22c55e]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <h4 className="text-3xl md:text-4xl font-black text-[#22c55e] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(34,197,94,0.25)]">
+              Pandas
+            </h4>
+            <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
+              Manipulação de Dados
+            </span>
+          </div>
         </SpotlightCard>
       </div>
 
