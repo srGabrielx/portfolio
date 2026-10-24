@@ -38,8 +38,8 @@ export function Stack() {
 
   const bradescoCerts = [
     'IA para PMEs',
-    'Banco de Dados',
     'Power BI',
+    'Banco de Dados',
     'Python & Java',
     'Lógica & Design'
   ];
