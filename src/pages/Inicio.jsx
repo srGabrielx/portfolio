@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Download, Eye, Rocket } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
 import MagicBento from '../components/MagicBento/MagicBento';
 import GradientText from '../components/GradientText';
+import {
+  PythonLogo,
+  AiBrainLogo,
+  SqlDatabaseLogo,
+  PandasLogo,
+  ReactLogo,
+  BrandLogoGG
+} from '../components/TechIcons';
 
 export function Inicio() {
+  const [profileImgError, setProfileImgError] = useState(false);
+
   const handleContactClick = (e) => {
     e.preventDefault();
     const email = 'gabriel094x@gmail.com';
@@ -30,19 +40,22 @@ export function Inicio() {
       color: '#121214',
       title: 'Agentes Inteligentes',
       description: 'Desenvolvimento de IA generativa configurada com dados específicos do negócio para automação de processos.',
-      label: 'IA & LLMs'
+      label: 'IA & LLMs',
+      icon: <AiBrainLogo className="w-3.5 h-3.5" color="var(--accent-primary, #00e5ff)" />
     },
     {
       color: '#121214',
       title: 'Engenharia de Dados',
       description: 'Pipelines robustos com Python, tratamento pesado em SQL Server, extraindo inteligência de dados brutos.',
-      label: 'Data Pipelines'
+      label: 'Data Pipelines',
+      icon: <SqlDatabaseLogo className="w-3.5 h-3.5" color="var(--accent-primary, #00e5ff)" />
     },
     {
       color: '#121214',
       title: 'Frontend & UI',
       description: 'Criação de interfaces web modernas e performáticas utilizando ecossistemas como React, Next.js e Vite.',
-      label: 'React & Vite'
+      label: 'React & Vite',
+      icon: <ReactLogo className="w-3.5 h-3.5" color="var(--accent-primary, #00e5ff)" />
     }
   ];
 
@@ -80,25 +93,31 @@ export function Inicio() {
 
           <div className="hero-photo relative group cursor-pointer shrink-0 mt-2 sm:mt-0 z-10 w-40 md:w-56">
             <div className="absolute -inset-1 bg-gradient-to-r from-neonOrange to-neonCyan rounded-2xl blur opacity-25 group-hover:opacity-75 transition duration-500"></div>
-            <img
-              src="/images/profile.png"
-              alt="Gabriel Gonçalves"
-              className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl border-2 border-[#121214] ring-2 ring-white/10 shadow-lg group-hover:scale-[1.03] transition-transform duration-500 bg-[#121214]"
-            />
+            {!profileImgError ? (
+              <img
+                src="/images/profile.png"
+                alt="Gabriel Gonçalves"
+                onError={() => setProfileImgError(true)}
+                className="relative w-full aspect-[3/4] object-cover object-top rounded-2xl border-2 border-[#121214] ring-2 ring-white/10 shadow-lg group-hover:scale-[1.03] transition-transform duration-500 bg-[#121214]"
+              />
+            ) : (
+              <div className="relative w-full aspect-[3/4] flex flex-col items-center justify-center rounded-2xl border-2 border-[#121214] ring-2 ring-white/10 shadow-lg bg-[#121214]">
+                <BrandLogoGG className="w-16 h-16 mb-2" />
+                <span className="text-xs font-mono text-gray-400">GABRIEL G.</span>
+              </div>
+            )}
 
-            <div className="absolute -top-4 -left-4 w-10 h-10 animate-float z-20 bg-[#121214] rounded-full p-2 border border-white/10 shadow-[0_0_15px_rgba(var(--accent-glow,0,229,255),0.4)]">
-              <img
-                src="/images/python.svg"
-                alt="Python"
-                className="w-full h-full object-contain"
-              />
+            <div
+              className="absolute -top-4 -left-4 w-10 h-10 animate-float z-20 bg-[#121214] rounded-full p-2 border border-white/15 shadow-[0_0_15px_rgba(var(--accent-glow,0,229,255),0.4)] flex items-center justify-center"
+              title="Python Developer"
+            >
+              <PythonLogo className="w-full h-full" />
             </div>
-            <div className="absolute -bottom-3 -right-3 w-8 h-8 animate-float-delayed z-20 bg-[#121214] rounded-full p-1.5 border border-white/10 shadow-[0_0_15px_rgba(255,107,0,0.35)]">
-              <img
-                src="/images/python.svg"
-                alt="Python"
-                className="w-full h-full object-contain"
-              />
+            <div
+              className="absolute -bottom-3 -right-3 w-9 h-9 animate-float-delayed z-20 bg-[#121214] rounded-full p-1.5 border border-white/15 shadow-[0_0_15px_rgba(255,107,0,0.35)] flex items-center justify-center"
+              title="Machine Learning & IA"
+            >
+              <AiBrainLogo className="w-full h-full" color="#ffaa00" />
             </div>
           </div>
         </div>
@@ -159,15 +178,17 @@ export function Inicio() {
         </div>
       </SpotlightCard>
 
-      {/* Stats Grid com as 4 paletas dos projetos sem foto */}
+      {/* Stats Grid com as 4 paletas e ícones oficiais */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SpotlightCard
           className="group bg-bgCard rounded-2xl p-6 card-shadow border border-white/[0.03] text-center hover:border-[#00e5ff]/40 hover:shadow-[0_0_25px_rgba(0,229,255,0.15)] transition-all duration-300 relative overflow-hidden"
           spotlightColor="rgba(0, 229, 255, 0.25)"
         >
           <div className="flex flex-col items-center justify-center relative z-10">
-            <span className="w-8 h-1 rounded-full bg-[#00e5ff]/20 border border-[#00e5ff]/40 mb-3 group-hover:scale-110 transition-transform"></span>
-            <h4 className="text-3xl md:text-4xl font-black text-[#00e5ff] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(0,229,255,0.25)]">
+            <div className="w-10 h-10 rounded-xl bg-[#00e5ff]/10 border border-[#00e5ff]/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_12px_rgba(0,229,255,0.15)]">
+              <PythonLogo className="w-5 h-5" />
+            </div>
+            <h4 className="text-3xl md:text-4xl font-black text-[#00e5ff] mb-1 tracking-tight tabular-nums drop-shadow-[0_0_12px_rgba(0,229,255,0.25)]">
               2+
             </h4>
             <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
@@ -181,8 +202,10 @@ export function Inicio() {
           spotlightColor="rgba(255, 170, 0, 0.25)"
         >
           <div className="flex flex-col items-center justify-center relative z-10">
-            <span className="w-8 h-1 rounded-full bg-[#ffaa00]/20 border border-[#ffaa00]/40 mb-3 group-hover:scale-110 transition-transform"></span>
-            <h4 className="text-3xl md:text-4xl font-black text-[#ffaa00] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(255,170,0,0.25)]">
+            <div className="w-10 h-10 rounded-xl bg-[#ffaa00]/10 border border-[#ffaa00]/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_12px_rgba(255,170,0,0.15)]">
+              <AiBrainLogo className="w-5 h-5" color="#ffaa00" />
+            </div>
+            <h4 className="text-3xl md:text-4xl font-black text-[#ffaa00] mb-1 tracking-tight tabular-nums drop-shadow-[0_0_12px_rgba(255,170,0,0.25)]">
               10+
             </h4>
             <span className="text-[10px] md:text-xs font-mono text-gray-400 uppercase tracking-widest group-hover:text-gray-200 transition-colors">
@@ -196,7 +219,9 @@ export function Inicio() {
           spotlightColor="rgba(255, 107, 0, 0.25)"
         >
           <div className="flex flex-col items-center justify-center relative z-10">
-            <span className="w-8 h-1 rounded-full bg-[#ff6b00]/20 border border-[#ff6b00]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <div className="w-10 h-10 rounded-xl bg-[#ff6b00]/10 border border-[#ff6b00]/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_12px_rgba(255,107,0,0.15)]">
+              <SqlDatabaseLogo className="w-5 h-5" color="#ff6b00" />
+            </div>
             <h4 className="text-3xl md:text-4xl font-black text-[#ff6b00] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(255,107,0,0.25)]">
               SQL
             </h4>
@@ -211,7 +236,9 @@ export function Inicio() {
           spotlightColor="rgba(34, 197, 94, 0.25)"
         >
           <div className="flex flex-col items-center justify-center relative z-10">
-            <span className="w-8 h-1 rounded-full bg-[#22c55e]/20 border border-[#22c55e]/40 mb-3 group-hover:scale-110 transition-transform"></span>
+            <div className="w-10 h-10 rounded-xl bg-[#22c55e]/10 border border-[#22c55e]/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform shadow-[0_0_12px_rgba(34,197,94,0.15)]">
+              <PandasLogo className="w-5 h-5" color="#22c55e" />
+            </div>
             <h4 className="text-3xl md:text-4xl font-black text-[#22c55e] mb-1 tracking-tight drop-shadow-[0_0_12px_rgba(34,197,94,0.25)]">
               Pandas
             </h4>

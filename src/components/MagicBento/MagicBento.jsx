@@ -614,8 +614,9 @@ export const MagicBento = ({
                   enableMagnetism={enableMagnetism}
                 >
                   <div className="card__header flex justify-between items-center gap-3 relative mb-4">
-                    <span className="card__label text-xs font-mono tracking-widest text-neonCyan uppercase bg-neonCyan/10 px-2.5 py-1 rounded-full border border-neonCyan/20">
-                      {card.label}
+                    <span className="card__label inline-flex items-center gap-1.5 text-xs font-mono tracking-widest text-neonCyan uppercase bg-neonCyan/10 px-2.5 py-1 rounded-full border border-neonCyan/20">
+                      {card.icon && <span className="shrink-0 flex items-center">{card.icon}</span>}
+                      <span>{card.label}</span>
                     </span>
                   </div>
                   <div className="card__content flex flex-col relative mt-auto">
@@ -641,8 +642,9 @@ export const MagicBento = ({
                 style={cardStyle}
               >
                 <div className="card__header flex justify-between items-center gap-3 relative mb-4">
-                  <span className="card__label text-xs font-mono tracking-widest text-neonCyan uppercase bg-neonCyan/10 px-2.5 py-1 rounded-full border border-neonCyan/20">
-                    {card.label}
+                  <span className="card__label inline-flex items-center gap-1.5 text-xs font-mono tracking-widest text-neonCyan uppercase bg-neonCyan/10 px-2.5 py-1 rounded-full border border-neonCyan/20">
+                    {card.icon && <span className="shrink-0 flex items-center">{card.icon}</span>}
+                    <span>{card.label}</span>
                   </span>
                 </div>
                 <div className="card__content flex flex-col relative mt-auto">

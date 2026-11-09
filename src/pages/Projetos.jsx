@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   FileText,
   Music,
@@ -15,11 +15,30 @@ import {
   Maximize2,
   Wine,
   Sliders,
-  AudioWaveform
+  AudioWaveform,
+  Cpu
 } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
+import {
+  PythonLogo,
+  AiBrainLogo,
+  FastApiLogo,
+  BrandLogoGG
+} from '../components/TechIcons';
 
 export function Projetos() {
+  const [failedImages, setFailedImages] = useState({});
+
+  const getTagIcon = (tag) => {
+    if (tag === 'Python') return <PythonLogo className="w-3.5 h-3.5" />;
+    if (tag === 'LLMs / NLP') return <AiBrainLogo className="w-3.5 h-3.5" color="#00e5ff" />;
+    if (tag === 'Lógica Algorítmica') return <Cpu className="w-3.5 h-3.5 text-[#ffaa00]" />;
+    if (tag === 'Automação') return <Bot className="w-3.5 h-3.5 text-[#ff6b00]" />;
+    if (tag === 'FastAPI') return <FastApiLogo className="w-3.5 h-3.5" color="#22c55e" />;
+    if (tag === 'Backend') return <Server className="w-3.5 h-3.5 text-[#22c55e]" />;
+    return null;
+  };
+
   const projects = [
     {
       num: 'Projeto 01',
@@ -64,7 +83,7 @@ export function Projetos() {
         'API RESTful de alta performance desenvolvida com FastAPI para gestão e comunicação eficiente do relacionamento em bases de clientes e produtos.',
       tags: ['FastAPI', 'Backend'],
       link: 'https://github.com/srGabrielx/Fast-API-CLiente-Produto',
-      icon: <Server className="w-5 h-5 text-[#22c55e]" />,
+      icon: <FastApiLogo className="w-5 h-5" color="#22c55e" />,
       bgIcon: 'bg-[#22c55e]/10',
       colorText: 'text-[#22c55e]',
       spotlightColor: 'rgba(34, 197, 94, 0.25)'
@@ -243,9 +262,10 @@ export function Projetos() {
               {proj.tags.map((tag, tIdx) => (
                 <span
                   key={tIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-full text-xs text-gray-300 font-mono border border-white/5"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 rounded-full text-xs text-gray-300 font-mono border border-white/10"
                 >
-                  {tag}
+                  {getTagIcon(tag)}
+                  <span>{tag}</span>
                 </span>
               ))}
             </div>
@@ -261,11 +281,11 @@ export function Projetos() {
         ))}
       </div>
 
-      {/* Sites e Aplicativos (Agora com o novo design moderno de showcase com imagem) */}
+      {/* Sites e Aplicativos */}
       <div className="mb-6 mt-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/5 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <BrandLogoGG className="w-4 h-4" />
             <p className="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase">
               GG / Portfólio
             </p>
@@ -280,20 +300,29 @@ export function Projetos() {
         </p>
       </div>
 
-      {/* Grid de Cards com Imagem no estilo solicitado */}
+      {/* Grid de Cards com Imagem e Fallback Resiliente */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
         {webApps.map((project) => (
           <div
             key={project.id}
             className={`group relative h-[450px] sm:h-[490px] w-full rounded-3xl overflow-hidden bg-zinc-900 border border-white/10 transition-all duration-700 ease-out hover:-translate-y-1 ${project.accent}`}
           >
-            {/* Imagem de Fundo com Alta Nitidez e Zoom Suave */}
+            {/* Imagem de Fundo com Alta Nitidez, Zoom Suave e Fallback Seguro */}
             <div className="absolute inset-0 w-full h-full bg-zinc-950">
-              <img
-                src={project.img}
-                alt={project.title}
-                className="w-full h-full object-cover opacity-100 image-zoom-transition group-hover:scale-105"
-              />
+              {!failedImages[project.id] ? (
+                <img
+                  src={project.img}
+                  alt={project.title}
+                  loading="eager"
+                  onError={() => setFailedImages((prev) => ({ ...prev, [project.id]: true }))}
+                  className="w-full h-full object-cover opacity-100 image-zoom-transition group-hover:scale-105"
+                />
+              ) : (
+                <div className={`w-full h-full flex flex-col items-center justify-center bg-gradient-to-br ${project.color} p-8 text-center`}>
+                  <BrandLogoGG className="w-16 h-16 mb-3 opacity-80" />
+                  <span className="text-sm font-mono uppercase tracking-widest text-zinc-300">{project.title}</span>
+                </div>
+              )}
             </div>
 
             {/* Gradiente sutil apenas na base para garantir leitura perfeita sem ofuscar a imagem */}

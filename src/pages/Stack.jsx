@@ -1,52 +1,66 @@
 import React from 'react';
 import {
-  Code,
-  Brain,
-  Database,
   Network,
-  LayoutTemplate,
-  Zap,
-  BarChart,
   GraduationCap,
   Cpu,
   Languages,
   Blocks,
   ShieldCheck,
-  Rocket,
-  ArrowRight
+  ArrowRight,
+  Radio,
+  Coins,
+  HardHat,
+  Award,
+  Sparkles,
+  Code2,
+  PenTool
 } from 'lucide-react';
 import SpotlightCard from '../components/SpotlightCard';
 import GradientText from '../components/GradientText';
+import {
+  PythonLogo,
+  AiBrainLogo,
+  SqlDatabaseLogo,
+  NextjsLogo,
+  ViteLogo,
+  PowerBiLogo,
+  BradescoLogo,
+  SenaiLogo,
+  AprendeAkiLogo
+} from '../components/TechIcons';
 
 export function Stack() {
-  const marqueeItems = [
-    { icon: <Code className="w-5 h-5 text-[#ffaa00]" />, text: 'Python' },
-    { icon: <Brain className="w-5 h-5 text-[#00e5ff]" />, text: 'Machine Learning' },
-    { icon: <Database className="w-5 h-5 text-[#ff6b00]" />, text: 'SQL' },
+  const baseMarquee = [
+    { icon: <PythonLogo className="w-5 h-5" />, text: 'Python' },
+    { icon: <AiBrainLogo className="w-5 h-5" color="#00e5ff" />, text: 'Machine Learning' },
+    { icon: <SqlDatabaseLogo className="w-5 h-5" color="#ff6b00" />, text: 'SQL' },
     { icon: <Network className="w-5 h-5 text-[#ffaa00]" />, text: 'LLMs' },
-    { icon: <LayoutTemplate className="w-5 h-5 text-[#00e5ff]" />, text: 'Next.js' },
-    { icon: <Zap className="w-5 h-5 text-[#ff6b00]" />, text: 'Vite' },
-    { icon: <BarChart className="w-5 h-5 text-[#00e5ff]" />, text: 'Power BI' },
-    { icon: <Code className="w-5 h-5 text-[#ffaa00]" />, text: 'Python' },
-    { icon: <Brain className="w-5 h-5 text-[#00e5ff]" />, text: 'Machine Learning' },
-    { icon: <Database className="w-5 h-5 text-[#ff6b00]" />, text: 'SQL' },
-    { icon: <Network className="w-5 h-5 text-[#ffaa00]" />, text: 'LLMs' },
-    { icon: <LayoutTemplate className="w-5 h-5 text-[#00e5ff]" />, text: 'Next.js' },
-    { icon: <Zap className="w-5 h-5 text-[#ff6b00]" />, text: 'Vite' },
-    { icon: <BarChart className="w-5 h-5 text-[#00e5ff]" />, text: 'Power BI' }
+    { icon: <NextjsLogo className="w-5 h-5" color="#00e5ff" />, text: 'Next.js' },
+    { icon: <ViteLogo className="w-5 h-5" />, text: 'Vite' },
+    { icon: <PowerBiLogo className="w-5 h-5" color="#ffaa00" />, text: 'Power BI' }
   ];
+
+  const marqueeItems = [...baseMarquee, ...baseMarquee];
 
   const bradescoCerts = [
-    'IA para PMEs',
-    'Power BI',
-    'Banco de Dados',
-    'Python & Java',
-    'Lógica & Design'
+    { label: 'IA para PMEs', icon: <Sparkles className="w-3 h-3 text-[#ff6b00]" /> },
+    { label: 'Power BI', icon: <PowerBiLogo className="w-3 h-3" color="#ffaa00" /> },
+    { label: 'Banco de Dados', icon: <SqlDatabaseLogo className="w-3 h-3" color="#ff6b00" /> },
+    { label: 'Python & Java', icon: <PythonLogo className="w-3 h-3" /> },
+    { label: 'Lógica & Design', icon: <PenTool className="w-3 h-3 text-[#ff6b00]" /> }
   ];
 
-  const senaiCerts = ['Blockchain', 'Tecnologia 5G', 'TI - Finanças'];
+  const senaiCerts = [
+    { label: 'Blockchain', icon: <Blocks className="w-3 h-3 text-[#00e5ff]" /> },
+    { label: 'Tecnologia 5G', icon: <Radio className="w-3 h-3 text-[#00e5ff]" /> },
+    { label: 'TI - Finanças', icon: <Coins className="w-3 h-3 text-[#00e5ff]" /> }
+  ];
 
-  const aprendeAkiCerts = ['Oficial de Rede', 'NR10', 'NR35'];
+  const aprendeAkiCerts = [
+    { label: 'Oficial de Rede', icon: <Network className="w-3 h-3 text-[#ffaa00]" /> },
+    { label: 'NR10', icon: <ShieldCheck className="w-3 h-3 text-[#ffaa00]" /> },
+    { label: 'NR35', icon: <HardHat className="w-3 h-3 text-[#ffaa00]" /> }
+  ];
 
   return (
     <div id="stack" className="page-section active animate-fade-in space-y-6">
@@ -56,9 +70,9 @@ export function Stack() {
         spotlightColor="rgba(255, 170, 0, 0.15)"
       >
         <div className="marquee-container marquee-mask w-full flex items-center">
-          <div className="flex gap-12 items-center text-gray-400 font-mono text-sm md:text-base animate-marquee w-max">
+          <div className="flex gap-12 items-center text-gray-300 font-mono text-sm md:text-base animate-marquee w-max">
             {marqueeItems.map((item, idx) => (
-              <span key={idx} className="flex items-center gap-2 whitespace-nowrap">
+              <span key={idx} className="flex items-center gap-2.5 whitespace-nowrap">
                 {item.icon} {item.text}
               </span>
             ))}
@@ -80,7 +94,10 @@ export function Stack() {
           </span>
         </div>
         <h3 className="text-2xl font-bold mb-2 leading-tight">Inteligência Artificial e Machine Learning</h3>
-        <p className="text-gray-400 text-sm mb-8">Uniasselvi - Cursando</p>
+        <p className="text-gray-400 text-sm mb-8 flex items-center gap-2">
+          <Award className="w-4 h-4 text-[#ffaa00]" />
+          <span>Uniasselvi - Cursando</span>
+        </p>
         <div className="flex flex-wrap items-center gap-4 mt-auto">
           <span className="px-4 py-1.5 rounded-full bg-[#ffaa00]/10 border border-[#ffaa00]/20 text-[#ffaa00] text-xs font-bold font-mono shadow-[0_0_10px_rgba(255,170,0,0.2)]">
             Conclusão 2027
@@ -209,48 +226,51 @@ export function Stack() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
           <div>
-            <h4 className="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2">
-              <Database className="w-4 h-4 text-[#ff6b00]" /> Bradesco
+            <h4 className="text-sm font-black text-gray-200 uppercase mb-3 flex items-center gap-2">
+              <BradescoLogo className="w-4 h-4" color="#ff6b00" /> Bradesco
             </h4>
             <div className="flex flex-wrap gap-2">
               {bradescoCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-white/20 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white/5 rounded-md text-xs text-gray-300 font-mono border border-white/5 hover:border-[#ff6b00]/40 transition-colors whitespace-nowrap"
                 >
-                  {cert}
+                  {cert.icon}
+                  <span>{cert.label}</span>
                 </span>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#00e5ff]" /> SENAI
+            <h4 className="text-sm font-black text-gray-200 uppercase mb-3 flex items-center gap-2">
+              <SenaiLogo className="w-4 h-4" color="#00e5ff" /> SENAI
             </h4>
             <div className="flex flex-wrap gap-2">
               {senaiCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#00e5ff]/30 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white/5 rounded-md text-xs text-gray-300 font-mono border border-white/5 hover:border-[#00e5ff]/40 transition-colors whitespace-nowrap"
                 >
-                  {cert}
+                  {cert.icon}
+                  <span>{cert.label}</span>
                 </span>
               ))}
             </div>
           </div>
 
           <div>
-            <h4 className="text-sm font-black text-gray-300 uppercase mb-3 flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#ffaa00]" /> AprendeAki
+            <h4 className="text-sm font-black text-gray-200 uppercase mb-3 flex items-center gap-2">
+              <AprendeAkiLogo className="w-4 h-4" color="#ffaa00" /> AprendeAki
             </h4>
             <div className="flex flex-wrap gap-2">
               {aprendeAkiCerts.map((cert, cIdx) => (
                 <span
                   key={cIdx}
-                  className="px-3 py-1.5 bg-white/5 rounded-md text-xs text-gray-400 font-mono border border-white/5 hover:border-[#ffaa00]/30 transition-colors whitespace-nowrap"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-white/5 rounded-md text-xs text-gray-300 font-mono border border-white/5 hover:border-[#ffaa00]/40 transition-colors whitespace-nowrap"
                 >
-                  {cert}
+                  {cert.icon}
+                  <span>{cert.label}</span>
                 </span>
               ))}
             </div>

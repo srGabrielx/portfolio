@@ -1,8 +1,26 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { playChime, unlockChime } from '../lib/sound';
 
+const PRELOAD_ASSETS = [
+  '/images/profile.png',
+  '/images/python.svg',
+  '/favicon.svg',
+  '/images/projects/LinpaWin.png',
+  '/images/projects/botao.png',
+  '/images/projects/CriaCurriculo.png',
+  '/images/projects/aura-analytics.png',
+  '/images/projects/witcher-beats.jpg',
+  '/images/projects/auto-escola-one.jpg',
+  '/images/projects/lumina-vidros.jpg',
+  '/images/projects/adega-express.png',
+  '/images/projects/AutoTunelEdit.png',
+  '/images/projects/auto-tunel-pro.png'
+];
+
 export function LoadingScreen({ onLoadingComplete }) {
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [statusLabel, setStatusLabel] = useState('CARREGANDO MÓDULOS CORE');
 
   const completedRef = useRef(false);
   const onCompleteRef = useRef(onLoadingComplete);
@@ -12,6 +30,8 @@ export function LoadingScreen({ onLoadingComplete }) {
     if (completedRef.current) return;
     completedRef.current = true;
 
+    setProgress(100);
+    setStatusLabel('SISTEMA PRONTO');
     playChime();
 
     if (immediate) {
@@ -24,13 +44,12 @@ export function LoadingScreen({ onLoadingComplete }) {
         setIsFadingOut(true);
         setTimeout(() => {
           if (onCompleteRef.current) onCompleteRef.current();
-        }, 300);
-      }, 350);
+        }, 280);
+      }, 220);
     }
   };
 
   useEffect(() => {
-    // Registra desbloqueio em qualquer primeiro gesto do usuário
     const handleUserGesture = () => {
       unlockChime();
     };
@@ -38,10 +57,6 @@ export function LoadingScreen({ onLoadingComplete }) {
     window.addEventListener('pointerdown', handleUserGesture, { passive: true });
     window.addEventListener('touchstart', handleUserGesture, { passive: true });
     window.addEventListener('click', handleUserGesture, { passive: true });
-
-    const timer = setTimeout(() => {
-      finalizarLoading(false);
-    }, 2200);
 
     const handleKeyDown = (e) => {
       unlockChime();
@@ -51,8 +66,69 @@ export function LoadingScreen({ onLoadingComplete }) {
     };
     window.addEventListener('keydown', handleKeyDown);
 
+    let isUnmounted = false;
+    const totalAssets = PRELOAD_ASSETS.length;
+    let loadedAssets = 0;
+    const startTime = performance.now();
+    const minDuration = 1400; // Garante leitura fluida da evolução de 0 a 100%
+
+    const updateStatusText = (pct) => {
+      if (pct < 35) {
+        setStatusLabel('CARREGANDO MÓDULOS CORE');
+      } else if (pct < 75) {
+        setStatusLabel('SINCRONIZANDO ASSETS & LOGOS');
+      } else if (pct < 100) {
+        setStatusLabel('OTIMIZANDO INTERFACES');
+      } else {
+        setStatusLabel('SISTEMA PRONTO');
+      }
+    };
+
+    // Dispara o pré-carregamento real das imagens do portfólio
+    PRELOAD_ASSETS.forEach((src) => {
+      const img = new Image();
+      const handleAssetDone = () => {
+        if (isUnmounted) return;
+        loadedAssets += 1;
+      };
+      img.onload = handleAssetDone;
+      img.onerror = handleAssetDone;
+      img.src = src;
+    });
+
+    // Loop de interpolação suave sincronizado com o carregamento real dos assets
+    const interval = setInterval(() => {
+      if (isUnmounted || completedRef.current) return;
+
+      const elapsed = performance.now() - startTime;
+      const timeRatio = Math.min(1, elapsed / minDuration);
+      const assetRatio = totalAssets > 0 ? loadedAssets / totalAssets : 1;
+
+      // Combina o progresso real das imagens com a curva de tempo mínima
+      const combinedProgress = Math.min(100, Math.round((assetRatio * 0.65 + timeRatio * 0.35) * 100));
+
+      setProgress((prev) => {
+        const next = Math.max(prev, combinedProgress);
+        updateStatusText(next);
+        return next;
+      });
+
+      if (loadedAssets >= totalAssets && elapsed >= minDuration) {
+        clearInterval(interval);
+        finalizarLoading(false);
+      }
+    }, 45);
+
+    // Timeout máximo de segurança para nunca travar em redes lentas
+    const safetyTimer = setTimeout(() => {
+      clearInterval(interval);
+      finalizarLoading(false);
+    }, 2600);
+
     return () => {
-      clearTimeout(timer);
+      isUnmounted = true;
+      clearInterval(interval);
+      clearTimeout(safetyTimer);
       window.removeEventListener('pointerdown', handleUserGesture);
       window.removeEventListener('touchstart', handleUserGesture);
       window.removeEventListener('click', handleUserGesture);
@@ -69,13 +145,12 @@ export function LoadingScreen({ onLoadingComplete }) {
         isFadingOut ? 'opacity-0 pointer-events-none scale-105 filter blur-sm' : 'opacity-100'
       }`}
       style={{
-        scrollbarWidth: 'none', /* Firefox */
-        msOverflowStyle: 'none' /* IE and Edge */
+        scrollbarWidth: 'none',
+        msOverflowStyle: 'none'
       }}
       aria-label="Carregando Portfólio"
     >
       <style>{`
-        /* Scrollbar invisível */
         .scrollbar-none::-webkit-scrollbar {
           display: none !important;
           width: 0px !important;
@@ -84,7 +159,6 @@ export function LoadingScreen({ onLoadingComplete }) {
         }
         .hud-spin { animation: spin 4s linear infinite; }
         .hud-spin-reverse { animation: spin 3s linear infinite reverse; }
-        .neon-glow { filter: drop-shadow(0 0 10px rgba(var(--accent-glow), 0.85)); }
         .scanline {
           position: absolute;
           inset: 0;
@@ -97,11 +171,6 @@ export function LoadingScreen({ onLoadingComplete }) {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
         }
-        @keyframes slide {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(250%); }
-        }
-        .animate-slide { animation: slide 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
         @keyframes pulse-fast {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.7; }
@@ -129,11 +198,10 @@ export function LoadingScreen({ onLoadingComplete }) {
       {/* Efeito de tela CRT/Scanline */}
       <div className="scanline"></div>
 
-      {/* Wrapper com min-h-full auto flex garantindo que o conteúdo nunca corte em telas baixas/horizontais (ex: mobile 16:9) */}
+      {/* Wrapper com min-h-full auto flex garantindo que o conteúdo nunca corte em telas baixas/horizontais */}
       <div className="relative z-20 w-full min-h-[100dvh] flex flex-col items-center justify-center py-6 px-4 my-auto">
         {/* Container Principal do Shuriken */}
         <div className="relative flex flex-col items-center shrink-0">
-          {/* Anéis de HUD externos com rotação harmoniosa e cores balanceadas */}
           <div
             className="absolute inset-0 -m-6 sm:-m-8 rounded-full border border-dashed hud-spin pointer-events-none"
             style={{
@@ -157,7 +225,7 @@ export function LoadingScreen({ onLoadingComplete }) {
             style={{ background: 'radial-gradient(circle, rgba(var(--accent-glow, 0, 229, 255), 0.22) 0%, transparent 70%)' }}
           ></div>
 
-          {/* Shuriken Cyber Dual-Tone com Gradiente Perfeito */}
+          {/* Shuriken Cyber Dual-Tone */}
           <div className="animate-[spin_1.5s_linear_infinite] relative">
             <svg
               className="w-16 h-16 sm:w-24 sm:h-24 max-h-[18vh] drop-shadow-[0_0_12px_rgba(var(--accent-glow,0,229,255),0.6)]"
@@ -176,13 +244,11 @@ export function LoadingScreen({ onLoadingComplete }) {
                 </linearGradient>
               </defs>
               <g transform="translate(100 100)">
-                {/* Lâminas com degradê e harmonia dual-tone */}
                 <path d="M 0 -95 L 18 -22 L 0 -10 L -18 -22 Z" fill="url(#shurikenGrad1)" />
                 <path d="M 95 0 L 22 18 L 10 0 L 22 -18 Z" fill="url(#shurikenGrad2)" />
                 <path d="M 0 95 L -18 22 L 0 10 L 18 22 Z" fill="url(#shurikenGrad1)" />
                 <path d="M -95 0 L -22 -18 L -10 0 L -22 18 Z" fill="url(#shurikenGrad2)" />
 
-                {/* Núcleo mecânico de precisão */}
                 <circle cx="0" cy="0" r="18" fill="var(--bg-card)" stroke="url(#shurikenGrad1)" strokeWidth="3.5" />
                 <circle cx="0" cy="0" r="6" fill="var(--accent-primary)" />
                 <path d="M -10 -10 L 10 10 M -10 10 L 10 -10" stroke="var(--accent-secondary)" strokeWidth="2" />
@@ -191,37 +257,48 @@ export function LoadingScreen({ onLoadingComplete }) {
           </div>
         </div>
 
-        {/* Textos e Barra de Progresso Estilo HUD */}
-        <div className="relative mt-8 sm:mt-12 flex flex-col items-center gap-2 sm:gap-2.5 shrink-0">
-          <p className="text-[11px] sm:text-xs font-mono tracking-[0.35em] sm:tracking-[0.45em] animate-pulse-fast text-center font-bold">
-            <span style={{ color: 'var(--accent-primary)' }}>INICIALIZANDO</span>{' '}
-            <span style={{ color: 'var(--accent-secondary)' }}>SISTEMA_</span>
-          </p>
+        {/* Textos e Barra de Progresso Real (0 a 100%) Estilo HUD */}
+        <div className="relative mt-8 sm:mt-12 flex flex-col items-center gap-2.5 shrink-0 w-60 sm:w-64">
+          <div className="flex items-center justify-between w-full">
+            <p className="text-[10px] sm:text-[11px] font-mono tracking-[0.2em] animate-pulse-fast font-bold">
+              <span style={{ color: 'var(--accent-primary)' }}>INICIALIZANDO</span>{' '}
+              <span style={{ color: 'var(--accent-secondary)' }}>SISTEMA_</span>
+            </p>
+            <span
+              className="text-xs sm:text-sm font-mono font-extrabold tabular-nums"
+              style={{ color: 'var(--accent-primary)' }}
+            >
+              {progress}%
+            </span>
+          </div>
 
-          {/* Barra de carregamento com degradê dual-accent */}
+          {/* Barra de carregamento proporcional de 0% a 100% */}
           <div
-            className="w-48 sm:w-56 h-[3px] rounded-full overflow-hidden relative border border-white/5"
+            className="w-full h-1.5 rounded-full overflow-hidden relative border border-white/10"
             style={{ backgroundColor: 'rgba(255, 255, 255, 0.08)' }}
           >
             <div
-              className="absolute top-0 left-0 h-full w-2/5 animate-slide rounded-full"
+              className="h-full rounded-full transition-all duration-100 ease-out"
               style={{
+                width: `${progress}%`,
                 background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))',
-                boxShadow: '0 0 10px rgba(var(--accent-glow, 0, 229, 255), 0.7)'
+                boxShadow: '0 0 12px rgba(var(--accent-glow, 0, 229, 255), 0.75)'
               }}
             ></div>
           </div>
 
-          {/* Detalhes de numeração estilo HUD */}
-          <div className="flex w-48 sm:w-56 justify-between text-[9px] sm:text-[10px] font-mono mt-0.5 text-gray-400">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#10b981] animate-pulse"></span>
-              SYS.BOOT
+          {/* Detalhes de status e versão estilo HUD */}
+          <div className="flex w-full justify-between items-center text-[9px] sm:text-[10px] font-mono mt-0.5 text-gray-400">
+            <span className="flex items-center gap-1.5 truncate">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#10b981] animate-pulse shrink-0"></span>
+              <span className="truncate">{statusLabel}</span>
             </span>
-            <span className="font-semibold" style={{ color: 'var(--accent-primary)' }}>v2.0.4</span>
+            <span className="font-semibold shrink-0 ml-2" style={{ color: 'var(--accent-primary)' }}>
+              v2.1
+            </span>
           </div>
 
-          {/* Botão Pular Carregamento Estilo Cyberpunk */}
+          {/* Botão Pular Carregamento */}
           <button
             id="btn-skip-loading"
             type="button"

@@ -1,11 +1,13 @@
 import React from 'react';
+import { BrandLogoGG } from './TechIcons';
 
 export function Footer() {
   return (
     <footer className="max-w-4xl mx-auto px-6 pb-28 md:pb-24 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10 pt-8">
-      <p className="text-[10px] md:text-xs font-mono text-gray-500 uppercase tracking-widest text-center md:text-left">
-        &copy; 2026 GABRIEL GONÇALVES
-      </p>
+      <div className="flex items-center gap-2.5 text-[10px] md:text-xs font-mono text-gray-500 uppercase tracking-widest text-center md:text-left">
+        <BrandLogoGG className="w-5 h-5 opacity-80" />
+        <span>&copy; 2026 GABRIEL GONÇALVES</span>
+      </div>
       <div className="flex gap-6 text-white font-mono text-xs uppercase tracking-widest">
         <a
           href="https://github.com/srGabrielx"
